@@ -1,0 +1,184 @@
+/*Navigation Bar*/
+.bg-dark {
+	transition: 750ms ease;
+	/*background-color: firebrick !important;*/
+	/*background: linear-gradient(#802828 40%,#80282800) !important;*/
+	background-color: transparent !important;
+}
+
+.bg-dark.scrolled {
+
+	background-color: firebrick !important;
+}
+
+
+.navbar-dark .navbar-nav .nav-link {
+	color: white;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+	border-bottom: 2px solid #fff;
+}
+
+.active {
+	border-bottom: 2px solid #fff;
+}
+
+/*SEARXCH*/
+
+/*.full-width {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.full-width.search {
+	position: relative;
+	background: black;
+	padding: 10px 100px;
+}
+
+.search-form {
+	position: relative;
+	padding-left: 20px;
+}
+
+.search-form:before {
+	content: '\f002';
+	position: absolute;
+	top: 0;
+	color: white;
+	font-family: fontAwesome;
+	top: 7px;
+	left: 0;
+}
+
+.search-form::placeholder {
+	color: white;
+}
+
+.search-form input {
+	width: 100%;
+	height: 30px;
+	background: none;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 20px;
+
+}
+.close{
+	color: white;
+	position: absolute;
+	top:8px;
+	right:0;
+	cursor:pointer;
+}
+*/
+
+
+.nav.navbar-right{
+	padding-left: 20px;
+}
+
+a{
+	color: white;
+}
+
+a:hover{
+	color: gray;
+}
+
+footer {
+	background-color: #811414;
+	padding: 25px;
+
+
+}
+
+.footer-wrapper .bullet-section {
+	margin: 60px 0;
+}
+
+.footer-wrapper .bullet-section h2 {
+	font-size: 18px;
+}
+
+.footer-wrapper .bullet-section ul li a {
+	font-size: 16px;
+}
+
+
+.carousel-inner img {
+
+	margin-top: 0px;
+	width: 100%;
+	/* Set width to 100% */
+	margin: auto;
+	max-height: 500px;
+	margin-bottom: 30px;
+}
+
+/* Hide the carousel text when the screen is less than 600 pixels wide */
+@media (max-width: 600px) {
+	.carousel-caption {
+		display: none;
+	}
+}
+
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+.marketing h2 {
+	font-weight: 400;
+}
+
+.marketing .col-lg-4 p {
+	margin-right: .75rem;
+	margin-left: .75rem;
+}
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+	margin: 5rem 0;
+	/* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+	font-weight: 300;
+	line-height: 1;
+	letter-spacing: -.05rem;
+}
+
+.container marketing {
+	margin-top: 20px;
+}
+
+
+
+
+
+
+
+/*Back to TOp*/
+.btt {
+	background: brown;
+	width: 40px;
+	position: fixed;
+	right: 0px;
+	bottom: 100px;
+	z-index: 999;
+}
+
+.btt i {
+	color: beige;
+	font-size: 30px;
+	padding: 5px;
+}

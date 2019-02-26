@@ -1,0 +1,7 @@
+{
+    "/api-token-auth": {
+        "target": "http://localhost:8000/api-token-auth/",
+        "secure": false,
+        "changeOrigin": true
+    }
+}
