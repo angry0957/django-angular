@@ -60,6 +60,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Lawyer.apps.LawyerConfig',
     'Client.apps.ClientConfig',
+    'Question.apps.QuestionConfig',
+    'Category.apps.CategoryConfig',
+    'Rating.apps.RatingConfig',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here
 
@@ -125,7 +128,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
     'JWT_ALLOW_REFRESH': False,

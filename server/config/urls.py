@@ -33,7 +33,7 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
-	path('loginClient/', myview.login1),
+	path('login/', myview.login1),
     path('read/', myview.read),
     path('delete/', myview.delete),
     path('update/', myview.update),
@@ -41,9 +41,13 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signin', TemplateView.as_view(template_name='SignIn.html'),name='login'),
-    path('signup', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
-    path('home', TemplateView.as_view(template_name='home.html'),name='home'),
+    path('signin/', TemplateView.as_view(template_name='SignIn.html'),name='login'),
+    path('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
+    path('home/', TemplateView.as_view(template_name='home.html'),name='home'),
+    path('topLawyers/', myview.topLawyers),
+    path('lawyersByCity/', myview.lawyersByCity),
+    path('RateLawyer/', myview.RateLawyer),
+    path('testmany/', myview.testmany),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
