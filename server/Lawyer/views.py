@@ -23,22 +23,49 @@ from django.db.models import Count
 
 @csrf_exempt
 def signup(request):
-	Email = request.POST['Email'] 
-	Password = request.POST['Password'] 
-	BusinessAddress = request.POST['BusinessAddress'] 
-	City = request.POST['City'] 
-	State = request.POST['State'] 
-	PhoneNumber = request.POST.get('PhoneNumber', False) 
-	LicenseIDNumber = request.POST.get('LicenseIDNumber', False)
-	YearAdmitted = request.POST.get('YearAdmitted', datetime.datetime.now())
-	HCRNo = request.POST.get('hcr_number')
+	try:
+		Email = request.POST['username'] 
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"Email is required"},status=500)
+	try:
+		Password = request.POST['password']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"Password is required"},status=500)
+	try:
+		City = request.POST['city']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"City is required"},status=500)	 
+	try:
+		State = request.POST['state'] 
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"State is required"},status=500)
+	try:
+		PhoneNumber = request.POST['phoneNumber'] 
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"Phone Number is required"},status=500)
+	try:
+		LicenseIDNumber = request.POST['LicenseIDNumber']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"LicenseIDNumber is required"},status=500)
+	try:
+		BusinessAddress = request.POST['buisness_address']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"BusinessAddress is required"},status=500)
+	try:
+		HCRNo = request.POST['hcr_number']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"hcr_number is required"},status=500)
+	
+	YearAdmitted = datetime.datetime.now()
 	isTaken = User.objects.filter(username=Email).exists()
 	if(isTaken):
-		return HttpResponse("The username is already taken")
+		return JsonResponse({"Error": "The username is already taken"},status=501)
 	isTaken = Lawyer.objects.filter(hcr_number=HCRNo).exists()
 	if(isTaken):
-		return HttpResponse("The HCR is already taken")	
+		return JsonResponse({"Error": "The HCR is already taken"},status=501)
 	user = User.objects.create_user(Email, Email,Password)
+	user.first_name = 'lawyer'
+	user.save()
 	obj  = Lawyer(user=user,state=State,city=City,buisness_address=BusinessAddress,phone_number=PhoneNumber,liscence_number=LicenseIDNumber,year_admitted=YearAdmitted,hcr_number=HCRNo)
 	obj.save()
 	PARAMS = {'username':Email,'password': Password}
@@ -66,6 +93,18 @@ def login1(request):
 	PARAMS = {'username':Email,'password': Password}
 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
 	obj = r.json()
+	user = User.objects.get(username = Email)
+	if user.first_name == 'client':
+		obj['type'] = 'client'
+	elif user.first_name == 'lawyer':
+		obj['type'] = 'lawyer'	
+	# user_id = User.objects.filter(username=Email).values()		
+	# client_id = Client.objects.filter(user=user_id[0]['id']).values()
+	# lawyer_user_id = User.objects.filter(username=Email).values()		
+	# lawyer_id = Lawyer.objects.filter(user=lawyer_user_id[0]['id']).values()
+	# lawyer = Lawyer.objects.get(user=lawyer_user_id[0]['id'])
+	# if Lawyer.objects.filter(user=).exists()
+	
 	return JsonResponse(obj)
 	# API_key = request.META.get('HTTP_AUTHORIZATION')
 	# PARAMS = {'token': API_key}
@@ -233,3 +272,30 @@ def RateLawyer(request):
 	lawyer.rate = updatedRating
 	lawyer.save() 
 	return JsonResponse("Saved",safe=False)	
+
+
+@csrf_exempt
+def verify(request):
+	try:
+		token = request.POST['token'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("TOken is required")
+	PARAMS = {'token':token}
+	try:
+		r = requests.post('http://localhost:8000/auth-jwt-verify/',PARAMS)
+	except Exception as e:
+		return JsonResponse({"Error":"Token Error","Err": e})
+	r = r.json()
+	check = r.get('non_field_errors', 'None')	
+	if check != 'None':
+		return JsonResponse({"Error": "Token is not valid"},status=403)	
+
+	obj = r
+	encoded_jwt = obj['token']
+	data = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
+	user = User.objects.get(username = data['username'])
+	if user.first_name == 'client':
+		obj['type'] = 'client'
+	elif user.first_name == 'lawyer':
+		obj['type'] = 'lawyer'		
+	return JsonResponse(obj)	

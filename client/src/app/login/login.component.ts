@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Http, Response } from '@angular/http';
+import { Router } from '@angular/router'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 import * as jwt_decode from "jwt-decode";
-
 
 @Component({
 	selector: 'app-login',
@@ -16,9 +17,15 @@ export class LoginComponent implements OnInit {
 	password;
 	url = "http://localhost:8000/auth-jwt/";
 
-	constructor(private http:HttpClient) { }
+	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
 	ngOnInit() {
+		this.authService.verifyUser('ads').subscribe((data)=> {
+			console.log("Verify success",data);
+			this.router.navigate(['/home']);
+		},
+		(err) => {
+		});
 	}
 
 	login() {
@@ -44,12 +51,20 @@ export class LoginComponent implements OnInit {
 			console.log('Response',res);
 			try{
 		        console.log(jwt_decode(res.token));
+		        this.authService.updateToken(res.token);
+		        this.router.navigate(['home']);
 		    }
 		    catch(Error){
 		        console.log('null');
 		    }
 
-		});
+		},
+		(err:any)=> {
+			if(err.status == 400) {
+				console.log("Credientials are not valid",err);
+			}
+		}
+		);
 	}
 
 }

@@ -9,10 +9,13 @@ import { AskedquestionClientComponent } from './askedquestion-client/askedquesti
 import { LawyerprofileClientComponent } from './lawyerprofile-client/lawyerprofile-client.component'
 import { ReplyquestionLawyerComponent } from './replyquestion-lawyer/replyquestion-lawyer.component'
 import { EditprofileLawyerComponent } from './editprofile-lawyer/editprofile-lawyer.component'
+import { HomeComponent } from './home/home.component'
 import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client.component'
 import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component'
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'signup-lawyer', component: SignupLawyerComponent },
   { path: 'signup-client', component: SignupClientComponent },
   { path: 'askquestion', component: AskquestionComponent },
