@@ -7,14 +7,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupLawyerComponent } from './signup-lawyer/signup-lawyer.component';
 import { SignupClientComponent } from './signup-client/signup-client.component';
-import { HttpClientModule } from '@angular/common/http'; 
-
+import { HttpClientModule } from '@angular/common/http';
+import { AskquestionComponent } from './askquestion/askquestion.component';
+import { EditprofileClientComponent } from './editprofile-client/editprofile-client.component';
+import { AskedquestionClientComponent } from './askedquestion-client/askedquestion-client.component';
+import { LawyerprofileClientComponent } from './lawyerprofile-client/lawyerprofile-client.component';
+import { ReplyquestionLawyerComponent } from './replyquestion-lawyer/replyquestion-lawyer.component';
+import { EditprofileLawyerComponent } from './editprofile-lawyer/editprofile-lawyer.component';
+import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client.component';
+import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component'; 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupLawyerComponent,
-    SignupClientComponent
+    SignupClientComponent,
+    AskquestionComponent,
+    EditprofileClientComponent,
+    AskedquestionClientComponent,
+    LawyerprofileClientComponent,
+    ReplyquestionLawyerComponent,
+    EditprofileLawyerComponent,
+    FindlawyerClientComponent,
+    ChooselawyerClientComponent,
   ],
   imports: [
     BrowserModule,
