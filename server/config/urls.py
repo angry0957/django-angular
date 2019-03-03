@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
+from Client import views as clientview
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -34,12 +35,14 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
 	path('login/', myview.login1),
+    path('verify/', myview.verify),
     path('read/', myview.read),
     path('delete/', myview.delete),
     path('update/', myview.update),
     path('adduser/', myview.signup),
     path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
+    path('SignupClient/', clientview.signup),
     path('accounts/', include('django.contrib.auth.urls')),
     path('signin/', TemplateView.as_view(template_name='SignIn.html'),name='login'),
     path('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),

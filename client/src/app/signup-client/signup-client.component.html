@@ -24,38 +24,94 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form>
+				<form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit(f)" novalidate>
+					<div *ngIf="error.invalid" class="form-group">
+						<div *ngIf="error" class="alert alert-danger">
+							<div *ngIf="error.error && error.error.Error">
+								{{error.error.Error}}
+							</div>
+						</div>
+					</div>
+
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="Email" class="form-control" placeholder="Email" required style="background-color: white">
-						
+						<input type="Email" class="form-control" placeholder="Email" required style="background-color: white" id="username" name="username" [(ngModel)]="data.username" #username="ngModel" email>
+						<div class="form-group">
+							<div *ngIf="username.invalid && (username.dirty || username.touched)"
+							class="alert alert-danger">
+								<div *ngIf="username.errors.required">
+									Email is required.
+								</div>
+								<div *ngIf="username.errors.email">
+									Email must be a valid email address
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password" required style="background-color: white">
+						<input type="password" class="form-control" placeholder="Password" required style="background-color: white" minlength="6" id="password" name="password" [(ngModel)]="data.password" #password="ngModel">
+						<div class="form-group">
+							<div *ngIf="password.invalid && (password.dirty || password.touched)"
+							class="alert alert-danger">
+								<div *ngIf="password.errors.required">
+									Password is required.
+								</div>
+								<div *ngIf="password.errors.minlength">
+									Password must be at least 6 characters long.
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="input-group form-group">
-						<input type="tel" class="form-control" name="City" placeholder="City" required style="background-color: white">
+						<input type="tel" class="form-control" placeholder="City" required style="background-color: white" name="city" id="city" [(ngModel)]="data.city" #city="ngModel">
+						<div class="form-group">
+							<div *ngIf="city.invalid && (city.dirty || city.touched)"
+							class="alert alert-danger">
+								<div *ngIf="city.errors.required">
+									City is required.
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="input-group form-group">
-						<input type="tel" class="form-control" name="State" placeholder="State" required style="background-color: white">
+						<input type="tel" class="form-control" name="state" placeholder="State" required style="background-color: white" id="state" [(ngModel)]="data.state" #state="ngModel">
+						<div class="form-group">
+							<div *ngIf="state.invalid && (state.dirty || state.touched)"
+							class="alert alert-danger">
+								<div *ngIf="state.errors.required">
+									State is required.
+								</div>
+							</div>
+						</div>
 					</div>
-						<div class="input-group form-group">
-						<input type="tel" pattern="[0-9]{4}-[0-9]{4}-[0-9]{3}" class="form-control" name="Phone Number" placeholder="Phone no." required style="background-color: white">
+					<div class="input-group form-group">
+						<input type="tel" pattern="[0-9]{4}-[0-9]{4}-[0-9]{3}" class="form-control" name="phoneNumber" placeholder="Phone no." required style="background-color: white" id="phoneNumber" [(ngModel)]="data.phoneNumber" #phoneNumber="ngModel">
+						<div class="form-group">
+							<div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+							class="alert alert-danger">
+								<div *ngIf="phoneNumber.errors.required">
+									Phone Number is required.
+								</div>
+								<div *ngIf="phoneNumber.errors.pattern">
+									Please follow the pattern e.g 0308-9134-961
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Sign Up" class="btn float-right login_btn">
+						<input type="submit" value="Sign Up" class="btn float-right login_btn" [disabled]="f.form.pristine || f.form.invalid">
                            <input type="submit" value="Cancel" class="btn float-right login_btn" style="margin-right: 10px">
 					</div>
 				</form>
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					SignUp as a Lawyer?<a href="signUpAsLawyer.html">Sign Up!</a>
+					SignUp as a Lawyer?<a routerLink="/signup-lawyer">Sign Up!</a>
 				</div>
 				<div class="d-flex justify-content-center">
 					<a href="#">Forgot your password?</a>
