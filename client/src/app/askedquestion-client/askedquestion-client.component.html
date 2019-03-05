@@ -34,7 +34,15 @@
       <div class="row-content">
       <div class="col-md-8">
       	    <h4 style="padding-top: 3%"><b>Asked Question</b></h4>
-             <textarea class="form-control" rows="4" maxlength="1200" id="comment" style="background-color:white"></textarea>
+            <h5 *ngFor="let question of askedQuestions">
+            	{{question.text}}
+            	 <div *ngFor="let reply of question.replys">
+	            	<span>{{reply.username.split('@')[0]}} : <strong>{{reply.text}}</strong></span>
+	            	
+	            </div>
+	            <input type="text" name="reply" (keyup)="onKey($event)">
+	            <button (click)="reply(question.id)">Reply</button>
+            </h5>
           <br>
           </div>  
          <div class="right">

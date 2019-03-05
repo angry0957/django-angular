@@ -279,7 +279,7 @@ def verify(request):
 	try:
 		token = request.POST['token'] 
 	except MultiValueDictKeyError:
-		return HttpResponse("TOken is required")
+		return HttpResponse("Token is required")
 	PARAMS = {'token':token}
 	try:
 		r = requests.post('http://localhost:8000/auth-jwt-verify/',PARAMS)

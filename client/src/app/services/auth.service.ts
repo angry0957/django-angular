@@ -7,15 +7,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuthService {
 	private token;
-	private url = "http://localhost:8000/auth-jwt-verify/";
+	private url = "http://localhost:8000/verify/";
 
 	constructor(private http: HttpClient, public router: Router) {
 
 	}
 
 	verifyUser(obj) {
-		let info = {token: localStorage.getItem('token') };
-		return this.http.post(this.url,info);
+		let formdata = new FormData();
+		formdata.append("token", localStorage.getItem('token'));
+		return this.http.post(this.url,formdata);
 	}
 
 	updateToken(obj){

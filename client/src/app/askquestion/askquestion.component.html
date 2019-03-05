@@ -34,12 +34,12 @@
       <div class="row-content">
       <div class="col-md-8">
               <h4 style="padding-top: 3%"><b>Ask your question</b></h4>
-              <textarea class="form-control" rows="2" maxlength="200" placeholder="Complete your question not more then 200 words." id="comment"  style="background-color: white"></textarea>
+              <textarea class="form-control" rows="2" maxlength="200" placeholder="Complete your question not more then 200 words." id="comment"  style="background-color: white" [(ngModel)]="text"></textarea>
              <br>
              <h4><b>Explain you situation</b></h4>
-          <textarea class="form-control" rows="4" maxlength="1200" id="comment" placeholder="Complete your question not more then 1200 words.Provide Key detail." style="background-color: white"></textarea>
+          <textarea class="form-control" rows="4" maxlength="1200" id="comment" placeholder="Complete your question not more then 1200 words.Provide Key detail." style="background-color: white" [(ngModel)]="description"></textarea>
           <br>
-          <button type="button" class="btn btn-secondary">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="askquestion()">Submit</button>
           </div>  
          <div class="right">
         <div class="col-md-3">

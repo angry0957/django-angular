@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'Client.apps.ClientConfig',
     'Question.apps.QuestionConfig',
     'Category.apps.CategoryConfig',
+    'Reply.apps.ReplyConfig',
     'Rating.apps.RatingConfig',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here

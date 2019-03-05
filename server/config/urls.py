@@ -18,6 +18,8 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
 from Client import views as clientview
+from Question import views as questionview
+from Reply import views as replyview
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -35,6 +37,10 @@ urlpatterns = [
     path('product/', include('product.urls')),
     path('admin/', admin.site.urls),
 	path('login/', myview.login1),
+    path('askquestion/', questionview.askquestion),
+    path('askedquestion/', questionview.askedquestion),
+    path('replyquestion/', replyview.replyquestion),
+    path('getreplyquestion/', replyview.getreplyquestion),
     path('verify/', myview.verify),
     path('read/', myview.read),
     path('delete/', myview.delete),

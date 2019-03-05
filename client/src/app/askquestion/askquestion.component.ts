@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as jwt_decode from "jwt-decode";
 
 @Component({
@@ -11,11 +12,16 @@ import * as jwt_decode from "jwt-decode";
 export class AskquestionComponent implements OnInit {
 	data:any;
 	displayName;
-  constructor(private authService: AuthService, private router: Router) {
+	text;
+	description;
+  constructor(private authService: AuthService, private router: Router, private http:HttpClient) {
    }
 
   ngOnInit() {
   	this.authService.verifyUser('ads').subscribe((data:any)=> {
+	  		if(data.type == "lawyer") {
+					this.router.navigate(['/replyquestion-lawyer']);
+		  	}
 		  	this.data = jwt_decode(data.token);
 		  	this.displayName = this.data.username.split('@')[0]
 		  	console.log(this.displayName)
@@ -25,6 +31,26 @@ export class AskquestionComponent implements OnInit {
 			this.router.navigate(['/']);
 		}
 	);
+  }
+
+  askquestion() {
+  	let formdata = new FormData();
+	formdata.append('username', this.data.username);
+	formdata.append("text", this.text);
+	formdata.append("description", this.description);
+	formdata.append("catogery", "Lahore");
+  	console.log(formdata);
+
+  	this.http.post("http://localhost:8000/askquestion/",formdata).toPromise().then((res:any) => {
+			console.log('Response',res);
+			this.text = "";
+			this.description = "";
+		},
+		(err:any)=> {
+			console.log(err.error.Error,err);
+		}
+		);
+
   }
 
 }
