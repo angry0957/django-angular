@@ -18,6 +18,7 @@ import { EditprofileLawyerComponent } from './editprofile-lawyer/editprofile-law
 import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client.component';
 import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component';
 import { HomeComponent } from './home/home.component'; 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { HomeComponent } from './home/home.component';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
