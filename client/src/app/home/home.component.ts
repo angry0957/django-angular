@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
 
@@ -11,6 +12,7 @@ import * as $ from 'jquery';
 })
 export class HomeComponent implements OnInit {
   data:any;
+  topLawyers;
 
   images: string[] = [
   '../assets/images/img_bg_1.jpg',
@@ -20,7 +22,7 @@ export class HomeComponent implements OnInit {
   showNavigationArrows = true;
   showNavigationIndicators = true;
 
-  constructor(private authService: AuthService, private router: Router, config: NgbCarouselConfig) { }
+  constructor(private authService: AuthService, private router: Router, config: NgbCarouselConfig, private http:HttpClient) { }
 
   ngOnInit() {
     this.authService.verifyUser('ads').subscribe((data)=> {
@@ -30,9 +32,14 @@ export class HomeComponent implements OnInit {
     (err) => {
       console.log("Verify erroro",err);
     }
-  );
+    );
+    this.http.get("http://localhost:8000/topLawyers").toPromise().then((res:any) => {
+      this.topLawyers = res;
+      console.log(res)
+    });
   }
 
+  
   logout() {
     this.authService.logout();
   }

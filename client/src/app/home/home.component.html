@@ -181,11 +181,11 @@
 				<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
 			</div>
 		</div>
-		<div class="row">
+		<div *ngIf="topLawyers" class="row">
 			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
 				<div class="colorlib-staff">
 					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>John Simon</h3>
+					<h3>{{topLawyers[0].username}}</h3>
 					<strong class="role">Counsel</strong>
 					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
 					<ul class="colorlib-social-icons">
@@ -219,7 +219,7 @@
 			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
 				<div class="colorlib-staff">
 					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>John Doe</h3>
+					<h3>{{topLawyers[1].username}}</h3>
 					<strong class="role">Head of International Practice</strong>
 					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
 					<ul class="colorlib-social-icons">
@@ -253,7 +253,7 @@
 			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
 				<div class="colorlib-staff">
 					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>Peter Washington</h3>
+					<h3>{{topLawyers[2].username}}</h3>
 					<strong class="role">Managing Partner, Attorney</strong>
 					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
 					<ul class="colorlib-social-icons">
