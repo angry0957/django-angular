@@ -7,6 +7,7 @@ from Client.models import Client
 from Rating.models import Rating
 from Question.models import Question
 from Category.models import Category
+from LawyerCategory.models import LawyerCategory
 from django.contrib.auth import authenticate, login
 import datetime
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
@@ -15,9 +16,9 @@ import requests
 import jwt
 from django.utils.datastructures import MultiValueDictKeyError
 from django.db.models import Count
-
-
-
+import base64
+from django.core.files.base import ContentFile
+from django.conf import settings
 
 # Create your views here.
 
@@ -64,7 +65,7 @@ def signup(request):
 	if(isTaken):
 		return JsonResponse({"Error": "The HCR is already taken"},status=501)
 	user = User.objects.create_user(Email, Email,Password)
-	user.first_name = 'lawyer'
+	user.email = Email
 	user.save()
 	obj  = Lawyer(user=user,state=State,city=City,buisness_address=BusinessAddress,phone_number=PhoneNumber,liscence_number=LicenseIDNumber,year_admitted=YearAdmitted,hcr_number=HCRNo)
 	obj.save()
@@ -294,8 +295,151 @@ def verify(request):
 	encoded_jwt = obj['token']
 	data = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
 	user = User.objects.get(username = data['username'])
-	if user.first_name == 'client':
-		obj['type'] = 'client'
-	elif user.first_name == 'lawyer':
-		obj['type'] = 'lawyer'		
-	return JsonResponse(obj)	
+	try:
+		lawyer = Lawyer.objects.get(user=user)
+		obj['type'] = 'lawyer'
+		obj['username'] = user.username
+		obj['about'] = lawyer.about
+		obj['contact'] = lawyer.contact
+		obj['email'] = user.email
+		obj['city'] = lawyer.city
+		obj['firstname'] = user.first_name
+		obj['lastname'] = user.last_name
+		obj['state'] = lawyer.state
+		obj['buisness_address'] = lawyer.buisness_address
+		obj['phone_number'] = lawyer.phone_number
+		obj['liscence_number'] = lawyer.liscence_number
+		obj['hcr_number'] = lawyer.hcr_number
+		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+		return JsonResponse(obj)	
+	except Exception as e:
+		try:
+			client = Client.objects.get(user=user)
+			obj['type'] = 'client'
+			obj['username'] = user.username
+			obj['city'] = client.city
+			obj['phone_number'] = client.phone_number
+			obj['state'] = client.state
+			return JsonResponse(obj)
+		except Exception as e:
+			return JsonResponse({"Error": e})	
+
+
+@csrf_exempt
+def editProfile(request):
+	try:
+		categories = request.POST['categories'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("Categories is required")
+	try:
+		username = request.POST['username'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("Username is required")
+	try:
+		photo=request.POST['image']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "Image Required"})
+	try:
+		about=request.POST['about']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "about Required"})
+	try:
+		contact=request.POST['contact']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "contact Required"})
+	try:
+		firstname = request.POST['firstname']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "First name Required"})	
+	try:
+		lastname=request.POST['firstname']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "Last name Required"})	
+	try:
+		email=request.POST['email']	
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error": "Email Required"})	
+	try:
+		City = request.POST['city']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"City is required"},status=500)	 
+	try:
+		State = request.POST['state'] 
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"State is required"},status=500)
+	try:
+		PhoneNumber = request.POST['phoneNumber'] 
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"Phone Number is required"},status=500)
+	try:
+		LicenseIDNumber = request.POST['LicenseIDNumber']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"LicenseIDNumber is required"},status=500)
+	try:
+		BusinessAddress = request.POST['buisness_address']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"BusinessAddress is required"},status=500)
+	try:
+		HCRNo = request.POST['hcr_number']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"hcr_number is required"},status=500)
+
+	user = User.objects.get(username=username)
+	lawyer = Lawyer.objects.get(user=user)
+	allcategories = json.loads(categories)
+	lawyerid = lawyer.id
+	for i in allcategories:
+		if bool(i['checked']) == False:
+			try:
+				cat = Category.objects.get(id=i['id'])
+				obj = LawyerCategory.objects.get(lawyerid=lawyer,categoryid=cat)
+				obj.delete()
+			except LawyerCategory.DoesNotExist:
+				pass
+		else:
+			try:
+				cat = Category.objects.get(id=i['id'])
+				LawyerCategory.objects.get(lawyerid=lawyer,categoryid=cat)
+			except LawyerCategory.DoesNotExist:
+				obj = LawyerCategory(lawyerid=lawyer,categoryid=cat)
+				obj.save()
+
+	if photo.find('http://localhost:8000') == -1:
+		data = photo.split(',')[1]
+		imgdata = base64.b64decode(data)
+		filename = username + '.jpg'
+		file = ContentFile(imgdata,name=filename)  
+		lawyer.image  = file
+		file.close()
+	lawyer.about = about
+	lawyer.contact = contact
+	lawyer.first_name = firstname
+	lawyer.last_name = lastname
+	lawyer.city = City
+	lawyer.state = State
+	lawyer.phone_number = PhoneNumber
+	lawyer.liscence_number = LicenseIDNumber
+	lawyer.hcr_number = HCRNo
+	user.email= email
+	user.save()
+	lawyer.save()
+	return JsonResponse({"Success": "Image Saved"})
+
+# def server_program():
+#     # get the hostname
+#     host = socket.gethostname()
+#     port = 5000  # initiate port no above 1024
+
+#     server_socket = socket.socket()  # get instance
+#     # look closely. The bind() function takes tuple as argument
+#     server_socket.bind((host, port))  # bind host address and port together
+
+#     # configure how many client the server can listen simultaneously
+#     server_socket.listen(2)
+#     conn, address = server_socket.accept()  # accept new connection
+#     print("Connection from: " + str(address))
+#     while True:
+#         # receive data stream. it won't accept data packet greater than 1024 bytes
+#         data = conn.recv(1024).decode()
+#         if not data:
+#             # if data is not received break

@@ -19,6 +19,8 @@ from django.views.generic.base import TemplateView
 from Lawyer import views as myview
 from Client import views as clientview
 from Question import views as questionview
+from Category import views as categoryview
+from LawyerCategory import views as lawyercategoryview
 from Reply import views as replyview
 from django.views.generic.base import RedirectView
 from django.conf import settings
@@ -46,6 +48,7 @@ urlpatterns = [
     path('delete/', myview.delete),
     path('update/', myview.update),
     path('adduser/', myview.signup),
+    path('editProfile/', myview.editProfile),
     path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('SignupClient/', clientview.signup),
@@ -57,6 +60,9 @@ urlpatterns = [
     path('lawyersByCity/', myview.lawyersByCity),
     path('RateLawyer/', myview.RateLawyer),
     path('testmany/', myview.testmany),
+    path('getLawyersByCategory/',lawyercategoryview.getLawyersByCategory),
+    path('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
+    path('getCategories/',categoryview.getCategories),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
