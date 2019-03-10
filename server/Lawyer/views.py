@@ -443,3 +443,14 @@ def editProfile(request):
 #         data = conn.recv(1024).decode()
 #         if not data:
 #             # if data is not received break
+
+
+
+@csrf_exempt
+def getLawyerById(request):
+	try:
+		lawyerid = request.POST['lawyerid'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("lawyerid is required")
+	data = Lawyer.objects.filter(id=lawyerid).values()
+	return JsonResponse(list(data)[0],safe=False)

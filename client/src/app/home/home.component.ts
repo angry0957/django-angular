@@ -28,15 +28,16 @@ export class HomeComponent implements OnInit {
     this.authService.verifyUser('ads').subscribe((data)=> {
       console.log("Verify success",data)
       this.data = data
+      this.http.get("http://localhost:8000/topLawyers").toPromise().then((res:any) => {
+        this.topLawyers = res;
+        console.log(res)
+      });
     },
     (err) => {
       console.log("Verify erroro",err);
+      this.router.navigate(['/'])
     }
     );
-    this.http.get("http://localhost:8000/topLawyers").toPromise().then((res:any) => {
-      this.topLawyers = res;
-      console.log(res)
-    });
   }
 
   
@@ -51,6 +52,10 @@ export class HomeComponent implements OnInit {
     if(this.data.type == 'lawyer'){
       this.router.navigate(['/editprofile-lawyer']);
     }
+  }
+
+  PracticeArea(name) {
+    this.router.navigate(['/chooselawyer-client'], { queryParams: { "name": name } });
   }
 
 }

@@ -37,7 +37,7 @@ urlpatterns = [
     path('auth-jwt-verify/', verify_jwt_token),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
     path('product/', include('product.urls')),
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
 	path('login/', myview.login1),
     path('askquestion/', questionview.askquestion),
     path('askedquestion/', questionview.askedquestion),
@@ -49,7 +49,7 @@ urlpatterns = [
     path('update/', myview.update),
     path('adduser/', myview.signup),
     path('editProfile/', myview.editProfile),
-    path('', RedirectView.as_view(pattern_name='home', permanent=False)),
+    # path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('SignupClient/', clientview.signup),
     path('accounts/', include('django.contrib.auth.urls')),
@@ -63,6 +63,8 @@ urlpatterns = [
     path('getLawyersByCategory/',lawyercategoryview.getLawyersByCategory),
     path('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
     path('getCategories/',categoryview.getCategories),
+    path('getLawyerById/',myview.getLawyerById),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
