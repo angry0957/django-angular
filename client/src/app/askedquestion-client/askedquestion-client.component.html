@@ -17,7 +17,10 @@
 							<li><a href="about.html">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
+							<li><a href="#"><i class="fas fa-user"></i>{{displayName}}</a></li>
+							<li>
+								<a (click)="logout()" >Logout</a>
+							</li>
 							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>		
 							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 						</ul>
@@ -34,16 +37,26 @@
       <div class="row-content">
       <div class="col-md-8">
       	    <h4 style="padding-top: 3%"><b>Asked Question</b></h4>
-             <textarea class="form-control" rows="4" maxlength="1200" id="comment" style="background-color:white"></textarea>
+            <h5 *ngFor="let question of askedQuestions">
+            	{{question.text}}
+            	 <div *ngFor="let reply of question.replys">
+	            	<span>{{reply.username.split('@')[0]}} : <strong>{{reply.text}}</strong></span>
+	            	
+	            </div>
+	            <br>
+	            <input type="text" name="reply" (keyup)="onKey($event)">
+	            <br>
+	            <button (click)="reply(question.id)">Reply</button>
+            </h5>
           <br>
           </div>  
          <div class="right">
         <div class="col-md-3">
-          <p><b><a href="Edit.html" >Account setting</a></b></p>
+          <p><b><a routerLink="/editprofile-client" routerLinkActive="active">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html" style="color: darkblue">Ask a Quesions</a></b></p>
+          <p><b><a routerLink="/askquestion" routerLinkActive="active">Ask a Questions</a></b></p>
           <hr>
-          <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client" routerLinkActive="active">Asked Questions</a></b></p>
           <hr>
           <p><b><a href="#">Save</a></b></p>
           <hr>

@@ -12,12 +12,14 @@
 					</div>
 					<div class="col-md-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="practice.html">Practice Areas</a></li>						
+											
 							<li><a href="about.html">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
+							<li><a href="#"><i class="fas fa-user"></i>{{displayName}}</a></li>
+							<li>
+								<a (click)="logout()" >Logout</a>
+							</li>
 							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>		
 							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 						</ul>
@@ -33,22 +35,32 @@
         <h3 style="margin-left:4%"><b>Reply a Question</b></h3>
       <div class="row-content">
       <div class="col-md-8">
-              <h4 style="padding-top: 3%"><b>Client question</b></h4>
+	      	<h4 style="padding-top: 3%"><b>Asked Question</b></h4>
+            <h5 *ngFor="let question of askedQuestions">
+            	{{question.text}}
+            	 <div *ngFor="let reply of question.replys">
+	            	<span>{{reply.username.split('@')[0]}} : <strong>{{reply.text}}</strong></span>
+	            	
+	            </div>
+	            <input type="text" name="reply" (keyup)="onKey($event)">
+	            <button (click)="reply(question.id)">Reply</button>
+            </h5>
+              <!-- <h4 style="padding-top: 3%"><b>Client question</b></h4>
               <textarea class="form-control" rows="2" maxlength="200" placeholder="No Question by client side." id="comment"  style="background-color: white"></textarea>
              <br>
              <h4><b>Reply client question</b></h4>
-          <textarea class="form-control" rows="3" maxlength="1200" id="comment" placeholder="Complete your reply not more then 1200 words.Provide Key detail." style="background-color: white"></textarea>
+          <textarea class="form-control" rows="3" maxlength="1200" id="comment" placeholder="Complete your reply not more then 1200 words.Provide Key detail." style="background-color: white"></textarea> -->
           <br>
           </div>  
          <div class="right">
-        <div class="col-md-3">
-          <p><b><a href="Edit.html" >Account setting</a></b></p>
+      <div class="col-md-3" style="background-color:none">
+          <p><b><a routerLink="/editprofile-lawyer" routerLinkActive="active">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html" style="color: darkblue">Reply Question</a></b></p>
+          <p><b><a routerLink="/askedquestion-client" routerLinkActive="active">Reply a question</a></b></p>
           <hr>
           <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
           <hr>
-          <p><b><a href="#">Save</a></b></p>
+          <p><b><a (click)="update()">Save</a></b></p>
           <hr>
           <p><b><a href="#">Transaction</a></b></p>
           </div>

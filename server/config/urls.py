@@ -17,6 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
+from Client import views as clientview
+from Question import views as questionview
+from Category import views as categoryview
+from LawyerCategory import views as lawyercategoryview
+from Reply import views as replyview
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -32,22 +37,34 @@ urlpatterns = [
     path('auth-jwt-verify/', verify_jwt_token),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
     path('product/', include('product.urls')),
-    path('admin/', admin.site.urls),
-	path('login/', myview.login1),
+    path('', admin.site.urls),
+	path('loginUser/', myview.login),
+    path('askquestion/', questionview.askquestion),
+    path('askedquestion/', questionview.askedquestion),
+    path('replyquestion/', replyview.replyquestion),
+    path('getreplyquestion/', replyview.getreplyquestion),
+    path('verify/', myview.verify),
     path('read/', myview.read),
     path('delete/', myview.delete),
     path('update/', myview.update),
     path('adduser/', myview.signup),
-    path('', RedirectView.as_view(pattern_name='home', permanent=False)),
+    path('editProfile/', myview.editProfile),
+    # path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
+    path('SignupClient/', clientview.signup),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signin/', TemplateView.as_view(template_name='SignIn.html'),name='login'),
+    path('signin/', TemplateView.as_view(template_name='SignIn.html')),
     path('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
     path('home/', TemplateView.as_view(template_name='home.html'),name='home'),
     path('topLawyers/', myview.topLawyers),
     path('lawyersByCity/', myview.lawyersByCity),
     path('RateLawyer/', myview.RateLawyer),
     path('testmany/', myview.testmany),
+    path('getLawyersByCategory/',lawyercategoryview.getLawyersByCategory),
+    path('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
+    path('getCategories/',categoryview.getCategories),
+    path('getLawyerById/',myview.getLawyerById),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

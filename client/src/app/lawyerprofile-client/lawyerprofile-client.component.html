@@ -1,103 +1,389 @@
-	<div id="page">
-	<nav class="colorlib-nav" role="navigation">
-		<div class="top-menu">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-2">
-						<div id="colorlib-logo"><a href="index.html">LE<span>AID.</span></a></div>
-					</div>
-					<div class="col-md-10 text-right menu-1">
-						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="practice.html">Practice Areas</a></li>
-                            <li><a href="about.html">About</a></li>
-							<li><a href="contact.html">Contact</a></li>
-							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
-							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>							
-							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
-						</ul>
-					</div>
-				</div>				
-			</div>
-		</div>
-	</nav>
-		</div>
-<!-- Wrapper for slides -->
-   <div class="mid">
-<div class="container">
-  <div class="row-content">
-    <div class="col-sm-5">
-      <div class="row">
-        <div class="col-sm-5 other">
-          <img src="change.png" style="width:170px;height:200px;padding-top:1%">
-        <br>
-            <br>
+<div id="page">
+    <nav class="colorlib-nav" role="navigation">
+      <div class="top-menu">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2">
+              <div id="colorlib-logo"><a href="index.html">LE<span>AID.</span></a></div>
+            </div>
+            <div class="col-md-10 text-right menu-1">
+              <ul>
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="practice.html">Practice Areas</a></li>
+
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Alex</a></li>
+                <li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>
+
+                <!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
+              </ul>
+            </div>
           </div>
-        <div class="col-sm-5 other2 ">
-            <div class="gap">
-          <h3 style="padding-top:3% ">Name of Lwyer</h3>
-                <h3 style="padding-top:3%">Field of Lwyer</h3>
-          <h3 style="padding-top:4% ">City of Lwyer</h3>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
-              <br>
-                <button type="button" class="btn btn-info">
-     <span class="glyphicon glyphicon-bookmark"></span> Save
-    </button>
-            </div>  
-        </div>            
-      </div>
-      <div class="button1">
-      <button type="button" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-envelope"></span>Message</button>   
+
         </div>
       </div>
-      <div class="col-sm-7">
-          <h1><b>About:</b></h1>
-          <form>
-          <div class="form-group">
-      <textarea class="form-control" rows="6" id="comment"></textarea>
-    </div>
-  </form>
-          <br>
-          <h1><b>Contact:</b></h1>
-        <p>Brad Pit</p>
-        <p>Lahore</p>
-        <p>Address</p>
-          <div class="button">
-      <button type="button" class="btn btn-default btn-lg btn-block" style="background: grey;width:60%"><span class="glyphicon glyphicon-envelope"></span>Message</button>   
-        </div>
-      </div>
-      </div>
+    </nav>
   </div>
-</div>
+  <div class="container">
+    <div class="row profile">
+      <div class="col-md-4" >
+        <div class="profile-sidebar" style="text-align:center">
+          <!-- SIDEBAR USERPIC -->
+          <div class="profile-userpic">
+            <img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" style="display: block;margin-left: auto;margin-right: auto">
+          </div>
+          <!-- END SIDEBAR USERPIC -->
+          <!-- SIDEBAR USER TITLE -->
+          <div class="profile-usertitle">
+            <div class="profile-usertitle-name">
+              Marcus Doe
+            </div>
+            <div class="profile-usertitle-job">
+              Developer
+            </div>
+          </div>
+          <!-- END SIDEBAR USER TITLE -->
+          <!-- SIDEBAR BUTTONS -->
+          <div class="profile-userbuttons">
+            <button type="button" class="btn btn-success btn-sm">Follow</button>
+            <button type="button" class="btn btn-danger btn-sm">Message</button>
+          </div>
+          <!-- END SIDEBAR BUTTONS -->
+          <!-- SIDEBAR MENU -->
+          <div class="profile-usermenu">
+            <ul class="nav">
+              <li class="active">
+                <a href="#">
+                  <i class="glyphicon glyphicon-home"></i>
+                  Overview </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="glyphicon glyphicon-user"></i>
+                  Account Settings </a>
+              </li>
+              <li>
+                <a href="#" target="_blank">
+                  <i class="glyphicon glyphicon-ok"></i>
+                  Tasks </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="glyphicon glyphicon-flag"></i>
+                  Help </a>
+              </li>
+            </ul>
+          </div>
+          <!-- END MENU -->
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="profile-content">
+          <ul class="nav-tabs nav nav-justified">
+            <li class="nav-item">
+              <a href="#about" class="nav-link" data-toggle="tab">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="#cont" class="nav-link" data-toggle="tab">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a href="#reviews" class="nav-link" data-toggle="tab">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a href="#cost" class="nav-link" data-toggle="tab">Cost</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="about">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4 class="info-text" style="padding-top: 10px;"> About Marcus </h4>
+                  <p><small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                      industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
+                      scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
+                      electronic typesetting, remaining essentially unchanged</small></p>
+                  <h5>Practice Areas</h5>
+                  <div id="PieChart"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="cont">
+              <div class="row">
+                <div class="col-md-4">
+                  <h4 class="info-text" style="text-align: left"><b>Contact</b></h4>
+                  <div id="map-container-google-1" class="z-depth-1-half map-container">
+                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
+                     style="border:1" allowfullscreen></iframe>
+                  </div>
+                </div>
+                <div class="col-md-8 col-xs-push-2">
+                  <p><small>2304 Memorial Parkway SW</small></p>
+                  <p><small>Huntsville, AL, 35801</small></p>
+                  <p><small>Office <a>(256) 429-2084</a></small></p>
+                  <p><small>Office <a>(256) 429-2084</a></small></p>
+                  <p><small><a>http://www.crumbleylaw.com </a></small></p>
+                  <p><small><a> Defense Attorneys in Athens, AL</a></small></p>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="reviews">
+              <div class="row">
+                <div class="col-sm-12">
+                  <hr />
+                  <div class="review-block">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                      </div>
+                      <div class="col-sm-9">
+                        <div class="review-block-rate">
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                          buy</div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                      </div>
+                      <div class="col-sm-9">
+                        <div class="review-block-rate">
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                          buy</div>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                        <div class="review-block-name"><a href="#">nktailor</a></div>
+                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                      </div>
+                      <div class="col-sm-9">
+                        <div class="review-block-rate">
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                          </button>
+                        </div>
+                        <div class="review-block-title">this was nice in buy</div>
+                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                          buy</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <hr />
+                <div class="row">
+                  <div class="col-md-6">
+                    <h5><b>Attorney Endorsements</b></h5>
+                  </div>
+                  <div class="col-md-6">
+                    <li class="btn"><a href="#"><span>Make an Appointment</span></a></li>
+                  </div>
+                </div>
+                <div class="review-block">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                      <div class="review-block-name"><a href="#">nktailor</a></div>
+                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="review-block-title">this was nice in buy</div>
+                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                        buy</div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                      <div class="review-block-name"><a href="#">nktailor</a></div>
+                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="review-block-title">this was nice in buy</div>
+                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                        buy</div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
+                      <div class="review-block-name"><a href="#">nktailor</a></div>
+                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
+                    </div>
+                    <div class="col-sm-9">
+                      <div class="review-block-title">this was nice in buy</div>
+                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
+                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
+                        buy</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="cost">
+              <div class="row">
+                <h4 class="info-text"> Drop us a Cost Details. </h4>
+                <div class="col-md-6 col-md-offset-1">
+                  <div class="form-group label-floating">
+                    <label class="control-label">Cost Description</label>
+                    <textarea class="form-control" placeholder="" rows="9"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group label-floating">
 
-       <div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
-	<!-- Stellar Parallax -->
-	<script src="js/jquery.stellar.min.js"></script>
-	<!-- Carousel -->
-	<script src="js/owl.carousel.min.js"></script>
-	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
-	<!-- countTo -->
-	<script src="js/jquery.countTo.js"></script>
-	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<!-- Main -->
-	<script src="js/main.js"></script>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
+
+      <br>
+      <br>
+
+
+      <div id="myOverlay" class="overlay">
+        <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+        <div class="overlay-content">
+          <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+
+
+
+
+      <!-- Bootstrap core JavaScript
+    ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+
+
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+      <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', {
+          'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Draw the chart and set the chart values
+        function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Work', 8],
+            ['Eat', 2],
+            ['TV', 4],
+            ['Gym', 2],
+            ['Sleep', 8]
+          ]);
+
+          // Optional; add a title and set the width and height of the chart
+          var options = {
+            'title': '',
+            'width': 550,
+            'height': 400
+          };
+
+          // Display the chart inside the <div> element with id="piechart"
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+          chart.draw(data, options);
+        }
+      </script>
+
+      <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+      </div>
+
+      <!-- jQuery -->
+      <script src="js/jquery.min.js"></script>
+      <!-- jQuery Easing -->
+      <script src="js/jquery.easing.1.3.js"></script>
+      <!-- Bootstrap -->
+      <script src="js/bootstrap.min.js"></script>
+      <!-- Waypoints -->
+      <script src="js/jquery.waypoints.min.js"></script>
+      <!-- Stellar Parallax -->
+      <script src="js/jquery.stellar.min.js"></script>
+      <!-- Carousel -->
+      <script src="js/owl.carousel.min.js"></script>
+      <!-- Flexslider -->
+      <script src="js/jquery.flexslider-min.js"></script>
+      <!-- countTo -->
+      <script src="js/jquery.countTo.js"></script>
+      <!-- Magnific Popup -->
+      <script src="js/jquery.magnific-popup.min.js"></script>
+      <script src="js/magnific-popup-options.js"></script>
+      <!-- Main -->
+      <script src="js/main.js"></script>

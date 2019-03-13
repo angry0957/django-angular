@@ -17,7 +17,10 @@
 							<li><a href="about.html">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
+							<li><a href="#"><i class="fas fa-user"></i>{{displayName}}</a></li>
+							<li>
+								<a (click)="logout()" >Logout</a>
+							</li>
 							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>		
 							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 						</ul>
@@ -34,20 +37,20 @@
       <div class="row-content">
       <div class="col-md-8">
               <h4 style="padding-top: 3%"><b>Ask your question</b></h4>
-              <textarea class="form-control" rows="2" maxlength="200" placeholder="Complete your question not more then 200 words." id="comment"  style="background-color: white"></textarea>
+              <textarea class="form-control" rows="2" maxlength="200" placeholder="Complete your question not more then 200 words." id="comment"  style="background-color: white" [(ngModel)]="text"></textarea>
              <br>
              <h4><b>Explain you situation</b></h4>
-          <textarea class="form-control" rows="4" maxlength="1200" id="comment" placeholder="Complete your question not more then 1200 words.Provide Key detail." style="background-color: white"></textarea>
+          <textarea class="form-control" rows="4" maxlength="1200" id="comment" placeholder="Complete your question not more then 1200 words.Provide Key detail." style="background-color: white" [(ngModel)]="description"></textarea>
           <br>
-          <button type="button" class="btn btn-secondary">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="askquestion()">Submit</button>
           </div>  
          <div class="right">
         <div class="col-md-3">
-          <p><b><a href="editprofile-client.component.html" >Account setting</a></b></p>
+          <p><b><a routerLink="/editprofile-client" routerLinkActive="active">Account setting</a></b></p>
           <hr>
-          <p><b><a href="askquestion.component.html" style="color: darkblue">Ask a Quesions</a></b></p>
+          <p><b><a routerLink="/askquestion" routerLinkActive="active">Ask a Quesions</a></b></p>
           <hr>
-          <p><b><a href="askedquestion-client.component.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client" routerLinkActive="active">Asked Questions</a></b></p>
           <hr>
           <p><b><a href="#">Save</a></b></p>
           <hr>

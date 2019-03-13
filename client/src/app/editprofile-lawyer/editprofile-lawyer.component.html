@@ -1,4 +1,4 @@
-	<div id="page">
+<div id="page">
 	<nav class="colorlib-nav" role="navigation">
 		<div class="top-menu">
 			<div class="container">
@@ -8,12 +8,13 @@
 					</div>
 					<div class="col-md-10 text-right menu-1">
 						<ul>
-							<li class="active"><a href="index.html">Home</a></li>
-							<li><a href="practice.html">Practice Areas</a></li>
-                            <li><a href="about.html">About</a></li>
+              <li><a href="about.html">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
+							<li><a href="#"><i class="fas fa-user"></i>{{displayName}}</a></li>
+                <li>
+                <a (click)="logout()" >Logout</a>
+              </li>
 							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>							
 							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 						</ul>
@@ -29,30 +30,77 @@
         <h3 style="margin-left:4%"><b>Account Setting</b></h3>
       <div class="row-content">
       <div class="col-md-8" style="background-color:none;">
-          <h4><a href="#" style="text-decoration: none">Change Image</a></h4>
-              <img src="images/change.png" style="width:130px;height:130px">
-<div class="form1">
+      	<br>
+          <h3><a href="#" style="text-decoration: none">Change Image:</a></h3>
+              <img src="{{imageSrc}}"   height="250" weight="250" alt="Image preview..." />
+              <input type="file" name="image" (change)="onImagePicked($event)">
+  <br>
+  <br>
+  <h3><a href="#" style="text-decoration: none">About:</a></h3>
+ <textarea class="form-control" rows="3" maxlength="1200" [(ngModel)]="data.about" id="about" placeholder="Write about your " style="background-color:
+ #ffffcc;border-style:solid;border-color:#ffbb99"></textarea>
+  <br>
+  <h3><a href="#" style="text-decoration: none">Contact Info:</a></h3>
+ <textarea class="form-control" rows="2" maxlength="1200" id="contact" [(ngModel)]="data.contact" placeholder="Write about your " style="background-color:
+ #ffffcc;border-style:solid;border-color:#ffbb99"></textarea>
+ <br>
+ <h3><a href="#" style="text-decoration: none">Choose Practice Area:</a></h3>
+ <form style="background-color:
+ #ffffcc;border-style:solid;border-color:#ffbb99;padding-left:5%">
+    
+    <label *ngFor="let category of allCategories" class="checkbox">
+      <input type="checkbox" value="1" [(ngModel)]="category.checked" [ngModelOptions]="{standalone: true}" (change)="updatePracticeArea($event,category)"><b>{{category.catogery}}</b>
+    </label>
+
+  </form>
+  <br>
+   <h3><a href="#" style="text-decoration: none">Consultant:</a></h3>
+ <form style="background-color:
+ #ffffcc;border-style:solid;border-color:#ffbb99;padding-left:5% ">
+    <label class="checkbox">
+      <input type="checkbox" value=""><b>Free Consultation</b>
+    </label>
+  </form>
+ <div class="form1">
     <form>
   <label for="fname">First Name:</label>
-  <input type="text" id="fname" name="fname" placeholder="Enter First Name" style="margin-left: 15px">
+  <input type="text" id="fname" name="fname" placeholder="Enter First Name" [(ngModel)]="data.firstname" style="margin-left: 15px">
     <br>
-  <label for="lname">Last Name:</label>
-  <input type="text" id="lname" name="lname" placeholder="Enter Last Name" style="margin-left: 19px">
+  <label for="lastname">Last Name:</label>
+  <input type="text" id="lastname" name="lastname" [(ngModel)]="data.lastname" placeholder="Enter Last Name" style="margin-left: 19px">
     <br>
-    <label for="Ename">Email:</label>
-  <input type="text" id="lname" name="lname" placeholder="Enter Email" style="margin-left: 6%">
+    <label for="email">Email:</label>
+  <input type="text" id="email" name="email" placeholder="Enter Email"[(ngModel)]="data.email" style="margin-left: 6%">
+ <br>
+<label for="city">City:</label>
+  <input type="text" id="city" name="city" placeholder="Enter City" [(ngModel)]="data.city" style="margin-left: 6%">
+<br>
+<label for="state">State:</label>
+  <input type="text" id="state" name="state" placeholder="Enter State" [(ngModel)]="data.state" style="margin-left: 6%">
+<br>
+<label for="buisness_address">Busniness Address:</label>
+  <input type="text" id="buisness_address" name="buisness_address" placeholder="Enter Address" [(ngModel)]="data.buisness_address" style="margin-left: 6%">
+<br>
+<label for="phone_number">Phone no:</label>
+  <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone No" [(ngModel)]="data.phone_number" style="margin-left: 6%">
+  <br>
+<label for="liscence_number">CNIC:</label>
+  <input type="text" id="liscence_number" name="liscence_number" placeholder="Enter CNIC No" [(ngModel)]="data.liscence_number" style="margin-left: 6%">
+<br>
+<label for="hcr_number">HCR NO:</label>
+  <input type="text" id="hcr_number" name="hcr_number" placeholder="Enter HCR No" [(ngModel)]="data.hcr_number" style="margin-left: 6%">
 </form>
           </div>
           </div>
       <div class="right">
         <div class="col-md-3" style="background-color:none">
-          <p><b><a href="Edit.html" style="color: darkblue">Account setting</a></b></p>
+          <p><b><a routerLink="/editprofile-lawyer" routerLinkActive="active">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html">Reply a question</a></b></p>
+          <p><b><a routerLink="/askedquestion-client" routerLinkActive="active">Reply a question</a></b></p>
           <hr>
-          <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client" routerLinkActive="active">Asked Questions</a></b></p>
           <hr>
-          <p><b><a href="#">Save</a></b></p>
+          <p><b><a (click)="update()">Save</a></b></p>
           <hr>
           <p><b><a href="#">Transaction</a></b></p>
           </div>
@@ -83,4 +131,3 @@
 	<script src="js/magnific-popup-options.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-

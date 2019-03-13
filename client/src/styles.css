@@ -19,7 +19,9 @@ body {
   color: #828282;
   background: #fff; }
 
-
+.active{
+  color:blue;
+}
 
 
 
@@ -1296,3 +1298,15 @@ h1, h2, h3, h4, h5, h6, figure {
 .js .animate-box {
   /*opacity: 0;*/
 }
+
+
+/*lawyer-info*/
+
+.col-md-4{
+background-color:lightgray;
+    border-top-style:solid;    
+}
+.col-md-7{
+margin-left: 5%;
+}
+/*End Lawyer-info*/
