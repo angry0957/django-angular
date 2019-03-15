@@ -31,7 +31,7 @@ def askquestion(request):
 		return JsonResponse({"Error":"Category is required"},status=500)	
 	user = User.objects.get(username = Email)
 	client = Client.objects.get(user= user)	
-	catogery = Category.objects.get(catogery = "Lahore")
+	catogery = Category.objects.get(catogery = catogery)
 	newQuestion = Question(user= client, text= text, description= description, catogery= catogery)
 	newQuestion.save()
 	return JsonResponse({"data": "Successful"},status=200)

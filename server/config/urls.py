@@ -38,7 +38,7 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
     path('product/', include('product.urls')),
     path('', admin.site.urls),
-	path('login/', myview.login1),
+    path('loginUser/', myview.login),
     path('askquestion/', questionview.askquestion),
     path('askedquestion/', questionview.askedquestion),
     path('replyquestion/', replyview.replyquestion),
@@ -53,7 +53,7 @@ urlpatterns = [
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('SignupClient/', clientview.signup),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('signin/', TemplateView.as_view(template_name='SignIn.html'),name='login'),
+    path('signin/', TemplateView.as_view(template_name='SignIn.html')),
     path('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
     path('home/', TemplateView.as_view(template_name='home.html'),name='home'),
     path('topLawyers/', myview.topLawyers),

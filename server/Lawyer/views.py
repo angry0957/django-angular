@@ -81,60 +81,60 @@ def signup(request):
 def lawyers(request):
 	return render(request, "index.html", {})
 
-@csrf_exempt
-def login1(request):
-	try:
-		Email = request.POST['username'] 
-	except MultiValueDictKeyError:
-		return HttpResponse("Username is required")
-	try:
-		Password = request.POST['password']
-	except MultiValueDictKeyError:
-		return HttpResponse("Password is required")
-	PARAMS = {'username':Email,'password': Password}
-	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
-	obj = r.json()
-	user = User.objects.get(username = Email)
-	if user.first_name == 'client':
-		obj['type'] = 'client'
-	elif user.first_name == 'lawyer':
-		obj['type'] = 'lawyer'	
-	# user_id = User.objects.filter(username=Email).values()		
-	# client_id = Client.objects.filter(user=user_id[0]['id']).values()
-	# lawyer_user_id = User.objects.filter(username=Email).values()		
-	# lawyer_id = Lawyer.objects.filter(user=lawyer_user_id[0]['id']).values()
-	# lawyer = Lawyer.objects.get(user=lawyer_user_id[0]['id'])
-	# if Lawyer.objects.filter(user=).exists()
+# @csrf_exempt
+# def login1(request):
+# 	try:
+# 		Email = request.POST['username'] 
+# 	except MultiValueDictKeyError:
+# 		return HttpResponse("Username is required")
+# 	try:
+# 		Password = request.POST['password']
+# 	except MultiValueDictKeyError:
+# 		return HttpResponse("Password is required")
+# 	PARAMS = {'username':Email,'password': Password}
+# 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
+# 	obj = r.json()
+# 	user = User.objects.get(username = Email)
+# 	if user.first_name == 'client':
+# 		obj['type'] = 'client'
+# 	elif user.first_name == 'lawyer':
+# 		obj['type'] = 'lawyer'	
+# 	# user_id = User.objects.filter(username=Email).values()		
+# 	# client_id = Client.objects.filter(user=user_id[0]['id']).values()
+# 	# lawyer_user_id = User.objects.filter(username=Email).values()		
+# 	# lawyer_id = Lawyer.objects.filter(user=lawyer_user_id[0]['id']).values()
+# 	# lawyer = Lawyer.objects.get(user=lawyer_user_id[0]['id'])
+# 	# if Lawyer.objects.filter(user=).exists()
 	
-	return JsonResponse(obj)
-	# API_key = request.META.get('HTTP_AUTHORIZATION')
-	# PARAMS = {'token': API_key}
-	# data = requests.post('http://localhost:8000/auth-jwt-verify/',PARAMS)
-	# data = data.json()
-	# encoded_jwt = data['token']
-	# decoded = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
-	# myuser = Lawyer.objects.filter(user=decoded['user_id']).values()
+# 	return JsonResponse(obj)
+# 	# API_key = request.META.get('HTTP_AUTHORIZATION')
+# 	# PARAMS = {'token': API_key}
+# 	# data = requests.post('http://localhost:8000/auth-jwt-verify/',PARAMS)
+# 	# data = data.json()
+# 	# encoded_jwt = data['token']
+# 	# decoded = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
+# 	# myuser = Lawyer.objects.filter(user=decoded['user_id']).values()
 	
-	# # myuser = Lawyer.objects.filter(user=decoded['username'])
-	# all_lawyers = list(Lawyer.objects.values())
-	# return JsonResponse(list(myuser),safe=False)
-	# Email = request.POST['Email'] 
-	# Password = request.POST['Password'] 
-	# obj  =  authenticate(username=Email,password=Password)
-	# if obj is not None:
-	# 	login(request,obj)
-	# 	PARAMS = {'username':Email,'password': Password}
-	# 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
-	# 	obj = r.json()
-	# 	return JsonResponse(obj)
+# 	# # myuser = Lawyer.objects.filter(user=decoded['username'])
+# 	# all_lawyers = list(Lawyer.objects.values())
+# 	# return JsonResponse(list(myuser),safe=False)
+# 	# Email = request.POST['Email'] 
+# 	# Password = request.POST['Password'] 
+# 	# obj  =  authenticate(username=Email,password=Password)
+# 	# if obj is not None:
+# 	# 	login(request,obj)
+# 	# 	PARAMS = {'username':Email,'password': Password}
+# 	# 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
+# 	# 	obj = r.json()
+# 	# 	return JsonResponse(obj)
 
-	# data = {
-	# 	"data":"FAILED",
-	# 	"Email": Email,
-	# 	"password": Password,
-	# 	"obj": obj
-	# }
-	return JsonResponse(data)
+# 	# data = {
+# 	# 	"data":"FAILED",
+# 	# 	"Email": Email,
+# 	# 	"password": Password,
+# 	# 	"obj": obj
+# 	# }
+# 	return JsonResponse(data)
 
 @csrf_exempt
 def read(request):
@@ -454,3 +454,58 @@ def getLawyerById(request):
 		return HttpResponse("lawyerid is required")
 	data = Lawyer.objects.filter(id=lawyerid).values()
 	return JsonResponse(list(data)[0],safe=False)
+
+
+
+
+@csrf_exempt
+def login(request):
+	try:
+		username = request.POST['username'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("username is required")
+	try:
+		password = request.POST['password'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("Password is required")
+	PARAMS = {'username':username,'password':password}
+	try:
+		r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
+	except Exception as e:
+		return JsonResponse({"Error":"Token Error","Err": e})
+	r = r.json()
+	check = r.get('non_field_errors', 'None')	
+	if check != 'None':
+		return JsonResponse({"Error": "Token is not valid"},status=403)	
+	obj = r
+	encoded_jwt = obj['token']
+	data = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
+	user = User.objects.get(username = data['username'])
+	try:
+		lawyer = Lawyer.objects.get(user=user)
+		obj['type'] = 'lawyer'
+		obj['username'] = user.username
+		obj['about'] = lawyer.about
+		obj['contact'] = lawyer.contact
+		obj['email'] = user.email
+		obj['city'] = lawyer.city
+		obj['firstname'] = user.first_name
+		obj['lastname'] = user.last_name
+		obj['state'] = lawyer.state
+		obj['buisness_address'] = lawyer.buisness_address
+		obj['phone_number'] = lawyer.phone_number
+		obj['liscence_number'] = lawyer.liscence_number
+		obj['hcr_number'] = lawyer.hcr_number
+		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+		return JsonResponse(obj)	
+	except Exception as e:
+		try:
+			client = Client.objects.get(user=user)
+			obj['type'] = 'client'
+			obj['username'] = user.username
+			obj['city'] = client.city
+			obj['phone_number'] = client.phone_number
+			obj['state'] = client.state
+			return JsonResponse(obj)
+		except Exception as e:
+			return JsonResponse({"Error": e})	
