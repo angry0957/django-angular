@@ -13,7 +13,10 @@
 							<li><a href="about.html">About</a></li>
 							<li><a href="contact.html">Contact</a></li>
 							<li><a href="#"><i class="fas fa-envelope"></i>      Messages</a></li>
-							<li><a href="#"><i class="fas fa-user"></i>          Alex</a></li>
+							<li><a href="#"><i class="fas fa-user"></i>{{displayName}}</a></li>
+							<li>
+								<a (click)="logout()" >Logout</a>
+							</li>
 							<li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>		
 							<!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
 						</ul>
@@ -123,12 +126,11 @@
 			
 					<div class="col-lg-9">
 				<hr />
-				<div class="review-block">
+				<div  *ngFor="let lawyer of lawyers" class="review-block">
 					<div class="row">
 						<div class="col-lg-3">
-							<img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-							<div class="review-block-name"><a href="#">nktailor</a></div>
-							<div class="review-block-date">January 29, 2016<br />1 day ago</div>
+							<img [src]="lawyer.image" height="50" width="50" class="img-rounded">
+							<div class="review-block-name"><a href="#">{{lawyer.name}}</a></div>
 						</div>
 						<div class="col-lg-9">
 							<div class="review-block-rate">
@@ -148,7 +150,7 @@
 									<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 								</button>
 							</div>
-							<div class="review-block-title">this was nice in buy</div>
+							<div class="review-block-title">{{lawyer.firstname}}</div>
 							<div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy. this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in buy</div>
 						</div>
 					</div>
