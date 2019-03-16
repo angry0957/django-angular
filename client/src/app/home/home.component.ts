@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
       this.data = data
       this.http.get("http://localhost:8000/topLawyers").toPromise().then((res:any) => {
         this.topLawyers = res;
+        for (var i = this.topLawyers.length - 1; i >= 0; i--) {
+          this.topLawyers[i].image = "http://localhost:8000/media/" + this.topLawyers[i].image
+        }
         console.log(res)
       });
     },

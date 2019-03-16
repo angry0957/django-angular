@@ -178,80 +178,14 @@
 			</div>
 		</div>
 		<div *ngIf="topLawyers" class="row">
-			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
+			<div *ngFor="let lawyer of topLawyers"  class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
 				<div class="colorlib-staff">
-					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>{{topLawyers[0].username}}</h3>
+					<img [src]="lawyer.image" height="350" width="300" alt="Template">
+					<h3></h3>
 					<strong class="role">Counsel</strong>
-					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
-					<ul class="colorlib-social-icons">
-						<li>
-							<a href="#">
-								<i class="icon-facebook">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-twitter">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-dribbble">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-github">
-								</i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
-				<div class="colorlib-staff">
-					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>{{topLawyers[1].username}}</h3>
-					<strong class="role">Head of International Practice</strong>
-					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
-					<ul class="colorlib-social-icons">
-						<li>
-							<a href="#">
-								<i class="icon-facebook">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-twitter">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-dribbble">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-github">
-								</i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-4 text-center animate-box1" data-animate-effect="fadeIn">
-				<div class="colorlib-staff">
-					<img src="/assets/images/user-2.jpg" alt="Template">
-					<h3>{{topLawyers[2].username}}</h3>
-					<strong class="role">Managing Partner, Attorney</strong>
-					<p>Quos quia provident consequuntur culpa facere ratione maxime commodi voluptates id repellat velit eaque aspernatur expedita. Possimus itaque adipisci.</p>
+					<p>
+						{{lawyer.about}}
+					</p>
 					<ul class="colorlib-social-icons">
 						<li>
 							<a href="#">

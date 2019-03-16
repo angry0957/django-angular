@@ -19,6 +19,8 @@ import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client
 import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component';
 import { HomeComponent } from './home/home.component'; 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BarRatingModule } from "ngx-bar-rating";
+import { NgxStarsModule } from 'ngx-stars';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BarRatingModule,
+    NgxStarsModule
 
   ],
   providers: [],

@@ -156,8 +156,8 @@ def update(request):
 
 @csrf_exempt
 def topLawyers(request):
-	data = Lawyer.objects.annotate(Count('user')).order_by('-rating')[:3].values()
-	return JsonResponse(list(data),safe=False)
+	data = list(Lawyer.objects.order_by('-rating').reverse()[:3].values())
+	return JsonResponse(data,safe=False)
 
 @csrf_exempt
 def lawyersByCity(request):
@@ -452,8 +452,12 @@ def getLawyerById(request):
 		lawyerid = request.POST['lawyerid'] 
 	except MultiValueDictKeyError:
 		return HttpResponse("lawyerid is required")
-	data = Lawyer.objects.filter(id=lawyerid).values()
-	return JsonResponse(list(data)[0],safe=False)
+	data = list(Lawyer.objects.filter(id=lawyerid).values())[0]
+	user = list(User.objects.filter(id=data["user_id"]).values())[0]
+	data["username"] = user["username"]
+	data["first_name"] = user["first_name"]
+	data["last_name"] = user["last_name"]
+	return JsonResponse(data,safe=False)
 
 
 
