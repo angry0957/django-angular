@@ -41,6 +41,8 @@ urlpatterns = [
     path('loginUser/', myview.login),
     path('askquestion/', questionview.askquestion),
     path('askedquestion/', questionview.askedquestion),
+    path('askedquestionLawyer/', questionview.askedquestionLawyer),
+    
     path('replyquestion/', replyview.replyquestion),
     path('getreplyquestion/', replyview.getreplyquestion),
     path('verify/', myview.verify),

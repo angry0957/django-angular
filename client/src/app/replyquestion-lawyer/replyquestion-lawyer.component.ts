@@ -34,7 +34,7 @@ export class ReplyquestionLawyerComponent implements OnInit {
 			let formdata = new FormData();
 			formdata.append('username', this.data.username);
 
-			this.http.post("http://localhost:8000/askedquestion/",formdata).toPromise().then((res:any) => {
+			this.http.post("http://localhost:8000/askedquestionLawyer/",formdata).toPromise().then((res:any) => {
 				this.askedQuestions = res;
 				for (let i = 0; i < res.length; ++i) {
 					let parameter = new FormData();

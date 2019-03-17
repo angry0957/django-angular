@@ -14,6 +14,8 @@ export class AskquestionComponent implements OnInit {
 	displayName;
 	text;
 	description;
+	allCategories;
+	selectedCatogery;
   constructor(private authService: AuthService, private router: Router, private http:HttpClient) {
    }
 
@@ -31,6 +33,20 @@ export class AskquestionComponent implements OnInit {
 			this.router.navigate(['/']);
 		}
 	);
+	this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
+			this.allCategories = res;
+		  	this.selectedCatogery = this.allCategories[0].catogery
+	},
+	(err:any)=> {
+		console.log(err.error.Error,err);
+	}
+	);
+  }
+
+  updateCategory(catogery) {
+  	console.log(this.selectedCatogery)
+  	console.log(catogery)
+  	this.selectedCatogery = catogery
   }
 
   askquestion() {
@@ -38,7 +54,7 @@ export class AskquestionComponent implements OnInit {
 	formdata.append('username', this.data.username);
 	formdata.append("text", this.text);
 	formdata.append("description", this.description);
-	formdata.append("catogery", "Lahore");
+	formdata.append("catogery", this.selectedCatogery);
   	console.log(formdata);
 
   	this.http.post("http://localhost:8000/askquestion/",formdata).toPromise().then((res:any) => {

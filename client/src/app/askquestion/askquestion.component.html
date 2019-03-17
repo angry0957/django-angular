@@ -30,6 +30,11 @@
 <!-- Wrapper for slides -->
 <div class="container-fluid">
     <br>
+    <select required (change)="updateCategory($event.target.value)">
+	    <option *ngFor="let option of allCategories" value="{{option.catogery}}" > 
+	      {{option.catogery}} 
+	  	</option>
+	</select>
         <h3 style="margin-left:4%"><b>Ask a Question</b></h3>
       <div class="row-content">
       <div class="col-md-8">

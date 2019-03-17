@@ -4,7 +4,9 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Question
 from Category.models import Category
+from LawyerCategory.models import LawyerCategory
 from Client.models import Client
+from Lawyer.models import Lawyer
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 from django.utils.datastructures import MultiValueDictKeyError
@@ -53,3 +55,22 @@ def askedquestion(request):
 	questions = Question.objects.filter(user=client).values()
 
 	return JsonResponse(list(questions),safe=False,status=200)	
+
+@csrf_exempt
+def askedquestionLawyer(request):
+	try:
+		username = request.POST['username']
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"catogery is required"},status=500)	
+	user = User.objects.get(username=username)
+	lawyer = Lawyer.objects.get(user=user)
+	lawyercategory = list(LawyerCategory.objects.filter(lawyerid=lawyer.id).values())
+	result = list()
+	for x in lawyercategory:
+		catogery_obj = Category.objects.get(id=x["categoryid_id"])		
+		questions = Question.objects.filter(catogery=catogery_obj).values()
+		for y in questions:
+			result.append(y)
+	return JsonResponse(result,safe=False,status=200)	
+
+
