@@ -127,7 +127,7 @@
 					<div class="col-lg-9">
 				<hr />
 				<div  *ngFor="let lawyer of lawyers" class="review-block">
-					<div class="row">
+					<div (click)="lawyerProfile(lawyer)" class="row">
 						<div class="col-lg-3">
 							<img [src]="lawyer.image" height="50" width="50" class="img-rounded">
 							<div class="review-block-name"><a href="#">{{lawyer.first_name}}</a></div>

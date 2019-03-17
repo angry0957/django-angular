@@ -98,7 +98,7 @@ export class EditprofileLawyerComponent implements OnInit {
 		formdata.append('firstname', this.data.firstname);
 		formdata.append('lastname', this.data.lastname);
 		formdata.append('city', this.data.city);
-		formdata.append('state', this.data.statestate);
+		formdata.append('state', this.data.state);
 		formdata.append('buisness_address', this.data.buisness_address);
 		formdata.append('phoneNumber', this.data.phone_number);
 		formdata.append('hcr_number', this.data.hcr_number);

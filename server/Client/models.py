@@ -7,7 +7,7 @@ class Client(models.Model):
 	city = models.CharField(max_length=30)
 	state = models.CharField(max_length=30)
 	phone_number = models.CharField(max_length=30)
-	# Type = models.CharField(max_length=30,default="client",null=False)
+	image = models.ImageField(upload_to='Pictures',null=True)
 
 	def __str__(self):
 		return self.user.username

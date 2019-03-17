@@ -320,6 +320,11 @@ def verify(request):
 			obj['city'] = client.city
 			obj['phone_number'] = client.phone_number
 			obj['state'] = client.state
+			obj['firstname'] = user.first_name
+			obj['email'] = user.email
+			obj['lastname'] = user.last_name
+			if client.image:
+				obj['image'] = "{0}{1}".format("http://localhost:8000", client.image.url)
 			return JsonResponse(obj)
 		except Exception as e:
 			return JsonResponse({"Error": e})	
@@ -413,8 +418,8 @@ def editProfile(request):
 		file.close()
 	lawyer.about = about
 	lawyer.contact = contact
-	lawyer.first_name = firstname
-	lawyer.last_name = lastname
+	user.first_name = firstname
+	user.last_name = lastname
 	lawyer.city = City
 	lawyer.state = State
 	lawyer.phone_number = PhoneNumber
@@ -510,6 +515,10 @@ def login(request):
 			obj['city'] = client.city
 			obj['phone_number'] = client.phone_number
 			obj['state'] = client.state
+			obj['firstname'] = user.first_name
+			obj['email'] = user.email
+			obj['lastname'] = user.last_name
+			obj['image'] = client.image.url
 			return JsonResponse(obj)
 		except Exception as e:
 			return JsonResponse({"Error": e})	

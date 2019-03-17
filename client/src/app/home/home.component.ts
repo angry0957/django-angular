@@ -61,4 +61,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/chooselawyer-client'], { queryParams: { "name": name } });
   }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({behavior:"smooth"});
+  }
+
 }

@@ -31,14 +31,14 @@
       <div class="col-md-4" >
         <div class="profile-sidebar" style="text-align:center">
           <!-- SIDEBAR USERPIC -->
-          <div class="profile-userpic">
-            <img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" style="display: block;margin-left: auto;margin-right: auto">
+          <div *ngIf="lawyer" class="profile-userpic">
+            <img  [src]="lawyer.image" class="img-responsive" alt="" style="display: block;margin-left: auto;margin-right: auto">
           </div>
           <!-- END SIDEBAR USERPIC -->
           <!-- SIDEBAR USER TITLE -->
           <div class="profile-usertitle">
             <div class="profile-usertitle-name">
-              Marcus Doe
+              {{lawyer.first_name}}
             </div>
             <div class="profile-usertitle-job">
               Developer
@@ -81,225 +81,28 @@
       </div>
       <div class="col-md-7">
         <div class="profile-content">
-          <ul class="nav-tabs nav nav-justified">
-            <li class="nav-item">
-              <a href="#about" class="nav-link" data-toggle="tab">About</a>
-            </li>
-            <li class="nav-item">
-              <a href="#cont" class="nav-link" data-toggle="tab">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a href="#reviews" class="nav-link" data-toggle="tab">Reviews</a>
-            </li>
-            <li class="nav-item">
-              <a href="#cost" class="nav-link" data-toggle="tab">Cost</a>
-            </li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="about">
-              <div class="row">
-                <div class="col-md-12">
-                  <h4 class="info-text" style="padding-top: 10px;"> About Marcus </h4>
-                  <p><small>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                      industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                      scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-                      electronic typesetting, remaining essentially unchanged</small></p>
-                  <h5>Practice Areas</h5>
-                  <div id="PieChart"></div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="cont">
-              <div class="row">
-                <div class="col-md-4">
-                  <h4 class="info-text" style="text-align: left"><b>Contact</b></h4>
-                  <div id="map-container-google-1" class="z-depth-1-half map-container">
-                    <iframe src="https://maps.google.com/maps?q=manhatan&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0"
-                     style="border:1" allowfullscreen></iframe>
-                  </div>
-                </div>
-                <div class="col-md-8 col-xs-push-2">
-                  <p><small>2304 Memorial Parkway SW</small></p>
-                  <p><small>Huntsville, AL, 35801</small></p>
-                  <p><small>Office <a>(256) 429-2084</a></small></p>
-                  <p><small>Office <a>(256) 429-2084</a></small></p>
-                  <p><small><a>http://www.crumbleylaw.com </a></small></p>
-                  <p><small><a> Defense Attorneys in Athens, AL</a></small></p>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="reviews">
-              <div class="row">
-                <div class="col-sm-12">
-                  <hr />
-                  <div class="review-block">
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                      </div>
-                      <div class="col-sm-9">
-                        <div class="review-block-rate">
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                        </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                          buy</div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                      </div>
-                      <div class="col-sm-9">
-                        <div class="review-block-rate">
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                        </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                          buy</div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                        <div class="review-block-name"><a href="#">nktailor</a></div>
-                        <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                      </div>
-                      <div class="col-sm-9">
-                        <div class="review-block-rate">
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                          <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                          </button>
-                        </div>
-                        <div class="review-block-title">this was nice in buy</div>
-                        <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                          this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                          buy</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <hr />
-                <div class="row">
-                  <div class="col-md-6">
-                    <h5><b>Attorney Endorsements</b></h5>
-                  </div>
-                  <div class="col-md-6">
-                    <li class="btn"><a href="#"><span>Make an Appointment</span></a></li>
-                  </div>
-                </div>
-                <div class="review-block">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                      <div class="review-block-name"><a href="#">nktailor</a></div>
-                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                    </div>
-                    <div class="col-sm-9">
-                      <div class="review-block-title">this was nice in buy</div>
-                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                        buy</div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                      <div class="review-block-name"><a href="#">nktailor</a></div>
-                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                    </div>
-                    <div class="col-sm-9">
-                      <div class="review-block-title">this was nice in buy</div>
-                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                        buy</div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <img src="http://dummyimage.com/60x60/666/ffffff&text=No+Image" class="img-rounded">
-                      <div class="review-block-name"><a href="#">nktailor</a></div>
-                      <div class="review-block-date">January 29, 2016<br />1 day ago</div>
-                    </div>
-                    <div class="col-sm-9">
-                      <div class="review-block-title">this was nice in buy</div>
-                      <div class="review-block-description">this was nice in buy. this was nice in buy. this was nice in buy.
-                        this was nice in buy this was nice in buy this was nice in buy this was nice in buy this was nice in
-                        buy</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="cost">
-              <div class="row">
-                <h4 class="info-text"> Drop us a Cost Details. </h4>
-                <div class="col-md-6 col-md-offset-1">
-                  <div class="form-group label-floating">
-                    <label class="control-label">Cost Description</label>
-                    <textarea class="form-control" placeholder="" rows="9"></textarea>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group label-floating">
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ngb-tabset>
+            <ngb-tab title="About">
+              <ng-template ngbTabContent>
+                <p>{{lawyer.about}}</p>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Contact">
+              <ng-template ngbTabContent>
+                <p>{{lawyer.contact}}</p>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Reviews">
+              <ng-template ngbTabContent>
+                <p>These tabs are displayed as pills...</p>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab title="Cost">
+              <ng-template ngbTabContent>
+                <p>Because default values have been customized.</p>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
         </div>
       </div>
 

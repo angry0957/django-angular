@@ -49,6 +49,7 @@ urlpatterns = [
     path('update/', myview.update),
     path('adduser/', myview.signup),
     path('editProfile/', myview.editProfile),
+    path('editProfileClient/', clientview.editProfile),
     # path('', RedirectView.as_view(pattern_name='home', permanent=False)),
     path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     path('SignupClient/', clientview.signup),
