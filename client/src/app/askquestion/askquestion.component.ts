@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as jwt_decode from "jwt-decode";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-askquestion',
@@ -61,6 +62,13 @@ export class AskquestionComponent implements OnInit {
 			console.log('Response',res);
 			this.text = "";
 			this.description = "";
+			Swal.fire({
+			  position: 'top-end',
+			  type: 'success',
+			  title: 'Your work has been saved',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
 		},
 		(err:any)=> {
 			console.log(err.error.Error,err);

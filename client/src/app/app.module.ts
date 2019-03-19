@@ -21,6 +21,9 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BarRatingModule } from "ngx-bar-rating";
 import { NgxStarsModule } from 'ngx-stars';
+import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { NgxStarsModule } from 'ngx-stars';
     FindlawyerClientComponent,
     ChooselawyerClientComponent,
     HomeComponent,
+    RateLawyerComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

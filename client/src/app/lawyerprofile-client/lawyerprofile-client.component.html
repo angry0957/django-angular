@@ -1,31 +1,5 @@
-<div id="page">
-    <nav class="colorlib-nav" role="navigation">
-      <div class="top-menu">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-2">
-              <div id="colorlib-logo"><a href="index.html">LE<span>AID.</span></a></div>
-            </div>
-            <div class="col-md-10 text-right menu-1">
-              <ul>
-                <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="practice.html">Practice Areas</a></li>
+<app-header></app-header>
 
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="#"><i class="fas fa-envelope"></i> Messages</a></li>
-                <li><a href="#"><i class="fas fa-user"></i> Alex</a></li>
-                <li class="btn-cta"><a class="openBtn" onclick="openSearch()" href="#"><span><i class="fa fa-search"></i></span></a></li>
-
-                <!-- <li class="btn-cta"><a href="#"><span>Sign Up</span></a></li> -->
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </nav>
-  </div>
   <div class="container">
     <div class="row profile">
       <div class="col-md-4" >
@@ -54,10 +28,10 @@
           <!-- SIDEBAR MENU -->
           <div class="profile-usermenu">
             <ul class="nav">
-              <li class="active">
-                <a href="#">
+              <li (click)="review()" class="active">
+                <a>
                   <i class="glyphicon glyphicon-home"></i>
-                  Overview </a>
+                  Review </a>
               </li>
               <li>
                 <a href="#">
@@ -90,11 +64,6 @@
             <ngb-tab title="Contact">
               <ng-template ngbTabContent>
                 <p>{{lawyer.contact}}</p>
-              </ng-template>
-            </ngb-tab>
-            <ngb-tab title="Reviews">
-              <ng-template ngbTabContent>
-                <p>These tabs are displayed as pills...</p>
               </ng-template>
             </ngb-tab>
             <ngb-tab title="Cost">

@@ -33,4 +33,9 @@ export class LawyerprofileClientComponent implements OnInit {
 		});
 	}
 
+	review() {
+		console.log("Buhaha")
+		this.router.navigate(["/ratelawyer"], { queryParams: { "id": this.lawyerID } })
+	}
+
 }

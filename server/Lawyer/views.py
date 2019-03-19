@@ -254,15 +254,38 @@ def RateLawyer(request):
 		if(int(rate) < 1 or int(rate) > 5):
 			raise ValueError('Rate must be between 1 and 5')	
 	except:
-		return HttpResponse("Rate must be between 1 and 5")	
-
+		return HttpResponse("Rate must be between 1 and 5")
+	try:
+		title = request.POST['title'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("Title is required")	
+	try:
+		description = request.POST['description'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("Description is required")	
+	try:
+		isRecomended = request.POST['isRecomended'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("isRecomended is required")	
+	try:
+		isHired = request.POST['isHired'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("isHired is required")	
+	try:
+		email = request.POST['email'] 
+	except MultiValueDictKeyError:
+		return HttpResponse("email is required")	
+	
 	user_id = User.objects.filter(username=username).values()		
 	client_id = Client.objects.filter(user=user_id[0]['id']).values()
 	lawyer_user_id = User.objects.filter(username=lawyerusername).values()		
 	lawyer_id = Lawyer.objects.filter(user=lawyer_user_id[0]['id']).values()
 	lawyer = Lawyer.objects.get(user=lawyer_user_id[0]['id'])
 	client = Client.objects.get(user=user_id[0]['id'])
-	newRating = Rating(lawyerid = lawyer , clientid = client,rate= int(rate))
+	isAlready = Rating.objects.filter(lawyerid=lawyer,clientid=client)
+	if isAlready:
+		return HttpResponse("already exist",status=201)
+	newRating = Rating(lawyerid = lawyer , clientid = client,rate= int(rate),title=title,description=description,isHired=isHired,isRecomended=isRecomended,email=email)
 	newRating.save()
 	rating_user_id = Rating.objects.filter(lawyerid=lawyer_id[0]['id']).values()
 	arr = list(rating_user_id)

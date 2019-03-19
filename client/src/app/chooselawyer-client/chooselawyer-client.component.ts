@@ -55,9 +55,7 @@ export class ChooselawyerClientComponent implements OnInit {
 		});
 	}
 
-	onRatingSet(event) {
-		console.log("Event : ", event);
-	}
+	
 
 	lawyerProfile(lawyer){
 		this.router.navigate(["/lawyerprofile-client"], { queryParams: { "id": lawyer.id } })

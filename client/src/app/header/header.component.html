@@ -1,0 +1,58 @@
+<div *ngIf="isLoading" class="colorlib-loader">
+</div>
+<div id="page">
+	<nav class="colorlib-nav" role="navigation">
+		<div class="top-menu">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						<div id="colorlib-logo">
+							<a href="index.html">LE<span>AID.</span>
+							</a>
+						</div>
+					</div>
+					<div class="col-md-10 text-right menu-1">
+						<ul>
+							<li class="active">
+								<a routerLink="/home">Home</a>
+							</li>
+							<li>
+								<a (click)="scroll('target')">Practice Areas</a>
+							</li>
+
+							<li>
+								<a href="about.html">About</a>
+							</li>
+							<li>
+								<a (click)="scroll('colorlib-footer')">Contact</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fas fa-envelope">
+									</i>
+									Messages
+								</a>
+							</li>
+							<li *ngIf="data">
+								<a  (click)="profile()" >{{data.username.split('@')[0]}}</a>
+							</li>
+							<li>
+								<a (click)="logout()" >Logout</a>
+							</li>
+
+							<li class="btn-cta">
+								<a class="openBtn" onclick="openSearch()" href="#">
+									<span>
+										<i class="fa fa-search">
+										</i>
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+</div>

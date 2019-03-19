@@ -1,61 +1,4 @@
-<div *ngIf="isLoading" class="colorlib-loader">
-</div>
-<div id="page">
-	<nav class="colorlib-nav" role="navigation">
-		<div class="top-menu">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-2">
-						<div id="colorlib-logo">
-							<a href="index.html">LE<span>AID.</span>
-							</a>
-						</div>
-					</div>
-					<div class="col-md-10 text-right menu-1">
-						<ul>
-							<li class="active">
-								<a routerLink="/home">Home</a>
-							</li>
-							<li>
-								<a (click)="scroll(target)">Practice Areas</a>
-							</li>
-
-							<li>
-								<a href="about.html">About</a>
-							</li>
-							<li>
-								<a href="contact.html">Contact</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fas fa-envelope">
-									</i>
-									Messages
-								</a>
-							</li>
-							<li *ngIf="data">
-								<a  (click)="profile()" >{{data.username.split('@')[0]}}</a>
-							</li>
-							<li>
-								<a (click)="logout()" >Logout</a>
-							</li>
-
-							<li class="btn-cta">
-								<a class="openBtn" onclick="openSearch()" href="#">
-									<span>
-										<i class="fa fa-search">
-										</i>
-									</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</nav>
-</div>
+<app-header></app-header>
 <div class="img-container">
 	<ngb-carousel *ngIf="images" [interval]="5000" [showNavigationArrows]="showNavigationArrows" [showNavigationIndicators]="showNavigationIndicators">
 		<ng-template ngbSlide *ngFor="let image of images">
@@ -66,7 +9,7 @@
 	</ngb-carousel>
 </div>
 <div id="colorlib-practice">
-	<div #target class="container">
+	<div id="target" #target class="container">
 		<div class="row animate-box11">
 			<div class="col-sm-8 col-sm-offset-2 text-center colorlib-heading">
 				<h1>Practice Area</h1>
@@ -217,103 +160,7 @@
 		</div>
 	</div>
 </div>
-
-<footer id="colorlib-footer" role="contentinfo">
-	<div class="container">
-		<div class="row row-pb-md">
-			<div class="col-sm-3 colorlib-widget">
-				<h4>Lawfirm</h4>
-				<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
-			</div>
-			<div class="col-sm-3 col-md-push-1">
-				<h4>Navigation</h4>
-				<ul class="colorlib-footer-links">
-					<li>
-						<a href="#">Home</a>
-					</li>
-					<li>
-						<a href="#">Practice Areas</a>
-					</li>
-					<li>
-						<a href="#">Won Cases</a>
-					</li>
-					<li>
-						<a href="#">Blog</a>
-					</li>
-					<li>
-						<a href="#">About us</a>
-					</li>
-				</ul>
-			</div>
-
-			<div class="col-sm-3 col-md-push-1">
-				<h4>Contact Information</h4>
-				<ul class="colorlib-footer-links">
-					<li>198 West 21th Street, <br> Suite 721 New York NY 10016</li>
-					<li>
-						<a href="tel://1234567920">+ 1235 2355 98</a>
-					</li>
-					<li>
-						<a href="mailto:info@yoursite.com">info@yoursite.com</a>
-					</li>
-				</ul>
-			</div>
-
-			<div class="col-sm-3 col-md-push-1">
-				<h4>Opening Hours</h4>
-				<ul class="colorlib-footer-links">
-					<li>Mon - Thu: 9:00 - 21 00</li>
-					<li>Fri 8:00 - 21 00</li>
-					<li>Sat 9:30 - 15: 00</li>
-				</ul>
-			</div>
-
-		</div>
-
-		<div class="row copyright">
-			<div class="col-md-12 text-center">
-				<p>
-					<small class="block">&copy; 2018 LawFirm. All Rights Reserved. Created by <a href="https://colorlib.com/" target="_blank">Colorlib</a>
-					</small> 
-					<small class="block">Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>
-					</small>
-				</p>
-				<div>
-					<ul class="colorlib-social-icons">
-						<li>
-							<a href="#">
-								<i class="icon-twitter">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-facebook">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-linkedin">
-								</i>
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<i class="icon-dribbble">
-								</i>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-</footer>
-
-
+<app-footer></app-footer>
 <div id="myOverlay" class="overlay">
 	<span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
 	<div class="overlay-content">
