@@ -24,6 +24,7 @@ import { NgxStarsModule } from 'ngx-stars';
 import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FooterComponent } from './footer/footer.component';
     RateLawyerComponent,
     HeaderComponent,
     FooterComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component'
 import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client.component'
 import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component'
 import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
+import { ChatComponent } from './chat/chat.component'
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -28,6 +30,7 @@ const routes: Routes = [
   { path: 'findlawyer-client', component: FindlawyerClientComponent },
   { path: 'chooselawyer-client', component: ChooselawyerClientComponent },
   { path: 'ratelawyer', component: RateLawyerComponent },
+  { path: 'chat', component: ChatComponent },
 ];
 @NgModule({
   imports: [

@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
   data:any;
   topLawyers;
+  displayName;
 
   constructor(private authService: AuthService, private router: Router, private http:HttpClient) { }
 

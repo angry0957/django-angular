@@ -5,16 +5,17 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  url('', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  url('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    1. Import the include() function: from django.urls import include, url
+    2. Add a URL to urlpatterns:  url('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.conf.urls import url
+# from django.urls import include, url
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
 from Client import views as clientview
@@ -32,41 +33,42 @@ from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
 
 urlpatterns = [
-    path('auth-jwt/', obtain_jwt_token),
-    path('auth-jwt-refresh/', refresh_jwt_token),
-    path('auth-jwt-verify/', verify_jwt_token),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
-    path('product/', include('product.urls')),
-    path('', admin.site.urls),
-    path('loginUser/', myview.login),
-    path('askquestion/', questionview.askquestion),
-    path('askedquestion/', questionview.askedquestion),
-    path('askedquestionLawyer/', questionview.askedquestionLawyer),
+    # url(r'^admin/', admin.site.urls),
+    url('auth-jwt/', obtain_jwt_token),
+    url('auth-jwt-refresh/', refresh_jwt_token),
+    url('auth-jwt-verify/', verify_jwt_token),
+    url('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
+    # url('product/', product.urls),
+    url('', admin.site.urls),
+    url('loginUser/', myview.login),
+    url('askquestion/', questionview.askquestion),
+    url('askedquestion/', questionview.askedquestion),
+    url('askedquestionLawyer/', questionview.askedquestionLawyer),
     
-    path('replyquestion/', replyview.replyquestion),
-    path('getreplyquestion/', replyview.getreplyquestion),
-    path('verify/', myview.verify),
-    path('read/', myview.read),
-    path('delete/', myview.delete),
-    path('update/', myview.update),
-    path('adduser/', myview.signup),
-    path('editProfile/', myview.editProfile),
-    path('editProfileClient/', clientview.editProfile),
-    # path('', RedirectView.as_view(pattern_name='home', permanent=False)),
-    path('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
-    path('SignupClient/', clientview.signup),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('signin/', TemplateView.as_view(template_name='SignIn.html')),
-    path('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
-    path('home/', TemplateView.as_view(template_name='home.html'),name='home'),
-    path('topLawyers/', myview.topLawyers),
-    path('lawyersByCity/', myview.lawyersByCity),
-    path('RateLawyer/', myview.RateLawyer),
-    path('testmany/', myview.testmany),
-    path('getLawyersByCategory/',lawyercategoryview.getLawyersByCategory),
-    path('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
-    path('getCategories/',categoryview.getCategories),
-    path('getLawyerById/',myview.getLawyerById),
+    url('replyquestion/', replyview.replyquestion),
+    url('getreplyquestion/', replyview.getreplyquestion),
+    url('verify/', myview.verify),
+    url('read/', myview.read),
+    url('delete/', myview.delete),
+    url('update/', myview.update),
+    url('adduser/', myview.signup),
+    url('editProfile/', myview.editProfile),
+    url('editProfileClient/', clientview.editProfile),
+    # url('', RedirectView.as_view(pattern_name='home', permanent=False)),
+    url('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
+    url('SignupClient/', clientview.signup),
+    # url('accounts/', django.contrib.auth.urls),
+    # url('signin/', TemplateView.as_view(template_name='SignIn.html')),
+    # url('signup/', TemplateView.as_view(template_name='SignUp.html'),name='signup'),
+    # url('home/', TemplateView.as_view(template_name='home.html'),name='home'),
+    url('topLawyers/', myview.topLawyers),
+    url('lawyersByCity/', myview.lawyersByCity),
+    url('RateLawyer/', myview.RateLawyer),
+    url('testmany/', myview.testmany),
+    url('getLawyersByCategory/',lawyercategoryview.getLawyersByCategory),
+    url('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
+    url('getCategories/',categoryview.getCategories),
+    url('getLawyerById/',myview.getLawyerById),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

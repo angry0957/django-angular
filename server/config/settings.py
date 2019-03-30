@@ -67,6 +67,10 @@ INSTALLED_APPS = [
     'LawyerCategory.apps.LawyercategoryConfig',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here
+    'channels',
+    'Chat',
+    'channels_presence',
+
 
 ]
 
@@ -201,3 +205,14 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ASGI_APPLICATION = 'Chat.routing.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgi_redis.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379/4')],
+        },
+        "ROUTING": "Chat.routing.websocket_urlpatterns",
+    },
+}

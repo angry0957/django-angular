@@ -20,17 +20,18 @@ export class LoginComponent implements OnInit {
 	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
 	ngOnInit() {
+
 		this.authService.verifyUser('ads').subscribe((data:any)=> {
+			console.log(data)
 			if(data.type == "lawyer")
 			{
 				this.router.navigate(['/editprofile-lawyer']);
 			}
-			console.log("Verify success",data);
-			this.router.navigate(['/home']);
-
 		},
 		(err) => {
+			console.log(err)
 		});
+
 	}
 
 	login() {
@@ -38,22 +39,19 @@ export class LoginComponent implements OnInit {
 	}
 
 	onSubmit(f: NgForm) {
+
 		this.username = f.value.username;
 		this.password = f.value.password;
 		let formdata = new FormData();
 		formdata.append('username', f.value.username);
 		formdata.append('password', f.value.password);
 
-		console.log('Inside ',this.username,this.password)
-		
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			console.log('Response',res);
 			localStorage.setItem('token',res.token)
 			try{
 				if(res.type == 'lawyer'){
-					console.log('type',res.type )
 					this.router.navigate(['/editprofile-lawyer']);
-
 				}
 				else if (res.type == 'client') {
 					console.log(jwt_decode(res.token));

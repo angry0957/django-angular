@@ -312,7 +312,7 @@ def verify(request):
 	r = r.json()
 	check = r.get('non_field_errors', 'None')	
 	if check != 'None':
-		return JsonResponse({"Error": "Token is not valid"},status=403)	
+		return JsonResponse({"Error": "Token is not valid"})	
 
 	obj = r
 	encoded_jwt = obj['token']
@@ -333,7 +333,8 @@ def verify(request):
 		obj['phone_number'] = lawyer.phone_number
 		obj['liscence_number'] = lawyer.liscence_number
 		obj['hcr_number'] = lawyer.hcr_number
-		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+		if lawyer.image:
+			obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
 		return JsonResponse(obj)	
 	except Exception as e:
 		try:
@@ -508,7 +509,7 @@ def login(request):
 	r = r.json()
 	check = r.get('non_field_errors', 'None')	
 	if check != 'None':
-		return JsonResponse({"Error": "Token is not valid"},status=403)	
+		return JsonResponse({"Error": "Token is not valid"},status=500)	
 	obj = r
 	encoded_jwt = obj['token']
 	data = jwt.decode(encoded_jwt,'AfnanSecret','HS256')
