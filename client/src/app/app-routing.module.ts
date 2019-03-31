@@ -14,6 +14,7 @@ import { FindlawyerClientComponent } from './findlawyer-client/findlawyer-client
 import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-client.component'
 import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
 import { ChatComponent } from './chat/chat.component'
+import { ReviewsComponent } from './reviews/reviews.component'
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'chooselawyer-client', component: ChooselawyerClientComponent },
   { path: 'ratelawyer', component: RateLawyerComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'review', component: ReviewsComponent },
 ];
 @NgModule({
   imports: [

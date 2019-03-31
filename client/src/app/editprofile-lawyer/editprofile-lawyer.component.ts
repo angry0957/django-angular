@@ -50,6 +50,7 @@ export class EditprofileLawyerComponent implements OnInit {
 		}
 		);
 		this.authService.verifyUser('ads').subscribe((data:any)=> {
+			console.log(data)
 			if(data.type == "client") {
 				this.router.navigate(['/replyquestion-lawyer']);
 			}

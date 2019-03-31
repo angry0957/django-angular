@@ -73,7 +73,7 @@
 				</div>
 				<div class="pull-left">
 					<h4 style="margin-top:  10px">Filter By Rating</h4>
-					Apply Filter Rating
+					Apply Rating Filter 
 					<input type="checkbox" name="isApplyRatingFilter" [(ngModel)]="isApplyRatingFilter" [ngModelOptions]="{standalone: true}" (change)="updateRatingFilter($event)">
 					<div class="review-block-rate">
 						<ngx-stars [size]="3" [color]="'#c69500'" (ratingOutput)="ratingFilter($event)" [initialStars]="5"></ngx-stars>
@@ -86,8 +86,13 @@
 		
 			
 					<div class="col-lg-9">
-						Apply City Rating
-					<input type="checkbox" name="isApplyCityFilter" [(ngModel)]="isApplyCityFilter" [ngModelOptions]="{standalone: true}" (change)="updateCityFilter($event)">
+						<h4>
+							Filter By City
+						</h4>
+						<p>
+							Apply City Filter
+							<input type="checkbox" name="isApplyCityFilter" [(ngModel)]="isApplyCityFilter" [ngModelOptions]="{standalone: true}" (change)="updateCityFilter($event)">
+						</p>
 					<select required (change)="cityFilter($event.target.value)">
 					    <option *ngFor="let option of allCities" value="{{option}}" > 
 					      {{option}} 

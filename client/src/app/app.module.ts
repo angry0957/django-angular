@@ -25,6 +25,8 @@ import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ChatComponent } from './chat/chat.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { LawyerChatComponent } from './lawyer-chat/lawyer-chat.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { ChatComponent } from './chat/chat.component';
     HeaderComponent,
     FooterComponent,
     ChatComponent,
+    ReviewsComponent,
+    LawyerChatComponent,
   ],
   imports: [
     BrowserModule,

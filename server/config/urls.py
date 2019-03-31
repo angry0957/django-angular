@@ -18,6 +18,7 @@ from django.conf.urls import url
 # from django.urls import include, url
 from django.views.generic.base import TemplateView
 from Lawyer import views as myview
+from Rating import views as ratingview
 from Client import views as clientview
 from Question import views as questionview
 from Category import views as categoryview
@@ -43,6 +44,8 @@ urlpatterns = [
     url('askquestion/', questionview.askquestion),
     url('askedquestion/', questionview.askedquestion),
     url('askedquestionLawyer/', questionview.askedquestionLawyer),
+    url('review/', ratingview.getRatingofLawyer),
+
     
     url('replyquestion/', replyview.replyquestion),
     url('getreply/', replyview.getreplyquestion),
