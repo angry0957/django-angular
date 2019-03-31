@@ -38,8 +38,9 @@ export class ReplyquestionLawyerComponent implements OnInit {
 				this.askedQuestions = res;
 				for (let i = 0; i < res.length; ++i) {
 					let parameter = new FormData();
+					// parameter.append('username',data.username)
 					parameter.append('question', res[i].id);
-					this.http.post("http://localhost:8000/getreplyquestion/",parameter).toPromise().then((reply:any) => {
+					this.http.post("http://localhost:8000/getreply/",parameter).toPromise().then((reply:any) => {
 						this.askedQuestions[i]['replys'] = reply;
 					},
 					(err:any)=> {

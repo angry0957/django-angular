@@ -8,7 +8,8 @@ class ChatMessage(models.Model):
     
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField(max_length=3000)
-    username = models.TextField()
+    fromUser = models.ForeignKey(User, on_delete=models.CASCADE,related_name='fromU')
+    toUser = models.ForeignKey(User, on_delete=models.CASCADE,related_name='toU')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -16,5 +17,4 @@ class ChatMessage(models.Model):
         """
         String to represent the message
         """
-
-        return self.username + self.message
+        return self.message

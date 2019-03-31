@@ -312,7 +312,7 @@ def verify(request):
 	r = r.json()
 	check = r.get('non_field_errors', 'None')	
 	if check != 'None':
-		return JsonResponse({"Error": "Token is not valid"})	
+		return JsonResponse({"Error": "Token is not valid"},status=400)	
 
 	obj = r
 	encoded_jwt = obj['token']

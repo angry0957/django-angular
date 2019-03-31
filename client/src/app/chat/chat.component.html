@@ -5,3 +5,43 @@
 	<input type="text" name="msg" [(ngModel)]="msg">
 	<button type="button" (click)="sendMessageHandler()">Send</button>
 </div>
+<div id="live-chat">
+	<header class="clearfix">
+		<a href="#" class="chat-close">x</a>
+		<h4>John Doe</h4>
+		<span class="chat-message-counter">3</span>
+	</header>
+	<div class="chat">
+			
+			<div class="chat-history">
+		
+	<div class="chat-message clearfix">
+		<div *ngFor="let msg of history" class="chat-history">
+			<div class="chat-message clearfix">
+				<img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
+				<div class="chat-message-content clearfix">
+					<span class="chat-time">{{msg.date}}</span>
+					<h5>John Doe</h5>
+					<p>{{msg.text}}</p>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<p class="chat-feedback">Your partner is typing…</p>
+	<form action="#" method="post">
+		<fieldset>
+			<input #box type="text" placeholder="Type your message…" (keyup.enter)="onEnter(box.value)" autofocus>
+			<input type="hidden">
+		</fieldset>
+	</form>
+</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+	
+  
+
+    <script  src="js/index.js"></script>

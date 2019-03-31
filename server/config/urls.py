@@ -33,7 +33,6 @@ from rest_framework_jwt.views import refresh_jwt_token
 from rest_framework_jwt.views import verify_jwt_token
 
 urlpatterns = [
-    # url(r'^admin/', admin.site.urls),
     url('auth-jwt/', obtain_jwt_token),
     url('auth-jwt-refresh/', refresh_jwt_token),
     url('auth-jwt-verify/', verify_jwt_token),
@@ -46,7 +45,7 @@ urlpatterns = [
     url('askedquestionLawyer/', questionview.askedquestionLawyer),
     
     url('replyquestion/', replyview.replyquestion),
-    url('getreplyquestion/', replyview.getreplyquestion),
+    url('getreply/', replyview.getreplyquestion),
     url('verify/', myview.verify),
     url('read/', myview.read),
     url('delete/', myview.delete),
