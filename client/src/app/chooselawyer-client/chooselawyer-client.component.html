@@ -1,10 +1,8 @@
 <app-header></app-header>
 <div class="container">
-<div class="row-content"></div>
-		
+<div class="row-content"></div>	
 		<div class="row-content" >
 			<div class="col-lg-3">
-			
 			<h4>Reviews</h4>
 				<div class="pull-left">
 					<div class="pull-left" style="width:35px; line-height:1;">
@@ -102,7 +100,7 @@
 				<hr />
 				<div  *ngFor="let lawyer of lawyers" class="review-block">
 					<div (click)="lawyerProfile(lawyer)" class="row">
-						<div class="col-lg-3">
+						<div class="col-lg-3">	
 							<img [src]="lawyer.image" height="50" width="50" class="img-rounded">
 							<div class="review-block-name"><a href="#">{{lawyer.first_name}}</a></div>
 						</div>
@@ -115,6 +113,7 @@
 								<p>
 									{{lawyer.about}}
 								</p>
+							
 							</div>
 						</div>
 					</div>

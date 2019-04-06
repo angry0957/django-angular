@@ -25,15 +25,8 @@
 						*Select a rating for yoyr lawyer:
 					</a>
 				</h4>
+				<br>
 				<ngx-stars [size]="3" [color]="'#c69500'" (ratingOutput)="onRatingSet($event)" [initialStars]="rate"></ngx-stars>
-				<h4>
-					<a href="#" style="text-decoration: none">
-						*Add a title:
-					</a>
-				</h4>
-				<textarea [(ngModel)]="title" class="form-control" rows="1" maxlength="500" id="comment" placeholder="Write about your "
-					style="border-style:solid;border-color:#ffbb99">
-				</textarea>
 				<br>
 				<h4>
 					<a href="#" style="text-decoration: none">
@@ -75,12 +68,6 @@
 				<br>
 
 				<form>
-					<div class="form-group">
-						<h4>
-							<a href="#" style="text-decoration: none">Enter your email:</a>
-						</h4>
-						<input type="email" class="form-control" id="email" placeholder="Enter email" name="email" [(ngModel)]="email" style="border-style:solid;border-color:#ffbb99">
-					</div>
 					<button (click)="onSubmit()" type="submit" class="btn btn-default" style="background-color: grey;color: black">Submit
 					</button>
 				</form>

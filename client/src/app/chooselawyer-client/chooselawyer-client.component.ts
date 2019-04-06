@@ -13,7 +13,7 @@ import * as jwt_decode from "jwt-decode";
 export class ChooselawyerClientComponent implements OnInit {
 	
 	category;
-	allCities = ['Lahore','Karachi','islamabad','peshawar','queta','murree']
+	allCities = ['Lahore','Karachi','islamabad','peshawar','queta','murree','others']
 	lawyers : Array<any> = [];
 	allLawyers: Array<any> = []
 	data:any;
@@ -65,7 +65,7 @@ export class ChooselawyerClientComponent implements OnInit {
 	
 
 	lawyerProfile(lawyer){
-		this.router.navigate(["/lawyerprofile-client"], { queryParams: { "id": lawyer.id } })
+		this.router.navigate(["/lawyerprofile-client"], { queryParams: { "id": lawyer.id,"name":lawyer.username } })
 	}
 
 	ratingFilter(event:any){

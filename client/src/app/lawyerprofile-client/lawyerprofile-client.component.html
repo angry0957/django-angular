@@ -21,8 +21,8 @@
           <!-- END SIDEBAR USER TITLE -->
           <!-- SIDEBAR BUTTONS -->
           <div class="profile-userbuttons">
-            <button type="button" class="btn btn-success btn-sm">Follow</button>
-            <button (click)="openChatBox()" type="button" class="btn btn-danger btn-sm">Message</button>
+            <button type="button" class="btn btn-success btn-sm" routerLink="/savedlawyers-client">Save</button>
+            <button (click)="openChatBox()" type="button" class="btn btn-danger btn-sm" routerLink="/chat">Message</button>
           </div>
           <!-- END SIDEBAR BUTTONS -->
           <!-- SIDEBAR MENU -->
@@ -34,20 +34,12 @@
                   Review </a>
               </li>
               <li>
-                <a href="#">
-                  <i class="glyphicon glyphicon-user"></i>
+                <a routerLink="/editprofile-client">
+                  <i class="glyphicon glyphicon-user" ></i>
                   Account Settings </a>
               </li>
-              <li>
-                <a href="#" target="_blank">
-                  <i class="glyphicon glyphicon-ok"></i>
-                  Tasks </a>
-              </li>
-              <li>
-                <a href="#">
-                  <i class="glyphicon glyphicon-flag"></i>
-                  Help </a>
-              </li>
+
+              
             </ul>
           </div>
           <!-- END MENU -->
@@ -66,11 +58,39 @@
                 <p>{{lawyer.contact}}</p>
               </ng-template>
             </ngb-tab>
-            <ngb-tab title="Cost">
+            <ngb-tab title="Reviews">
               <ng-template ngbTabContent>
-                <p>Because default values have been customized.</p>
+                <app-reviews></app-reviews>
               </ng-template>
             </ngb-tab>
+
+            <ngb-tab title="Attorney Endorsement">
+              <ng-template ngbTabContent>
+               <div class="col-lg-12">
+        <hr />
+        <div  *ngFor="let lawyer of lawyers" class="review-block">
+          <div (click)="lawyerProfile(lawyer)" class="row">
+            <div class="col-lg-3">
+              <img [src]="lawyer.image" height="50" width="50" class="img-rounded">
+              <div class="review-block-name"><a href="#">{{lawyer.first_name}}</a></div>
+            </div>
+            <div class="col-lg-9">
+              <div class="review-block-rate">
+                <ngx-stars [size]="3" [readonly]="true" [color]="'#c69500'" (ratingOutput)="onRatingSet($event)" [initialStars]="lawyer.rate"></ngx-stars>
+              </div>
+              <div class="review-block-title">{{lawyer.first_name}}</div>
+              <div class="review-block-description">
+                <p>
+                  {{lawyer.about}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+              </ng-template>
+            </ngb-tab>
+
           </ngb-tabset>
         </div>
       </div>
@@ -103,36 +123,7 @@
       <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-      <script type="text/javascript">
-        // Load google charts
-        google.charts.load('current', {
-          'packages': ['corechart']
-        });
-        google.charts.setOnLoadCallback(drawChart);
-
-        // Draw the chart and set the chart values
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Task', 'Hours per Day'],
-            ['Work', 8],
-            ['Eat', 2],
-            ['TV', 4],
-            ['Gym', 2],
-            ['Sleep', 8]
-          ]);
-
-          // Optional; add a title and set the width and height of the chart
-          var options = {
-            'title': '',
-            'width': 550,
-            'height': 400
-          };
-
-          // Display the chart inside the <div> element with id="piechart"
-          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-          chart.draw(data, options);
-        }
-      </script>
+     
 
       <div class="gototop js-top">
         <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
@@ -161,36 +152,6 @@
       <script src="js/main.js"></script>
 
 
-<div id="live-chat">
-  <header class="clearfix">
-    <a class="chat-close">x</a>
-    <h4>John Doe</h4>
-    <span class="chat-message-counter">3</span>
-  </header>
-  <div class="chat">
-      <div class="chat-history">
-  <div class="chat-message clearfix">
-    <div *ngFor="let msg of history" class="chat-history">
-      <div class="chat-message clearfix">
-        <img src="http://lorempixum.com/32/32/people" alt="" width="32" height="32">
-        <div class="chat-message-content clearfix">
-          <span class="chat-time">{{msg.date}}</span>
-          <h5>John Doe</h5>
-          <p>{{msg.text}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  </div>
-  </div>
-  <p class="chat-feedback">Your partner is typing…</p>
-  <form action="#" method="post">
-    <fieldset>
-      <input #box type="text" placeholder="Type your message…" (keyup.enter)="onEnter(box.value)" autofocus>
-      <input type="hidden">
-    </fieldset>
-  </form>
-</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
   

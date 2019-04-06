@@ -27,6 +27,9 @@ import { FooterComponent } from './footer/footer.component';
 import { ChatComponent } from './chat/chat.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { LawyerChatComponent } from './lawyer-chat/lawyer-chat.component';
+import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-client.component';
+import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component';
+import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { LawyerChatComponent } from './lawyer-chat/lawyer-chat.component';
     ChatComponent,
     ReviewsComponent,
     LawyerChatComponent,
+    SavedlawyersClientComponent,
+    EndorseattorneyComponent,
+    ShowlawyerLawyerComponent,
   ],
   imports: [
     BrowserModule,

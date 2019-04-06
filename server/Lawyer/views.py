@@ -529,7 +529,8 @@ def login(request):
 		obj['phone_number'] = lawyer.phone_number
 		obj['liscence_number'] = lawyer.liscence_number
 		obj['hcr_number'] = lawyer.hcr_number
-		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+		if lawyer.image:
+			obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
 		return JsonResponse(obj)	
 	except Exception as e:
 		try:
@@ -542,7 +543,13 @@ def login(request):
 			obj['firstname'] = user.first_name
 			obj['email'] = user.email
 			obj['lastname'] = user.last_name
-			obj['image'] = client.image.url
+			if client.image:
+				obj['image'] = client.image.url
 			return JsonResponse(obj)
 		except Exception as e:
 			return JsonResponse({"Error": e})	
+
+@csrf_exempt
+def getLawyers(request):
+	data = list(Lawyer.objects.all().values())
+	return JsonResponse(data,safe=False)

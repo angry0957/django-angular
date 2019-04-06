@@ -17,21 +17,21 @@
 								<a routerLink="/home">Home</a>
 							</li>
 							<li>
-								<a (click)="scroll('target')">Practice Areas</a>
+								<a (click)="scroll('target')" routerLink="/home">Practice Areas</a>
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a routerLink="/about">About</a>
 							</li>
 							<li>
-								<a (click)="scroll('colorlib-footer')">Contact</a>
+								<a (click)="scroll('colorlib-footer')"> Contact</a>
 							</li>
 							<li>
-								<a href="#">
-									<i class="fas fa-envelope">
-									</i>
-									Messages
-								</a>
+
+								<a routerLink="/chat"><i class="fas fa-envelope">
+									</i>Messages</a>
+									
+								
 							</li>
 							<li *ngIf="data">
 								<a  (click)="profile()" >{{data.username.split('@')[0]}}</a>

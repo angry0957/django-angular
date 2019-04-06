@@ -38,45 +38,47 @@
  <div class="form1">
     <form>
   <label for="fname">First Name:</label>
-  <input type="text" id="fname" name="fname" placeholder="Enter First Name" [(ngModel)]="data.firstname" style="margin-left: 15px">
+  <input type="text" id="fname" name="fname" placeholder="Enter First Name" [(ngModel)]="data.firstname" style="margin-left: 80px">
     <br>
   <label for="lastname">Last Name:</label>
-  <input type="text" id="lastname" name="lastname" [(ngModel)]="data.lastname" placeholder="Enter Last Name" style="margin-left: 19px">
+  <input type="text" id="lastname" name="lastname" [(ngModel)]="data.lastname" placeholder="Enter Last Name" style="margin-left: 82px">
     <br>
     <label for="email">Email:</label>
-  <input type="text" id="email" name="email" placeholder="Enter Email"[(ngModel)]="data.email" style="margin-left: 6%">
+  <input type="text" id="email" name="email" placeholder="Enter Email"[(ngModel)]="data.email" style="margin-left: 119px">
  <br>
 <label for="city">City:</label>
-  <input type="text" id="city" name="city" placeholder="Enter City" [(ngModel)]="data.city" style="margin-left: 6%">
+  <input type="text" id="city" name="city" placeholder="Enter City" [(ngModel)]="data.city" style="margin-left: 132px">
 <br>
 <label for="state">State:</label>
-  <input type="text" id="state" name="state" placeholder="Enter State" [(ngModel)]="data.state" style="margin-left: 6%">
+  <input type="text" id="state" name="state" placeholder="Enter State" [(ngModel)]="data.state" style="margin-left:125px">
 <br>
 <label for="buisness_address">Busniness Address:</label>
-  <input type="text" id="buisness_address" name="buisness_address" placeholder="Enter Address" [(ngModel)]="data.buisness_address" style="margin-left: 6%">
+  <input type="text" id="buisness_address" name="buisness_address" placeholder="Enter Address" [(ngModel)]="data.buisness_address" style="margin-left: 10px">
 <br>
 <label for="phone_number">Phone no:</label>
-  <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone No" [(ngModel)]="data.phone_number" style="margin-left: 6%">
+  <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone No" [(ngModel)]="data.phone_number" style="margin-left: 86px">
   <br>
 <label for="liscence_number">CNIC:</label>
-  <input type="text" id="liscence_number" name="liscence_number" placeholder="Enter CNIC No" [(ngModel)]="data.liscence_number" style="margin-left: 6%">
+  <input type="text" id="liscence_number" name="liscence_number" placeholder="Enter CNIC No" [(ngModel)]="data.liscence_number" style="margin-left: 119px">
 <br>
-<label for="hcr_number">HCR NO:</label>
-  <input type="text" id="hcr_number" name="hcr_number" placeholder="Enter HCR No" [(ngModel)]="data.hcr_number" style="margin-left: 6%">
+<label for="hcr_number" style="color:black">HCR NO:</label>
+  <input type="text" id="hcr_number" name="hcr_number" placeholder="Enter HCR No" [(ngModel)]="data.hcr_number" style="margin-left: 93px;border-style: ridge;color: black">
 </form>
           </div>
+          <br>
+          <button type="button" class="btn btn-primary" style="width:130px;height:50px  "><a (click)="update()">Save</a></button>
           </div>
       <div class="right">
         <div class="col-md-3" style="background-color:none">
-          <p><b><a href="Edit.html" style="color: darkblue">Account setting</a></b></p>
+          <p><b><a routerLink="/editprofile-lawyer" style="color: darkblue">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html">Reply a question</a></b></p>
+          <p><b><a routerLink="/replyquestion-lawyer">Reply a question</a></b></p>
           <hr>
-          <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/chooselawyer-client">Endorse an Attorney</a></b></p>
           <hr>
-          <p><b><a (click)="update()">Save</a></b></p>
+          <p><b><a >Reviews</a></b></p>
           <hr>
-          <p><b><a href="#">Transaction</a></b></p>
+          
           </div>
      </div>
         </div>

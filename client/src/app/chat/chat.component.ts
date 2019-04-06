@@ -15,11 +15,39 @@ export class ChatComponent implements OnInit {
 	msg;
 	data;
   displayName;
+  friends = [];
   history = [];
   constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.verifyUser('ads').subscribe((data:any)=> {
+        if(data.type == "lawyer") {
+          this.http.get("http://localhost:8000/getClients/").toPromise().then((res:any) => {
+              for (var i = 0; i < res.length; ++i) {
+                res[i].image = "http://localhost:8000/media/" + res[i].image
+              }
+              this.friends = res;
+      
+          },
+          (err:any)=> {
+            console.log(err.error.Error,err);
+          }
+          );
+        }
+        else{
+          this.http.get("http://localhost:8000/getLawyers/").toPromise().then((res:any) => {
+              for (var i = 0; i < res.length; ++i) {
+                res[i].image = "http://localhost:8000/media/" + res[i].image
+              }
+              this.friends = res;
+          },
+          (err:any)=> {
+            console.log(err.error.Error,err);
+          }
+          );
+        }
+
+
         WebSocketInstance.connect();
         this.data = jwt_decode(data.token);
         this.displayName = this.data.username.split('@')[0]
@@ -77,19 +105,9 @@ export class ChatComponent implements OnInit {
       count++;
     }
     this.history.sort(function(a:any,b:any){
-      // Turn your strings into dates, and then subtract them
-      // to get a value that is either negative, positive, or zero.
       return a.date - b.date;
     });
-    // this.history.sort(function(o1,o2){
-    //   if (o1['date'] < o2['date'])    return -1;
-    //   else if(o1['date'] > o2['date']) return  1;
-    //   else                      return  0;
-    // });
     console.log(this.history)
-    // console.log(this.history,this.history.length)
-    // console.log("Mesage", JSON.parse(messages.message))
-
   }
 
   messageChangeHandler = (event) =>  {

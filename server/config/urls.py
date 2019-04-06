@@ -38,7 +38,8 @@ urlpatterns = [
     url('auth-jwt-refresh/', refresh_jwt_token),
     url('auth-jwt-verify/', verify_jwt_token),
     url('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
-    # url('product/', product.urls),
+    url('getLawyers/', myview.getLawyers),
+    url('getClients/', clientview.getClients),
     url('', admin.site.urls),
     url('loginUser/', myview.login),
     url('askquestion/', questionview.askquestion),
@@ -71,6 +72,7 @@ urlpatterns = [
     url('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
     url('getCategories/',categoryview.getCategories),
     url('getLawyerById/',myview.getLawyerById),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

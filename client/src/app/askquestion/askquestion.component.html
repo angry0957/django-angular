@@ -1,14 +1,17 @@
 <app-header></app-header>
 <div class="container-fluid">
     <br>
-    <select required (change)="updateCategory($event.target.value)">
-	    <option *ngFor="let option of allCategories" value="{{option.catogery}}" > 
-	      {{option.catogery}} 
-	  	</option>
-	</select>
+    
         <h3 style="margin-left:4%"><b>Ask a Question</b></h3>
       <div class="row-content">
       <div class="col-md-8">
+        <h4 style="padding-top: 3%"><b>Select Practice Area:</b></h4>
+        <select required (change)="updateCategory($event.target.value)">
+      <option *ngFor="let option of allCategories" value="{{option.catogery}}" > 
+        {{option.catogery}} 
+      </option>
+  </select>
+  <br>
               <h4 style="padding-top: 3%"><b>Ask your question</b></h4>
               <textarea class="form-control" rows="2" maxlength="200" placeholder="Complete your question not more then 200 words." id="comment"  style="background-color: white" [(ngModel)]="text"></textarea>
              <br>
@@ -18,16 +21,16 @@
           <button type="button" class="btn btn-secondary" (click)="askquestion()">Submit</button>
           </div>  
          <div class="right">
-        <div class="col-md-3">
-          <p><b><a href="editprofile-client.component.html" >Account setting</a></b></p>
+          <div class="col-md-3" style="background-color:none">
+          <p><b><a routerLink="/editprofile-client" style="color: darkblue">Account setting</a></b></p>
           <hr>
-          <p><b><a href="askquestion.component.html" style="color: darkblue">Ask a Quesions</a></b></p>
+          <p><b><a routerLink="/askquestion">Ask a quesions</a></b></p>
           <hr>
-          <p><b><a href="askedquestion-client.component.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client">Asked Questions</a></b></p>
           <hr>
-          <p><b><a href="#">Save</a></b></p>
+          <p><b><a routerLink="/savedlawyers-client">Save</a></b></p>
           <hr>
-          <p><b><a href="#">Transaction</a></b></p>
+          
           </div>
         </div>
         </div>

@@ -15,7 +15,9 @@ import { ChooselawyerClientComponent } from './chooselawyer-client/chooselawyer-
 import { RateLawyerComponent } from './rate-lawyer/rate-lawyer.component';
 import { ChatComponent } from './chat/chat.component'
 import { ReviewsComponent } from './reviews/reviews.component'
-
+import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-client.component'
+import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component'
+import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -33,6 +35,9 @@ const routes: Routes = [
   { path: 'ratelawyer', component: RateLawyerComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'review', component: ReviewsComponent },
+  { path: 'savedlawyers-client', component: SavedlawyersClientComponent },
+  { path: 'endorseattorney', component: EndorseattorneyComponent },
+  { path: 'showlawyer-lawyer', component: ShowlawyerLawyerComponent },
 ];
 @NgModule({
   imports: [

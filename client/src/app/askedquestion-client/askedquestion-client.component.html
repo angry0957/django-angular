@@ -6,28 +6,34 @@
       <div class="col-md-8">
       	    <h4 style="padding-top: 3%"><b>Asked Question</b></h4>
             <h5 *ngFor="let question of askedQuestions">
-            	{{question.text}}
+            	<strong>{{question.text}}</strong><br><br>
+
+              <p> {{question.description}}</p>
             	 <div *ngFor="let reply of question.replys">
 	            	<span>{{reply.username.split('@')[0]}} : <strong>{{reply.text}}</strong></span>
 	            	
 	            </div>
+              <br>
 	            <input type="text" name="reply" (keyup)="onKey($event)">
-	            <button (click)="reply(question.id)">Reply</button>
+	            <br>
+              <button (click)="reply(question.id)">Reply</button>
             </h5>
           <br>
           </div>  
          <div class="right">
-        <div class="col-md-3">
-          <p><b><a href="Edit.html" >Account setting</a></b></p>
+        
+            <div class="col-md-3" style="background-color:none">
+          <p><b><a routerLink="/editprofile-client" style="color: darkblue">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html" style="color: darkblue">Ask a Quesions</a></b></p>
+          <p><b><a routerLink="/askquestion">Ask a quesions</a></b></p>
           <hr>
-          <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client">Asked Questions</a></b></p>
           <hr>
-          <p><b><a href="#">Save</a></b></p>
+          <p><b><a routerLink="/savedlawyers-client">Save</a></b></p>
           <hr>
-          <p><b><a href="#">Transaction</a></b></p>
+          
           </div>
+    
         </div>
         </div>
         <script src="js/jquery.min.js"></script>

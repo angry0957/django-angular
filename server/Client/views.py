@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-from django.http import JsonResponse
 from .models import Client
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 import requests
@@ -110,3 +110,8 @@ def editProfile(request):
 	user.save()
 	client.save()
 	return JsonResponse({"Success": "Image Saved"})
+
+@csrf_exempt
+def getClients(request):
+	data = list(Client.objects.all().values())
+	return JsonResponse(data,safe=False)

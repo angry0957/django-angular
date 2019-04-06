@@ -9,38 +9,34 @@
               <input type="file" name="image" (change)="onImagePicked($event)">
 <div class="form1">
     <form>
-  <label for="fname">First Name:</label>
-  <input type="text" id="fname" name="fname" placeholder="Enter First Name" [(ngModel)]="data.firstname" style="margin-left: 15px">
-    <br>
-  <label for="lname">Last Name:</label>
-<input type="text" id="lastname" name="lastname" [(ngModel)]="data.lastname" placeholder="Enter Last Name" style="margin-left: 19px">
-    <br>
     <label for="Ename">Email:</label>
-<input type="text" id="email" name="email" placeholder="Enter Email"[(ngModel)]="data.email" style="margin-left: 6%">
+<input type="text" id="email" name="email" placeholder="Enter Email"[(ngModel)]="data.email" style="margin-left:50px">
  <br>
 <label for="Ename">City:</label>
-  <input type="text" id="city" name="city" placeholder="Enter City" [(ngModel)]="data.city" style="margin-left: 6%">
+  <input type="text" id="city" name="city" placeholder="Enter City" [(ngModel)]="data.city" style="margin-left: 64px">
 <br>
 <label for="Ename">State:</label>
-<input type="text" id="state" name="state" placeholder="Enter State" [(ngModel)]="data.state" style="margin-left: 6%">
+<input type="text" id="state" name="state" placeholder="Enter State" [(ngModel)]="data.state" style="margin-left: 56px">
 <br>
 <label for="Ename">Phone no:</label>
-  <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone No" [(ngModel)]="data.phone_number" style="margin-left: 6%">
+  <input type="text" id="phone_number" name="phone_number" placeholder="Enter Phone No" [(ngModel)]="data.phone_number" style="margin-left: 18px">
   <br>
 </form>
           </div>
+          <br>
+          <button type="button" class="btn btn-primary" style="width:130px;height:50px  ">Save</button>
           </div>
       <div class="right">
         <div class="col-md-3" style="background-color:none">
-          <p><b><a href="Edit.html" style="color: darkblue">Account setting</a></b></p>
+          <p><b><a routerLink="/editprofile-client" style="color: darkblue">Account setting</a></b></p>
           <hr>
-          <p><b><a href="Askquestions.html">Ask a quesions</a></b></p>
+          <p><b><a routerLink="/askquestion">Ask a quesions</a></b></p>
           <hr>
-          <p><b><a href="AskedQuestions.html">Asked Questions</a></b></p>
+          <p><b><a routerLink="/askedquestion-client">Asked Questions</a></b></p>
           <hr>
-          <p><b><a (click)="update()">Save</a></b></p>
+          <p><b><a routerLink="/savedlawyers-client">Save</a></b></p>
           <hr>
-          <p><b><a href="#">Transaction</a></b></p>
+          
           </div>
      </div>
         </div>
