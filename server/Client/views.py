@@ -113,5 +113,11 @@ def editProfile(request):
 
 @csrf_exempt
 def getClients(request):
-	data = list(Client.objects.all().values())
+	data = Client.objects.all()
+	usernames = list()
+	for index,user in enumerate(data):
+		usernames.append(user.user.username)
+	data = list(data.values())
+	for index,obj in enumerate(data):
+		obj['username'] = usernames[index]
 	return JsonResponse(data,safe=False)

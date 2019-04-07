@@ -551,5 +551,11 @@ def login(request):
 
 @csrf_exempt
 def getLawyers(request):
-	data = list(Lawyer.objects.all().values())
+	data = Lawyer.objects.all()
+	usernames = list()
+	for index,user in enumerate(data):
+		usernames.append(user.user.username)
+	data = list(data.values())
+	for index,obj in enumerate(data):
+		obj['username'] = usernames[index]
 	return JsonResponse(data,safe=False)

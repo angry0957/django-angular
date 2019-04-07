@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Http, Response } from '@angular/http'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as jwt_decode from "jwt-decode";
+import * as $ from 'jquery';
 import { Router } from '@angular/router'
 
 @Component({
@@ -17,16 +18,20 @@ export class ChatComponent implements OnInit {
   displayName;
   friends = [];
   history = [];
+  selectedUser;
+
   constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.verifyUser('ads').subscribe((data:any)=> {
+        this.data = data
         if(data.type == "lawyer") {
           this.http.get("http://localhost:8000/getClients/").toPromise().then((res:any) => {
               for (var i = 0; i < res.length; ++i) {
                 res[i].image = "http://localhost:8000/media/" + res[i].image
               }
               this.friends = res;
+              this.selectedUser = this.friends[0].username
       
           },
           (err:any)=> {
@@ -40,6 +45,7 @@ export class ChatComponent implements OnInit {
                 res[i].image = "http://localhost:8000/media/" + res[i].image
               }
               this.friends = res;
+              this.selectedUser = this.friends[0].username
           },
           (err:any)=> {
             console.log(err.error.Error,err);
@@ -49,7 +55,6 @@ export class ChatComponent implements OnInit {
 
 
         WebSocketInstance.connect();
-        this.data = jwt_decode(data.token);
         this.displayName = this.data.username.split('@')[0]
         this.waitForSocketConnection(() => {
           WebSocketInstance.initChatUser(this.data.username);
@@ -84,14 +89,14 @@ export class ChatComponent implements OnInit {
   addMessage(message) {
     console.log("Mesage", message)
     message['date'] = new Date()
-
     this.history.push(message)
+    $("html, body").animate({ scrollTop: $("#myID").scrollTop() }, 1000);
+
     // this.setState({ messages: [...this.state.messages, message]});
   }
 
   setMessages(messages) {
     let temp = messages;
-    console.log(temp);
     let count = 0
 
     for(let i=1;i>0;){
@@ -107,7 +112,6 @@ export class ChatComponent implements OnInit {
     this.history.sort(function(a:any,b:any){
       return a.date - b.date;
     });
-    console.log(this.history)
   }
 
   messageChangeHandler = (event) =>  {
@@ -115,19 +119,22 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessageHandler = () => {
-	const messageObject = {
-	fromUser: this.data.username,
-	text: this.msg,
-	command: 'new_message',
-	toUser: 'user8@gmail.com'
-  };
-	WebSocketInstance.sendMessage(messageObject);
+  	const messageObject = {
+    	fromUser: this.data.username,
+    	text: this.msg,
+    	command: 'new_message',
+    	toUser: this.selectedUser
+    };
+  	WebSocketInstance.sendMessage(messageObject);
     this.msg = ''
   }
 
   onEnter(msg){
-    console.log(msg)
     this.msg = msg
     this.sendMessageHandler()
+  }
+
+  updateUser(user){
+    this.selectedUser = user.username;
   }
 }
