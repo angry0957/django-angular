@@ -51,6 +51,10 @@ urlpatterns = [
     url('replyquestion/', replyview.replyquestion),
     url('getreply/', replyview.getreplyquestion),
     url('verify/', myview.verify),
+    url('updatePassword/', myview.updatePassword),
+    url('verifyCode/', myview.verifyCode),
+    url('getChat/', myview.getChat),
+    
     url('read/', myview.read),
     url('delete/', myview.delete),
     url('update/', myview.update),
