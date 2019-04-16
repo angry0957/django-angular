@@ -1,24 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../services/auth.service'
 import { Router } from '@angular/router'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import * as $ from 'jquery';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit,OnDestroy {
 
   data:any;
+  notify_number = 0;
   topLawyers;
   displayName;
+  showNotification = false;
+  private notifierService: Subscription;
 
   constructor(private authService: AuthService, private router: Router, private http:HttpClient) { }
 
   ngOnInit() {
+    this.notify();
     this.authService.verifyUser('ads').subscribe((data)=> {
       this.data = data
     },
@@ -47,9 +52,18 @@ export class HeaderComponent implements OnInit {
   }
 
   scroll(el) {
-  	// console.log(el)
   	console.log(document.getElementById(el))
     document.getElementById(el).scrollIntoView({behavior:"smooth"});
+  }
+
+  notify(){
+    this.notifierService = this.authService.currentMessage.subscribe(data=>{
+      this.notify_number = data;
+    })
+  }
+
+  ngOnDestroy() {
+    this.notifierService.unsubscribe();
   }
 
 }

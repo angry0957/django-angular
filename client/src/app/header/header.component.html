@@ -28,9 +28,11 @@
 							</li>
 							<li>
 
-								<a routerLink="/chat"><i class="fas fa-envelope">
+								<a style="color: red;" *ngIf="notify_number != 0" routerLink="/chat"><i class="fas fa-envelope">
+									<p  class="sup">{{notify_number}}</p>
 									</i>Messages</a>
-									
+									<a *ngIf="notify_number == 0" routerLink="/chat"><i class="fas fa-envelope">
+									</i>Messages</a>
 								
 							</li>
 							<li *ngIf="data">

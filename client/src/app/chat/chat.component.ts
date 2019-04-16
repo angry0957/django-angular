@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as jwt_decode from "jwt-decode";
 import * as $ from 'jquery';
 import { Router } from '@angular/router'
+import {saveAs as importedSaveAs} from "file-saver";
 
 @Component({
   selector: 'app-chat',
@@ -16,6 +17,7 @@ export class ChatComponent implements OnInit {
 	msg;
 	data;
   displayName;
+  notify_Users = [];
   friends = [];
   history = [];
   selectedUser;
@@ -87,9 +89,18 @@ export class ChatComponent implements OnInit {
   }
 
   addMessage(message) {
+    if (message.fromUser != this.data.username){
+      if(this.selectedUser != message.fromUser){
+        this.notify_Users.push(message.fromUser)
+        this.sendNotificationToHeaderComponent();
+      }
+    }
     console.log("Mesage", message)
     message['date'] = new Date()
     this.history.push(message)
+    $(document).ready(function(){
+      $('#box').val('');
+    });
     $("html, body").animate({ scrollTop: $("#myID").scrollTop() }, 1000);
 
     // this.setState({ messages: [...this.state.messages, message]});
@@ -136,5 +147,54 @@ export class ChatComponent implements OnInit {
 
   updateUser(user){
     this.selectedUser = user.username;
+    for (let i = 0; i < this.notify_Users.length; i++) {
+      if(user.username == this.notify_Users[i]){
+        this.notify_Users.splice(i,1);
+      }
+    }
+    this.sendNotificationToHeaderComponent();
+    
+  }
+
+
+  downloadChat(){
+    let formdata = new FormData();
+    if (this.data.type == 'lawyer') {
+      formdata.append('lawyer', this.data.username);
+      formdata.append('client', this.selectedUser);
+    }
+    else {
+      formdata.append('client', this.data.username);
+      formdata.append('lawyer', this.selectedUser);
+    }
+  
+    this.http.post("http://localhost:8000/getChat/",formdata,{responseType: "blob", headers: {'Accept': 'application/pdf'}}).toPromise().then((res:any) => {
+      importedSaveAs(res, "Chat.pdf");
+      return
+      let blob = new Blob([res], {type: 'application/pdf;charset=utf-8'});
+
+	  var downloadURL = window.URL.createObjectURL(res);
+	  var link = document.createElement('a');
+	  link.href = downloadURL;
+	  link.download = "help.pdf";
+	  link.click();
+      console.log("asd",res)
+    },
+    (err:any)=> {
+      console.log(err);
+    }
+    );
+  }
+
+  sendNotificationToHeaderComponent(){
+    this.authService.changeMessage(this.notify_Users.length);
+  }
+
+  checkNoitfy(friend){
+    for (let i = 0; i < this.notify_Users.length; i++) {
+      if(friend.username == this.notify_Users[i])
+        return true;
+    }
+    return false;
   }
 }

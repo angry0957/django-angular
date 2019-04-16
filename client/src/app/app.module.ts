@@ -30,6 +30,7 @@ import { LawyerChatComponent } from './lawyer-chat/lawyer-chat.component';
 import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-client.component';
 import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component';
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer
     SavedlawyersClientComponent,
     EndorseattorneyComponent,
     ShowlawyerLawyerComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

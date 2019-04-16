@@ -18,9 +18,11 @@ import { ReviewsComponent } from './reviews/reviews.component'
 import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-client.component'
 import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component'
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component'
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'forgot', component: ForgotPasswordComponent },
   { path: 'home', component: HomeComponent },
   { path: 'signup-lawyer', component: SignupLawyerComponent },
   { path: 'signup-client', component: SignupClientComponent },
