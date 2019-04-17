@@ -24,6 +24,7 @@ from Question import views as questionview
 from Category import views as categoryview
 from LawyerCategory import views as lawyercategoryview
 from Reply import views as replyview
+from Saved import views as savedview
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -46,8 +47,9 @@ urlpatterns = [
     url('askedquestion/', questionview.askedquestion),
     url('askedquestionLawyer/', questionview.askedquestionLawyer),
     url('review/', ratingview.getRatingofLawyer),
+    url('getSavedLawyers/', savedview.getSavedLawyers),
+    url('addSaved/', savedview.addSaved),
 
-    
     url('replyquestion/', replyview.replyquestion),
     url('getreply/', replyview.getreplyquestion),
     url('verify/', myview.verify),

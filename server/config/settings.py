@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'Category.apps.CategoryConfig',
     'Reply.apps.ReplyConfig',
     'Rating.apps.RatingConfig',
+    'Saved',
     'LawyerCategory.apps.LawyercategoryConfig',
     'rest_framework',
     'rest_framework.authtoken',  # <-- Here

@@ -16,6 +16,7 @@ import WebSocketInstance from '../chat/WebSocket'
 })
 export class LawyerprofileClientComponent implements OnInit {
 	lawyerID;
+	lawyername;
 	lawyer;
 	msg;
 	data;
@@ -26,6 +27,8 @@ export class LawyerprofileClientComponent implements OnInit {
 	constructor(config: NgbTabsetConfig,private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private http:HttpClient) {
 		this.activatedRoute.queryParams.subscribe((params: Params) => {
 			this.lawyerID = params.id;
+			this.lawyername = params.name;
+
 		});
 	}
 
@@ -38,7 +41,7 @@ export class LawyerprofileClientComponent implements OnInit {
 	ngOnInit() {
 		this.authService.verifyUser('ads').subscribe((data:any)=> {
 			WebSocketInstance.connect();
-			this.data = jwt_decode(data.token);
+			this.data = data;
 			this.displayName = this.data.username.split('@')[0]
 			this.waitForSocketConnection(() => {
 				WebSocketInstance.initChatUser(this.data.username);
@@ -151,6 +154,21 @@ export class LawyerprofileClientComponent implements OnInit {
 			console.log(msg)
 			this.msg = msg
 			this.sendMessageHandler()
+		}
+
+		save(){
+			let id = new FormData();
+			id.append('lawyer', this.lawyername);
+			id.append('client', this.data.username);
+			console.log(this.lawyername,this.data.username)
+
+			this.http.post("http://localhost:8000/addSaved/",id).subscribe((data:any) => {
+				this.router.navigate(['/savedlawyers-client'])
+			},
+		(err:any) => {
+			this.router.navigate(['/savedlawyers-client'])
+		});
+
 		}
 
 	}
