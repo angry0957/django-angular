@@ -25,7 +25,7 @@ export class AskquestionComponent implements OnInit {
 	  		if(data.type == "lawyer") {
 					this.router.navigate(['/replyquestion-lawyer']);
 		  	}
-		  	this.data = jwt_decode(data.token);
+		  	this.data = data
 		  	this.displayName = this.data.username.split('@')[0]
 		  	console.log(this.displayName)
 		},
@@ -36,6 +36,7 @@ export class AskquestionComponent implements OnInit {
 	);
 	this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
 			this.allCategories = res;
+			console.log("Xczcx",this.allCategories)
 		  	this.selectedCatogery = this.allCategories[0].catogery
 	},
 	(err:any)=> {
@@ -45,8 +46,6 @@ export class AskquestionComponent implements OnInit {
   }
 
   updateCategory(catogery) {
-  	console.log(this.selectedCatogery)
-  	console.log(catogery)
   	this.selectedCatogery = catogery
   }
 

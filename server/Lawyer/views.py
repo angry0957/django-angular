@@ -130,7 +130,7 @@ def testmany(request):
 	sent_subject = "Django"
 	sent_body = ("Hello from Abdul Rahman")
 	SUBJECT = "My Subject"
-	TEXT = "Your code us {}".format(code)
+	TEXT = "Your code is {}".format(code)
 	message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
 	try:
 		server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
@@ -156,6 +156,7 @@ def verifyCode(request):
 	for obj in allCodes:
 		if code == obj['code'] and mail == obj['mail']:
 			allCodes.remove(obj)
+			return JsonResponse({"Message": "Success"},safe=False,status=200)
 	return JsonResponse({"Message": "Fail"},safe=False,status=403)
 
 @csrf_exempt

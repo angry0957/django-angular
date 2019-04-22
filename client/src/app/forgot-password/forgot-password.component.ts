@@ -27,13 +27,13 @@ export class ForgotPasswordComponent implements OnInit {
   	formdata.append("mail",this.mail)
 	this.http.post("http://localhost:8000/testmany/",formdata).toPromise().then((res:any) => {
 		console.log('Response',res);
+	  	this.show = 2;
 	},
 	(err:any)=> {
 		if(err.status == 400) {
 			console.log("Credientials are not valid",err);
 		}
 	})
-  	this.show = 2;
   }
 
   sendCode(){
@@ -43,13 +43,13 @@ export class ForgotPasswordComponent implements OnInit {
   	formdata.append("code",this.code)
 	this.http.post("http://localhost:8000/verifyCode/",formdata).toPromise().then((res:any) => {
 		console.log('Response',res);
+	  	this.show = 3;
 	},
 	(err:any)=> {
 		if(err.status == 400) {
 			console.log("Credientials are not valid",err);
 		}
 	})
-  	this.show = 3;
   }
 
   updatePassword(){
