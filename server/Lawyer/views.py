@@ -126,10 +126,14 @@ def testmany(request):
 	gmail_user = MAIL
 	gmail_app_password = PASSWORD
 	sent_from = gmail_user
+	try:
+		user = User.objects.get(username=mail)
+	except Exception as e:
+		return JsonResponse({"Message": "User Not Found"},safe=False,status=400)
 	sent_to = [mail]
 	sent_subject = "Django"
 	sent_body = ("Hello from Abdul Rahman")
-	SUBJECT = "My Subject"
+	SUBJECT = "Password Recovery"
 	TEXT = "Your code is {}".format(code)
 	message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
 	try:
@@ -141,7 +145,7 @@ def testmany(request):
 		allCodes.append({"user": mail, "code": code})
 	except Exception as exception:
 		return HttpResponse(exception)
-	return HttpResponse("The code is sent in Mail")	
+	return JsonResponse({"Message":"The code is sent in Mail"},safe=False,status=200)	
 
 @csrf_exempt
 def verifyCode(request):
@@ -154,10 +158,10 @@ def verifyCode(request):
 	except MultiValueDictKeyError:
 		return HttpResponse("Mail is required")
 	for obj in allCodes:
-		if code == obj['code'] and mail == obj['mail']:
+		if code == obj['code'] and mail == obj['user']:
 			allCodes.remove(obj)
 			return JsonResponse({"Message": "Success"},safe=False,status=200)
-	return JsonResponse({"Message": "Fail"},safe=False,status=403)
+	return JsonResponse({"Message": "Please enter valid code"},safe=False,status=403)
 
 @csrf_exempt
 def updatePassword(request):
@@ -440,7 +444,7 @@ def login(request):
 	r = r.json()
 	check = r.get('non_field_errors', 'None')	
 	if check != 'None':
-		return JsonResponse({"Error": "Token is not valid"},status=500)	
+		return JsonResponse({"Error": "Token is not valid"},status=400)	
 	obj = r
 	encoded_jwt = obj['token']
 	data = jwt.decode(encoded_jwt,'AfnanSecret','HS256')

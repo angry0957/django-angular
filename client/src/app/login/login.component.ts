@@ -13,8 +13,10 @@ import * as jwt_decode from "jwt-decode";
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-	username;
-	password;
+	username = '';
+	password = '';
+	error:any = {invalid: false}
+
 	url = "http://localhost:8000/loginUser/";
 
 	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
 
 		},
 		(err) => {
+			this.password = '';
 			console.log(err)
 		});
 
@@ -68,6 +71,8 @@ export class LoginComponent implements OnInit {
 		(err:any)=> {
 			if(err.status == 400) {
 				console.log("Credientials are not valid",err);
+				this.error.error = "Credientials are not valid";
+				this.error.invalid = true
 			}
 		}
 		);

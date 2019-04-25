@@ -31,6 +31,7 @@ import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-
 import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component';
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     EndorseattorneyComponent,
     ShowlawyerLawyerComponent,
     ForgotPasswordComponent,
+    LawyerReviewsComponent,
   ],
   imports: [
     BrowserModule,

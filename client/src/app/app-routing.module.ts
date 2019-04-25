@@ -19,6 +19,8 @@ import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-
 import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component'
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
+import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -40,6 +42,7 @@ const routes: Routes = [
   { path: 'savedlawyers-client', component: SavedlawyersClientComponent },
   { path: 'endorseattorney', component: EndorseattorneyComponent },
   { path: 'showlawyer-lawyer', component: ShowlawyerLawyerComponent },
+  { path: 'lawyer-reviews', component: LawyerReviewsComponent },
 ];
 @NgModule({
   imports: [
