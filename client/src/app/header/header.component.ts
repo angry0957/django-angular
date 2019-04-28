@@ -24,13 +24,13 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.notify();
-    this.authService.verifyUser('ads').subscribe((data)=> {
-      this.data = data
-    },
-    (err) => {
-      this.router.navigate(['/'])
-    }
-    );
+    // this.authService.verifyUser('ads').subscribe((data)=> {
+    //   this.data = data
+    // },
+    // (err) => {
+    //   this.router.navigate(['/'])
+    // }
+    // );
   }
 
   

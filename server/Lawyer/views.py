@@ -23,7 +23,8 @@ import smtplib
 import random
 from reportlab.pdfgen import canvas
 from config.credentials import MAIL,PASSWORD
-
+from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
 # Create your views here.
 
 
@@ -256,11 +257,12 @@ def RateLawyer(request):
 	return JsonResponse("Saved",safe=False)	
 
 @csrf_exempt
+@api_view(['POST'])
 def verify(request):
 	try:
-		token = request.POST['token'] 
+		token = request.data.get('token',None) 
 	except MultiValueDictKeyError:
-		return HttpResponse("Token is required")
+		return JsonResponse({"Error":"Token is required"},status=400)
 	PARAMS = {'token':token}
 	try:
 		r = requests.post('http://localhost:8000/auth-jwt-verify/',PARAMS)
@@ -410,11 +412,12 @@ def editProfile(request):
 	return JsonResponse({"Success": "Image Saved"})
 
 @csrf_exempt
+@api_view(['POST'])
 def getLawyerById(request):
 	try:
-		lawyerid = request.POST['lawyerid'] 
+		lawyerid = request.data.get('lawyerid',None) 
 	except MultiValueDictKeyError:
-		return HttpResponse("lawyerid is required")
+		return JsonResponse({"Message":"lawyerid is required"},status=400)
 	data = list(Lawyer.objects.filter(id=lawyerid).values())[0]
 	user = list(User.objects.filter(id=data["user_id"]).values())[0]
 	data["username"] = user["username"]

@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignupLawyerComponent } from './signup-lawyer/signup-lawyer.component';
 import { SignupClientComponent } from './signup-client/signup-client.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AskquestionComponent } from './askquestion/askquestion.component';
 import { EditprofileClientComponent } from './editprofile-client/editprofile-client.component';
 import { AskedquestionClientComponent } from './askedquestion-client/askedquestion-client.component';
@@ -31,6 +31,8 @@ import { SavedlawyersClientComponent } from './savedlawyers-client/savedlawyers-
 import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.component';
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { AuthInterceptor } from './services/auth-interceptor'
+
 
 @NgModule({
   declarations: [
@@ -70,7 +72,10 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     NgxStarsModule
 
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

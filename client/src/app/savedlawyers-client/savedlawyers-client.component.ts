@@ -16,17 +16,17 @@ lawyers;
   constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private http:HttpClient) {}
 
   ngOnInit() {
-  	this.authService.verifyUser('ads').subscribe((data:any)=> {
-			this.data = data;
-			this.getlawyers();
+  // 	this.authService.verifyUser('ads').subscribe((data:any)=> {
+		// 	this.data = data;
+		// 	this.getlawyers();
 
 
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-		);
+		// },
+		// (err) => {
+		// 	console.log("Verify erroro",err);
+		// 	this.router.navigate(['/']);
+		// }
+		// );
   }
 
   getlawyers(){

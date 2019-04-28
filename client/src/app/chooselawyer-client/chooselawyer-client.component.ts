@@ -49,11 +49,11 @@ export class ChooselawyerClientComponent implements OnInit {
 		
 		let formdata = new FormData();
 		formdata.append('catogery', this.category);
-		this.http.post("http://localhost:8000/getLawyersByCategory/",formdata).toPromise().then((res:any) => {
+		this.http.post("http://localhost:8000/getLawyersByCategory/",{'catogery': this.category}).toPromise().then((res:any) => {
 			for (var i = 0; i < res.length; ++i) {
 				let id = new FormData();
 				id.append('lawyerid', res[i].lawyerid_id);
-				this.http.post("http://localhost:8000/getLawyerById/",id).subscribe((lawyer:any) => {
+				this.http.post("http://localhost:8000/getLawyerById/",{'lawyerid': res[i].lawyerid_id}).subscribe((lawyer:any) => {
 					lawyer.image = "http://localhost:8000/media/" + lawyer.image
 					this.lawyers.push(lawyer);
 					this.allLawyers.push(lawyer);

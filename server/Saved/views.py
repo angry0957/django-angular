@@ -7,9 +7,16 @@ from .models import Saved
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect 
+from rest_framework.decorators import api_view
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view,authentication_classes,permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 @csrf_exempt
+@api_view(['POST'])
+# @authentication_classes((TokenAuthentication))
+# @permission_classes((IsAuthenticated,))
 def getSavedLawyers(request):
 	try:
 		username = request.POST['username'] 

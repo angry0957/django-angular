@@ -20,7 +20,7 @@ export class AuthService {
 	verifyUser(obj) {
 		let formdata = new FormData();
 		formdata.append("token", localStorage.getItem('token'));
-		return this.http.post(this.url,formdata);
+		return this.http.post(this.url,{'token': localStorage.getItem('token')});
 	}
 
 	updateToken(obj){
