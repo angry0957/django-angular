@@ -506,7 +506,7 @@ def getChat(request):
 		client = request.POST['client'] 
 	except MultiValueDictKeyError:
 		return HttpResponse("username is required")
-	c = canvas.Canvas("hello.pdf")
+	c = canvas.Canvas("chat.pdf")
 	l_obj = User.objects.get(username=lawyer)
 	c_obj = User.objects.get(username=client)    
 	chat1 = list(ChatMessage.objects.filter(fromUser=l_obj,toUser=c_obj).values())
@@ -527,6 +527,6 @@ def getChat(request):
 	c.save()
 	try:
 		# return response['Content-Disposition'] = 'attachment; filename="/home/abdul/Desktop/Afnan/ngdj/server/hello.pdf"'
-		return FileResponse(open('/home/abdul/Desktop/Afnan/ngdj/server/hello.pdf', 'rb'), content_type='application/pdf')
+		return FileResponse(open('C:/Users/HP/Desktop/abnew/django-angular/server/chat.pdf', 'rb'), content_type='application/pdf')
 	except FileNotFoundError:
 		raise Http404()

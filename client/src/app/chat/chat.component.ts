@@ -19,8 +19,10 @@ export class ChatComponent implements OnInit {
   displayName;
   notify_Users = [];
   friends = [];
+  result = [];
   history = [];
   selectedUser;
+  search_str;
 
   constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
@@ -33,6 +35,7 @@ export class ChatComponent implements OnInit {
                 res[i].image = "http://localhost:8000/media/" + res[i].image
               }
               this.friends = res;
+              this.result = this.friends;
               this.selectedUser = this.friends[0].username
       
           },
@@ -47,6 +50,7 @@ export class ChatComponent implements OnInit {
                 res[i].image = "http://localhost:8000/media/" + res[i].image
               }
               this.friends = res;
+              this.result = this.friends;
               this.selectedUser = this.friends[0].username
           },
           (err:any)=> {
@@ -170,16 +174,6 @@ export class ChatComponent implements OnInit {
   
     this.http.post("http://localhost:8000/getChat/",formdata,{responseType: "blob", headers: {'Accept': 'application/pdf'}}).toPromise().then((res:any) => {
       importedSaveAs(res, "Chat.pdf");
-      return
-      let blob = new Blob([res], {type: 'application/pdf;charset=utf-8'});
-
-	  var downloadURL = window.URL.createObjectURL(res);
-	  var link = document.createElement('a');
-	  link.href = downloadURL;
-	  link.download = "help.pdf";
-	  link.click();
-      console.log("asd",res)
-    },
     (err:any)=> {
       console.log(err);
     }
@@ -196,5 +190,24 @@ export class ChatComponent implements OnInit {
         return true;
     }
     return false;
+  }
+
+  search(){
+    this.selectedUser = '';
+    let temp = []
+    for(let i =0;i<this.result.length;i++){
+      if(this.result[i].username.includes(this.search_str)){
+        temp.push(this.result[i])
+      }
+    }
+    console.log(temp)
+    this.friends = temp
+    if (this.friends.length > 0){
+      this.selectedUser = this.friends[0].username
+    }
+    else {
+      this.selectedUser = null
+    }
+
   }
 }
