@@ -1,0 +1,25 @@
+<div *ngIf="arr">
+	<div *ngFor="let item of arr">
+		<div class="row">
+			<div class="col-lg-3">	
+				<img [src]="item.clientimage" height="50" width="50" class="img-rounded">
+				<div class="review-block-name"><a href="#">{{item.clientname}}</a></div>
+			</div>
+			<div class="col-lg-9">
+				<div class="review-block-rate">
+					<ngx-stars [size]="3" [readonly]="true" [color]="'#c69500'" [initialStars]="item.rate"></ngx-stars>
+				</div>
+				<div class="review-block-title">{{item.clientname}}</div>
+				<div class="review-block-description">
+					<p>
+						{{item.description}}
+					</p>
+				
+				</div>
+			</div>
+		</div>
+		<p>
+			isRecomended: {{item.isRecomended}}
+		</p>
+	</div>
+</div>

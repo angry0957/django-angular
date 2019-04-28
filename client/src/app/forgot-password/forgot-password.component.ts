@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
 	code;
 	mail;
 	show = 1;
+	err;
 
   	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
@@ -28,11 +29,11 @@ export class ForgotPasswordComponent implements OnInit {
 	this.http.post("http://localhost:8000/testmany/",formdata).toPromise().then((res:any) => {
 		console.log('Response',res);
 	  	this.show = 2;
+	  	this.err = ""
 	},
 	(err:any)=> {
-		if(err.status == 400) {
-			console.log("Credientials are not valid",err);
-		}
+		console.log(err)
+		this.err = err;
 	})
   }
 
@@ -46,9 +47,8 @@ export class ForgotPasswordComponent implements OnInit {
 	  	this.show = 3;
 	},
 	(err:any)=> {
-		if(err.status == 400) {
-			console.log("Credientials are not valid",err);
-		}
+		this.err = err;
+		console.log("Credientials are not valid",err);
 	})
   }
 
@@ -61,9 +61,7 @@ export class ForgotPasswordComponent implements OnInit {
 		this.login();
 	},
 	(err:any)=> {
-		if(err.status == 400) {
-			console.log("Credientials are not valid",err);
-		}
+		this.err = err;
 	})
   }
 
@@ -90,9 +88,7 @@ export class ForgotPasswordComponent implements OnInit {
 			}
 		},
 		(err:any)=> {
-			if(err.status == 400) {
-				console.log("Credientials are not valid",err);
-			}
+			this.err = err;
 		}
 		);
 	}

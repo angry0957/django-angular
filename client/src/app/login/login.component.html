@@ -1,11 +1,3 @@
-<!-- <h1>Login</h1>
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
-	<input type="text" name="username" ngModel required #username="ngModel">
-	<input type="password" name="password"  ngModel>
-	<button>Submit</button>
-</form>
- -->
-
 <div class="container">
 <nav class="colorlib-nav" role="navigation">
 		<div class="top-menu">
@@ -33,17 +25,43 @@
 			</div>
 			<div class="card-body">
 				<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+					<div *ngIf="error.invalid" class="form-group">
+						<div *ngIf="error" class="alert alert-danger">
+							<div *ngIf="error.error">
+								{{error.error}}
+							</div>
+						</div>
+					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="Email" class="form-control" placeholder="Email" style="background-color: white" name="username" ngModel required #username="ngModel">						
+						<input type="text" class="form-control" placeholder="Email" style="background-color: white" name="username" ngModel required #username="ngModel">
+						<div class="form-group">
+							<div *ngIf="username.invalid && (username.dirty || username.touched)"
+							class="alert alert-danger">
+								<div *ngIf="username.errors.required">
+									Email is required.
+								</div>
+								<div *ngIf="username.errors.email">
+									Email must be a valid email address
+								</div>
+							</div>
+						</div>						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-te"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="Password" style="background-color: white" name="password"  ngModel>
+						<input type="password" class="form-control" placeholder="Password" style="background-color: white" name="password" ngModel required  #password="ngModel">
+						<div class="form-group">
+							<div *ngIf="password.invalid && (password.dirty || password.touched)"
+							class="alert alert-danger">
+								<div *ngIf="password.errors.required">
+									Password is required.
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="row align-items-center remember">
 						<input type="checkbox">Remember Me

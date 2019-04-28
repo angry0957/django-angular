@@ -33,6 +33,7 @@ import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthInterceptor } from './services/auth-interceptor'
 
+import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { AuthInterceptor } from './services/auth-interceptor'
     EndorseattorneyComponent,
     ShowlawyerLawyerComponent,
     ForgotPasswordComponent,
+    LawyerReviewsComponent,
   ],
   imports: [
     BrowserModule,

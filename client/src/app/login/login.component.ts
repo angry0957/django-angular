@@ -13,16 +13,18 @@ import * as jwt_decode from "jwt-decode";
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-	username;
-	password;
+	username = '';
+	password = '';
+	error:any = {invalid: false}
+
 	url = "http://localhost:8000/loginUser/";
 
 	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
 	ngOnInit() {
+		console.log(this.password)
 
 		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			console.log(data)
 			if(data.type == "lawyer")
 			{
 				this.router.navigate(['/editprofile-lawyer']);
@@ -31,16 +33,14 @@ export class LoginComponent implements OnInit {
 
 		},
 		(err) => {
+			this.password = '';
 			console.log(err)
 		});
 
 	}
 
-	login() {
-		console.log(this.username,this.password)
-	}
-
 	onSubmit(f: NgForm) {
+		console.log(this.password)
 
 		this.username = f.value.username;
 		this.password = f.value.password;
@@ -49,14 +49,12 @@ export class LoginComponent implements OnInit {
 		formdata.append('password', f.value.password);
 
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
-			console.log('Response',res);
 			localStorage.setItem('token',res.token)
 			try{
 				if(res.type == 'lawyer'){
 					this.router.navigate(['/editprofile-lawyer']);
 				}
 				else if (res.type == 'client') {
-					console.log(jwt_decode(res.token));
 					this.authService.updateToken(res.token);
 					this.router.navigate(['home']);
 				}
@@ -67,7 +65,8 @@ export class LoginComponent implements OnInit {
 		},
 		(err:any)=> {
 			if(err.status == 400) {
-				console.log("Credientials are not valid",err);
+				this.error.error = "Credientials are not valid";
+				this.error.invalid = true
 			}
 		}
 		);
