@@ -28,12 +28,13 @@ export class SignupClientComponent implements OnInit {
 	onSubmit(f: NgForm) {
 		this.error.invalid = false;
 		console.log(this.data);
-		let formdata = new FormData();
-		formdata.append('username', f.value.username);
-		formdata.append('password', f.value.password);
-		formdata.append('city', f.value.city);
-		formdata.append('state', f.value.state);
-		formdata.append('phoneNumber', f.value.phoneNumber);
+		let formdata = {
+			'username': f.value.username,
+			'password': f.value.password,
+			'city': f.value.city,
+			'state': f.value.state,
+			'phoneNumber': f.value.phoneNumber,
+		}
 
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			console.log('Response',res);

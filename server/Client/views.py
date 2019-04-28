@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .models import Client
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 import requests
 import jwt
@@ -11,32 +10,33 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.db.models import Count
 import base64
 from django.core.files.base import ContentFile
-
-
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 
-@csrf_exempt
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def signup(request):
 	try:
-		Email = request.POST['username'] 
+		Email = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Email is required"},status=500)
-
 	try:
-		Password = request.POST['password']
+		Password = request.data.get('password',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Password is required"},status=500)
 	try:
-		City = request.POST['city']
+		City = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"City is required"},status=500)	 
 	try:
-		State = request.POST['state'] 
+		State = request.data.get('state',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"State is required"},status=500)
 	try:
-		PhoneNumber = request.POST['phoneNumber'] 
+		PhoneNumber = request.data.get('phoneNumber',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Phone Number is required"},status=500)
 	
@@ -55,38 +55,38 @@ def signup(request):
 	return JsonResponse(obj)
 
 
-@csrf_exempt
+@api_view(['POST'])
 def editProfile(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	try:
-		photo=request.POST['image']	
+		photo=request.data.get('image',None)	
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Image Required"})
 	try:
-		firstname = request.POST['firstname']	
+		firstname = request.data.get('firstname',None)	
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "First name Required"})	
 	try:
-		lastname=request.POST['lastname']	
+		lastname=request.data.get('lastname',None)	
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Last name Required"})	
 	try:
-		email=request.POST['email']	
+		email=request.data.get('email',None)	
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Email Required"})	
 	try:
-		City = request.POST['city']
+		City = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"City is required"},status=500)	 
 	try:
-		State = request.POST['state'] 
+		State = request.data.get('state',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"State is required"},status=500)
 	try:
-		PhoneNumber = request.POST['phoneNumber'] 
+		PhoneNumber = request.data.get('phoneNumber',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Phone Number is required"},status=500)
 	
@@ -111,7 +111,7 @@ def editProfile(request):
 	client.save()
 	return JsonResponse({"Success": "Image Saved"})
 
-@csrf_exempt
+@api_view(['GET'])
 def getClients(request):
 	data = Client.objects.all()
 	usernames = list()

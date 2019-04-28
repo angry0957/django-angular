@@ -10,25 +10,26 @@ from Lawyer.models import Lawyer
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
-@csrf_exempt
+@api_view(['POST'])
 def askquestion(request):
 	try:
-		Email = request.POST['username'] 
+		Email = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Email is required"},status=500)
 	try:
-		text = request.POST['text']
+		text = request.data.get('text',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Text is required"},status=500)
 	try:
-		description = request.POST['description']
+		description = request.data.get('description',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Description is required"},status=500)
 	try:
-		catogery = request.POST['catogery']
+		catogery = request.data.get('catogery',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Category is required"},status=500)	
 	user = User.objects.get(username = Email)
@@ -38,14 +39,14 @@ def askquestion(request):
 	newQuestion.save()
 	return JsonResponse({"data": "Successful"},status=200)
 
-@csrf_exempt
+@api_view(['POST'])
 def askedquestion(request):
 	try:
-		username = request.POST['username']
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Username is required"},status=500)	
 	try:
-		user = User.objects.get(username= username) 
+		user = User.objects.get(username= username)
 	except Exception as e:
 		return HttpResponse(e)
 	try:
@@ -56,10 +57,10 @@ def askedquestion(request):
 
 	return JsonResponse(list(questions),safe=False,status=200)	
 
-@csrf_exempt
+@api_view(['POST'])
 def askedquestionLawyer(request):
 	try:
-		username = request.POST['username']
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"catogery is required"},status=500)	
 	user = User.objects.get(username=username)

@@ -30,6 +30,8 @@
     "ngx-bar-rating": "^1.1.0",
     "ngx-stars": "^1.2.0",
     "rxjs": "~6.2.0",
+    "rxjs-compat": "^6.5.1",
+    "rxjs-operators": "^1.1.0",
     "socket.io-client": "^2.2.0",
     "sweetalert2": "^8.2.6",
     "zone.js": "~0.8.26"

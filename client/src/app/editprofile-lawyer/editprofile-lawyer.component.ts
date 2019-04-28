@@ -49,16 +49,15 @@ export class EditprofileLawyerComponent implements OnInit {
 			console.log(err.error.Error,err);
 		}
 		);
-		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			console.log(data)
-			if(data.type == "client") {
+			this.data = this.authService.getUserData()
+			if(this.data.type == "client") {
 				this.router.navigate(['/replyquestion-lawyer']);
 			}
-			this.data = data;
 			this.displayName = this.data.username.split('@')[0]
 			this.imageSrc = this.data.image
-			let formdata = new FormData();
-			formdata.append('username', this.data.username);
+			let formdata = {
+				'username': this.data.username
+			}
 			this.http.post("http://localhost:8000/getCategoryofLawyer/",formdata).toPromise().then((res:any) => {
 				this.lawyerCategory = res;
 				for (var i = 0; i < this.allCategories.length; ++i) {
@@ -73,12 +72,6 @@ export class EditprofileLawyerComponent implements OnInit {
 				console.log(err.error.Error,err);
 			}
 			);
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-		);
 	}
 
 	onImagePicked(event: Event) {
@@ -93,21 +86,23 @@ export class EditprofileLawyerComponent implements OnInit {
 	}
 
 	update() {
-		let formdata = new FormData();
-		formdata.append("image", this.data.image);
-		formdata.append('username', this.data.username);
-		formdata.append('firstname', this.data.firstname);
-		formdata.append('lastname', this.data.lastname);
-		formdata.append('city', this.data.city);
-		formdata.append('state', this.data.state);
-		formdata.append('buisness_address', this.data.buisness_address);
-		formdata.append('phoneNumber', this.data.phone_number);
-		formdata.append('hcr_number', this.data.hcr_number);
-		formdata.append('LicenseIDNumber', this.data.liscence_number);
-		formdata.append('email', this.data.email);
-		formdata.append('about', this.data.about);
-		formdata.append('contact', this.data.contact);
-		formdata.append('categories', JSON.stringify(this.allCategories));
+		let formdata = {
+		"image": this.data.image,
+		'username': this.data.username,
+		'firstname': this.data.firstname,
+		'lastname': this.data.lastname,
+		'city': this.data.city,
+		'state': this.data.state,
+		'buisness_address': this.data.buisness_address,
+		'phoneNumber': this.data.phone_number,
+		'hcr_number': this.data.hcr_number,
+		'LicenseIDNumber': this.data.liscence_number,
+		'email': this.data.email,
+		'about': this.data.about,
+		'contact': this.data.contact,
+		'categories': JSON.stringify(this.allCategories)
+
+		}
 		this.http.post("http://localhost:8000/editProfile/",formdata).toPromise().then((res:any) => {
 			Swal.fire({
 			  position: 'top-end',

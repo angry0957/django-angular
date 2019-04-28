@@ -11,7 +11,6 @@ from rest_framework.decorators import api_view
 # Create your views here.
 
 
-@csrf_exempt
 @api_view(['POST'])
 def getLawyersByCategory(request):
 	try:
@@ -26,10 +25,10 @@ def getLawyersByCategory(request):
 	data = LawyerCategory.objects.filter(categoryid=category_id).values()
 	return JsonResponse(list(data),safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def getCategoryofLawyer(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=username)

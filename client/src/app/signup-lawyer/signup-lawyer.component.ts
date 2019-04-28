@@ -29,15 +29,16 @@ export class SignupLawyerComponent implements OnInit {
 	onSubmit(f: NgForm) {
 		this.error.invalid = false;
 		console.log(this.data);
-		let formdata = new FormData();
-		formdata.append('username', f.value.username);
-		formdata.append('password', f.value.password);
-		formdata.append('city', f.value.city);
-		formdata.append('state', f.value.state);
-		formdata.append('phoneNumber', f.value.phoneNumber);
-		formdata.append('hcr_number', f.value.hcr_number);
-		formdata.append('buisness_address', f.value.buisness_address);
-		formdata.append('LicenseIDNumber', f.value.CNIC);
+		let formdata = {
+			'username': f.value.username,
+			'password': f.value.password,
+			'city': f.value.city,
+			'state': f.value.state,
+			'phoneNumber': f.value.phoneNumber,
+			'hcr_number': f.value.hcr_number,
+			'buisness_address': f.value.buisness_address,
+			'LicenseIDNumber': f.value.CNIC,
+		}
 
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			console.log('Response',res);

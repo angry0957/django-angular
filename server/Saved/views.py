@@ -19,7 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 # @permission_classes((IsAuthenticated,))
 def getSavedLawyers(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=username)
@@ -44,14 +44,14 @@ def getSavedLawyers(request):
 			obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
 	return JsonResponse(data,safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def addSaved(request):
 	try:
-		_lawyer = request.POST['lawyer'] 
+		_lawyer = request.data.get('lawyer',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Lawyer is required")
 	try:
-		_client = request.POST['client'] 
+		_client = request.data.get('client',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=_lawyer)

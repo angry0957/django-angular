@@ -23,45 +23,47 @@ import smtplib
 import random
 from reportlab.pdfgen import canvas
 from config.credentials import MAIL,PASSWORD
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 # Create your views here.
 
 
 allCodes = list()
 
-@csrf_exempt
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def signup(request):
 	try:
-		Email = request.POST['username'] 
+		Email = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Email is required"},status=500)
 	try:
-		Password = request.POST['password']
+		Password = request.data.get('password',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Password is required"},status=500)
 	try:
-		City = request.POST['city']
+		City = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"City is required"},status=500)	 
 	try:
-		State = request.POST['state'] 
+		State = request.data.get('state',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"State is required"},status=500)
 	try:
-		PhoneNumber = request.POST['phoneNumber'] 
+		PhoneNumber = request.data.get('phoneNumber',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Phone Number is required"},status=500)
 	try:
-		LicenseIDNumber = request.POST['LicenseIDNumber']
+		LicenseIDNumber = request.data.get('LicenseIDNumber',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"LicenseIDNumber is required"},status=500)
 	try:
-		BusinessAddress = request.POST['buisness_address']
+		BusinessAddress = request.data.get('buisness_address',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"BusinessAddress is required"},status=500)
 	try:
-		HCRNo = request.POST['hcr_number']
+		HCRNo = request.data.get('hcr_number',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"hcr_number is required"},status=500)
 	
@@ -86,7 +88,7 @@ def signup(request):
 def lawyers(request):
 	return render(request, "index.html", {})
 
-@csrf_exempt
+@api_view(['POST'])
 def read(request):
 	API_key = request.META.get('HTTP_AUTHORIZATION')
 	return HttpResponse(API_key)
@@ -94,7 +96,7 @@ def read(request):
 	data = Lawyer.objects.all()
 	return JsonResponse({"data":data[0].username})
 
-@csrf_exempt
+@api_view(['POST'])
 def delete(request):
 	data = Lawyer.objects.filter(username="user6@gmail.com")
 	return JsonResponse({"data":data.delete()})
@@ -103,24 +105,24 @@ def update(request):
 	data = Lawyer.objects.filter(username="user5@gmail.com")
 	return JsonResponse({"data":data.update(phone_number="0321-4445-100")})
 
-@csrf_exempt
+@api_view(['GET'])
 def topLawyers(request):
 	data = list(Lawyer.objects.order_by('-rating').reverse()[:3].values())
 	return JsonResponse(data,safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def lawyersByCity(request):
 	try:
-		city = request.POST['city'] 
+		city = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("City is required")
 	data = Lawyer.objects.filter(city__icontains=city).values()
 	return JsonResponse(list(data),safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def testmany(request):
 	try:
-		mail = request.POST['mail'] 
+		mail = request.data.get('mail',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Mail is required")
 	code = str(random.randint(100000,999999))
@@ -148,14 +150,14 @@ def testmany(request):
 		return HttpResponse(exception)
 	return JsonResponse({"Message":"The code is sent in Mail"},safe=False,status=200)	
 
-@csrf_exempt
+@api_view(['POST'])
 def verifyCode(request):
 	try:
-		code = request.POST['code'] 
+		code = request.data.get('code',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Code is required")
 	try:
-		mail = request.POST['mail'] 
+		mail = request.data.get('mail',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Mail is required")
 	for obj in allCodes:
@@ -164,14 +166,14 @@ def verifyCode(request):
 			return JsonResponse({"Message": "Success"},safe=False,status=200)
 	return JsonResponse({"Message": "Please enter valid code"},safe=False,status=403)
 
-@csrf_exempt
+@api_view(['POST'])
 def updatePassword(request):
 	try:
-		password = request.POST['password'] 
+		password = request.data.get('password',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Password is required")
 	try:
-		mail = request.POST['mail'] 
+		mail = request.data.get('mail',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Mail is required")
 	user = User.objects.get(username=mail)
@@ -179,38 +181,38 @@ def updatePassword(request):
 	user.save()
 	return JsonResponse({"Message": "Success"},safe=False,status=200)
 
-@csrf_exempt
+@api_view(['POST'])
 def questionByCity(request):
 	try:
-		city = request.POST['city'] 
+		city = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("City is required")
 	category_id = Category.objects.filter(catogery=city).values()	
 	question = Question.objects.filter(catogery=category_id[0]['id']).values()
 	return JsonResponse(list(question),safe=False)	
 
-@csrf_exempt
+@api_view(['POST'])
 def questionByUser(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user_id = User.objects.filter(username=username).values()	
 	question = Question.objects.filter(user=user_id[0]['id']).values()
 	return JsonResponse(list(question),safe=False)	
 
-@csrf_exempt
+@api_view(['POST'])
 def RateLawyer(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	try:
-		lawyerusername = request.POST['lawyerusername'] 
+		lawyerusername = request.data.get('lawyerusername',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Lawyer username is required")
 	try:
-		rate = request.POST['rate'] 
+		rate = request.data.get('rate',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Rate is required")	
 	try:
@@ -219,23 +221,23 @@ def RateLawyer(request):
 	except:
 		return HttpResponse("Rate must be between 1 and 5")
 	try:
-		title = request.POST['title'] 
+		title = request.data.get('title',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Title is required")	
 	try:
-		description = request.POST['description'] 
+		description = request.data.get('description',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Description is required")	
 	try:
-		isRecomended = request.POST['isRecomended'] 
+		isRecomended = request.data.get('isRecomended',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("isRecomended is required")	
 	try:
-		isHired = request.POST['isHired'] 
+		isHired = request.data.get('isHired',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("isHired is required")	
 	try:
-		email = request.POST['email'] 
+		email = request.data.get('email',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("email is required")	
 	
@@ -260,7 +262,6 @@ def RateLawyer(request):
 	lawyer.save() 
 	return JsonResponse("Saved",safe=False)	
 
-@csrf_exempt
 @api_view(['POST'])
 def verify(request):
 	try:
@@ -315,62 +316,62 @@ def verify(request):
 		except Exception as e:
 			return JsonResponse({"Error": e})	
 
-@csrf_exempt
+@api_view(['POST'])
 def editProfile(request):
 	try:
-		categories = request.POST['categories'] 
+		categories = request.data.get('categories',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Categories is required")
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	try:
-		photo=request.POST['image']	
+		photo=request.data.get('image',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Image Required"})
 	try:
-		about=request.POST['about']	
+		about=request.data.get('about',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "about Required"})
 	try:
-		contact=request.POST['contact']	
+		contact=request.data.get('contact',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "contact Required"})
 	try:
-		firstname = request.POST['firstname']	
+		firstname = request.data.get('firstname',None)	
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "First name Required"})	
 	try:
-		lastname=request.POST['firstname']	
+		lastname=request.data.get('firstname',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Last name Required"})	
 	try:
-		email=request.POST['email']	
+		email=request.data.get('email',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error": "Email Required"})	
 	try:
-		City = request.POST['city']
+		City = request.data.get('city',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"City is required"},status=500)	 
 	try:
-		State = request.POST['state'] 
+		State = request.data.get('state',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"State is required"},status=500)
 	try:
-		PhoneNumber = request.POST['phoneNumber'] 
+		PhoneNumber = request.data.get('phoneNumber',None) 
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Phone Number is required"},status=500)
 	try:
-		LicenseIDNumber = request.POST['LicenseIDNumber']
+		LicenseIDNumber = request.data.get('LicenseIDNumber',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"LicenseIDNumber is required"},status=500)
 	try:
-		BusinessAddress = request.POST['buisness_address']
+		BusinessAddress = request.data.get('buisness_address',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"BusinessAddress is required"},status=500)
 	try:
-		HCRNo = request.POST['hcr_number']
+		HCRNo = request.data.get('hcr_number',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"hcr_number is required"},status=500)
 
@@ -415,7 +416,6 @@ def editProfile(request):
 	lawyer.save()
 	return JsonResponse({"Success": "Image Saved"})
 
-@csrf_exempt
 @api_view(['POST'])
 def getLawyerById(request):
 	try:
@@ -429,14 +429,16 @@ def getLawyerById(request):
 	data["last_name"] = user["last_name"]
 	return JsonResponse(data,safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def login(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("username is required")
 	try:
-		password = request.POST['password'] 
+		password = request.data.get('password',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Password is required")
 	PARAMS = {'username':username,'password':password}
@@ -487,7 +489,7 @@ def login(request):
 		except Exception as e:
 			return JsonResponse({"Error": e})	
 
-@csrf_exempt
+@api_view(['GET'])
 def getLawyers(request):
 	data = Lawyer.objects.all()
 	usernames = list()
@@ -499,14 +501,14 @@ def getLawyers(request):
 	return JsonResponse(data,safe=False)
 
 
-@csrf_exempt
+@api_view(['POST'])
 def getChat(request):
 	try:
-		lawyer = request.POST['lawyer'] 
+		lawyer = request.data.get('lawyer',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("Lawyer is required")
 	try:
-		client = request.POST['client'] 
+		client = request.data.get('client',None)
 	except MultiValueDictKeyError:
 		return HttpResponse("username is required")
 	c = canvas.Canvas("chat.pdf")

@@ -21,14 +21,10 @@ data;
 	this.activatedRoute.queryParams.subscribe((params: Params) => {
 			this.username = params.name;
 		});
-
-		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			console.log(data)
-			this.data = data;
-			
-			let formdata = new FormData();
-			formdata.append('username', this.data.username);
-		
+			this.data = this.authService.getUserData();
+			let formdata = {
+				'username': this.data.username
+			}
 			this.http.post("http://localhost:8000/review/",formdata).toPromise().then((res:any) => {
 				console.log('Response',res);
 				for (var i = 0; i < res.length; ++i) {
@@ -43,12 +39,6 @@ data;
 				}
 			}
 			);
-
-		},
-		(err) => {
-			console.log(err)
-		});
-
 	}
 
 }

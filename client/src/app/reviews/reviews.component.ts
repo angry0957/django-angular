@@ -23,15 +23,14 @@ export class ReviewsComponent implements OnInit {
 	this.activatedRoute.queryParams.subscribe((params: Params) => {
 			this.username = params.name;
 		});
+	this.data = this.authService.getUserData()
 
-		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			console.log(data)
-			this.data = data;
 			
-			let formdata = new FormData();
-			formdata.append('username', this.username);
+			let formdata = {
+				'username': this.username
+			}
 		
-			this.http.post("http://localhost:8000/review/",formdata).toPromise().then((res:any) => {
+			this.http.post("http://localhost:8000/review/",{'username': this.username}).toPromise().then((res:any) => {
 				console.log('Response',res);
 				for (var i = 0; i < res.length; ++i) {
 					res[i].clientimage = "http://localhost:8000/media/" + res[i].clientimage;
@@ -45,12 +44,6 @@ export class ReviewsComponent implements OnInit {
 				}
 			}
 			);
-
-		},
-		(err) => {
-			console.log(err)
-		});
-
 	}
 
 }

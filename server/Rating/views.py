@@ -7,12 +7,13 @@ from Client.models import Client
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect 
+from rest_framework.decorators import api_view
 # Create your views here.
 
-@csrf_exempt
+@api_view(['POST'])
 def getRatingofLawyer(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=username)

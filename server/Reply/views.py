@@ -9,19 +9,21 @@ from Client.models import Client
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework.decorators import api_view
+
 # Create your views here.
-@csrf_exempt
+@api_view(['POST'])
 def replyquestion(request):
 	try:
-		username = request.POST['username']
+		username = request.data.get('username',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Username is required"},status=500)	
 	try:
-		text = request.POST['text']
+		text = request.data.get('text',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Text is required"},status=500)
 	try:
-		question = request.POST['question']
+		question = request.data.get('question',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Question is required"},status=500)	
 	try:
@@ -32,10 +34,11 @@ def replyquestion(request):
 	reply = Reply(text=text, user=user, question=question)
 	reply.save()
 	return JsonResponse({"Response": "Saved"},safe=False,status=200)
-@csrf_exempt
+
+@api_view(['POST'])
 def getreplyquestion(request):
 	try:
-		question = request.POST['question']
+		question = request.data.get('question',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"Question is required"},status=500)	
 	question = Question.objects.get(id=question)
