@@ -24,13 +24,7 @@ export class HeaderComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.notify();
-    this.authService.verifyUser('ads').subscribe((data)=> {
-      this.data = data
-    },
-    (err) => {
-      this.router.navigate(['/'])
-    }
-    );
+    this.data =this.authService.getUserData()
   }
 
   
@@ -52,7 +46,6 @@ export class HeaderComponent implements OnInit,OnDestroy {
   }
 
   scroll(el) {
-  	console.log(document.getElementById(el))
     document.getElementById(el).scrollIntoView({behavior:"smooth"});
   }
 

@@ -22,34 +22,27 @@ export class LoginComponent implements OnInit {
 	constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
 	ngOnInit() {
-		console.log(this.password)
-
-		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			if(data.type == "lawyer")
-			{
-				this.router.navigate(['/editprofile-lawyer']);
-			}
-				this.router.navigate(['/home']);
-
-		},
-		(err) => {
-			this.password = '';
-			console.log(err)
-		});
-
+		let data = this.authService.getUserData()
+		if(!data)
+			return
+		if(data.type == "lawyer")
+		{
+			this.router.navigate(['/editprofile-lawyer']);
+		}
+		this.router.navigate(['/home']);
 	}
 
 	onSubmit(f: NgForm) {
-		console.log(this.password)
-
-		this.username = f.value.username;
-		this.password = f.value.password;
-		let formdata = new FormData();
-		formdata.append('username', f.value.username);
-		formdata.append('password', f.value.password);
+		// this.username = f.value.username;
+		// this.password = f.value.password;
+		let formdata = {
+			'username': f.value.username,
+			'password': f.value.password,
+		}
 
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			localStorage.setItem('token',res.token)
+			localStorage.setItem('data',JSON.stringify(res))
 			try{
 				if(res.type == 'lawyer'){
 					this.router.navigate(['/editprofile-lawyer']);

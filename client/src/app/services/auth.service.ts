@@ -17,10 +17,18 @@ export class AuthService {
 		this.messageSource.next(0)
 	}
 
+	getUserData() {
+		let data = JSON.parse(localStorage.getItem('data'))
+		if(!data){
+			this.router.navigate(['/'])
+		}
+		return data
+	}
+
 	verifyUser(obj) {
 		let formdata = new FormData();
 		formdata.append("token", localStorage.getItem('token'));
-		return this.http.post(this.url,formdata);
+		return this.http.post(this.url,{'token': localStorage.getItem('token')});
 	}
 
 	updateToken(obj){

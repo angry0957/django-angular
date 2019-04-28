@@ -27,9 +27,8 @@ export class ChatComponent implements OnInit {
   constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.verifyUser('ads').subscribe((data:any)=> {
-        this.data = data
-        if(data.type == "lawyer") {
+    this.data = this.authService.getUserData()
+        if(this.data.type == "lawyer") {
           this.http.get("http://localhost:8000/getClients/").toPromise().then((res:any) => {
               for (var i = 0; i < res.length; ++i) {
                 res[i].image = "http://localhost:8000/media/" + res[i].image
@@ -59,7 +58,6 @@ export class ChatComponent implements OnInit {
           );
         }
 
-
         WebSocketInstance.connect();
         this.displayName = this.data.username.split('@')[0]
         this.waitForSocketConnection(() => {
@@ -67,12 +65,6 @@ export class ChatComponent implements OnInit {
           WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this))
           WebSocketInstance.fetchMessages(this.data.username);
         });
-    },
-    (err) => {
-      console.log("Verify erroro",err);
-      this.router.navigate(['/']);
-    }
-  );
   }
 
 
@@ -162,14 +154,15 @@ export class ChatComponent implements OnInit {
 
 
   downloadChat(){
-    let formdata = new FormData();
+    let formdata = {
+    }
     if (this.data.type == 'lawyer') {
-      formdata.append('lawyer', this.data.username);
-      formdata.append('client', this.selectedUser);
+      formdata['lawyer'] = this.data.username
+      formdata['client'] = this.selectedUser
     }
     else {
-      formdata.append('client', this.data.username);
-      formdata.append('lawyer', this.selectedUser);
+      formdata['client'] = this.data.username
+      formdata['lawyer'] = this.selectedUser
     }
   
     this.http.post("http://localhost:8000/getChat/",formdata,{responseType: "blob", headers: {'Accept': 'application/pdf'}}).toPromise().then((res:any) => {
@@ -177,7 +170,7 @@ export class ChatComponent implements OnInit {
     (err:any)=> {
       console.log(err);
     }
-    );
+  });
   }
 
   sendNotificationToHeaderComponent(){

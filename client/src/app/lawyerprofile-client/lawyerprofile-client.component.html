@@ -11,7 +11,7 @@
           <!-- END SIDEBAR USERPIC -->
           <!-- SIDEBAR USER TITLE -->
           <div class="profile-usertitle">
-            <div class="profile-usertitle-name">
+            <div *ngIf="lawyer" class="profile-usertitle-name">
               {{lawyer.first_name}}
             </div>
             <div class="profile-usertitle-job">
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="col-md-7">
-        <div class="profile-content">
+        <div *ngIf="lawyer" class="profile-content">
           <ngb-tabset>
             <ngb-tab title="About">
               <ng-template ngbTabContent>

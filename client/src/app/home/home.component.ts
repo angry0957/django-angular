@@ -25,22 +25,13 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, config: NgbCarouselConfig, private http:HttpClient) { }
 
   ngOnInit() {
-    this.authService.verifyUser('ads').subscribe((data)=> {
-      console.log("Verify success",data)
-      this.data = data
+    this.data = this.authService.getUserData()
       this.http.get("http://localhost:8000/topLawyers").toPromise().then((res:any) => {
         this.topLawyers = res;
-        for (var i = this.topLawyers.length - 1; i >= 0; i--) {
+        for (let i = this.topLawyers.length - 1; i >= 0; i--) {
           this.topLawyers[i].image = "http://localhost:8000/media/" + this.topLawyers[i].image
         }
-        console.log(res)
       });
-    },
-    (err) => {
-      console.log("Verify erroro",err);
-      this.router.navigate(['/'])
-    }
-    );
   }
 
   

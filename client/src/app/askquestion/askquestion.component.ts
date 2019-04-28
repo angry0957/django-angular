@@ -21,19 +21,13 @@ export class AskquestionComponent implements OnInit {
    }
 
   ngOnInit() {
-  	this.authService.verifyUser('ads').subscribe((data:any)=> {
-	  		if(data.type == "lawyer") {
+		this.data = this.authService.getUserData()
+	  		if(this.data.type == "lawyer") {
 					this.router.navigate(['/replyquestion-lawyer']);
 		  	}
-		  	this.data = data
 		  	this.displayName = this.data.username.split('@')[0]
 		  	console.log(this.displayName)
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-	);
+		
 	this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
 			this.allCategories = res;
 			console.log("Xczcx",this.allCategories)
@@ -50,11 +44,12 @@ export class AskquestionComponent implements OnInit {
   }
 
   askquestion() {
-  	let formdata = new FormData();
-	formdata.append('username', this.data.username);
-	formdata.append("text", this.text);
-	formdata.append("description", this.description);
-	formdata.append("catogery", this.selectedCatogery);
+  	let formdata = {
+		'username': this.data.username,
+		"text": this.text,
+		"description": this.description,
+		"catogery": this.selectedCatogery,
+  	}
   	console.log(formdata);
 
   	this.http.post("http://localhost:8000/askquestion/",formdata).toPromise().then((res:any) => {

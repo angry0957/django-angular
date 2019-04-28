@@ -24,8 +24,9 @@ export class ForgotPasswordComponent implements OnInit {
 
   sendMail(){
   	console.log(this.mail);
-  	let formdata = new FormData();
-  	formdata.append("mail",this.mail)
+  	let formdata = {
+	  	"mail":this.mail
+  	}
 	this.http.post("http://localhost:8000/testmany/",formdata).toPromise().then((res:any) => {
 		console.log('Response',res);
 	  	this.show = 2;
@@ -39,9 +40,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   sendCode(){
   	console.log(this.code);
-  	let formdata = new FormData();
-  	formdata.append("mail",this.mail)
-  	formdata.append("code",this.code)
+  	let formdata = {
+	  	"mail": this.mail,
+	  	"code": this.code
+  	}
 	this.http.post("http://localhost:8000/verifyCode/",formdata).toPromise().then((res:any) => {
 		console.log('Response',res);
 	  	this.show = 3;
@@ -54,9 +56,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   updatePassword(){
   	console.log(this.password);
-  	let formdata = new FormData();
-  	formdata.append("mail",this.mail)
-  	formdata.append("password",this.password)
+  	let formdata = {
+	  	"mail": this.mail,
+	  	"password": this.password
+  	}
 	this.http.post("http://localhost:8000/updatePassword/",formdata).toPromise().then((res:any) => {
 		this.login();
 	},
@@ -66,9 +69,10 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
 	login() {
-		let formdata = new FormData();
-		formdata.append('username', this.mail);
-		formdata.append('password', this.password);
+		let formdata = {
+			'username': this.mail,
+			'password': this.password
+		}
 
 		this.http.post("http://localhost:8000/loginUser/",formdata).toPromise().then((res:any) => {
 			console.log('Response',res);

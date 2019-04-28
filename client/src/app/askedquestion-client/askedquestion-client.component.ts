@@ -26,50 +26,46 @@ export class AskedquestionClientComponent implements OnInit {
 	}
 
 	updateReply() {
-		this.authService.verifyUser('ads').toPromise().then((data:any)=> {
-			if(data.type == "lawyer") {
-				this.router.navigate(['/replyquestion-lawyer']);
-			}
-			this.data = jwt_decode(data.token);
-			this.displayName = this.data.username.split('@')[0];
-			let formdata = new FormData();
-			formdata.append('username', this.data.username);
+		this.data = this.authService.getUserData()
+		if(this.data.type == "lawyer") {
+			this.router.navigate(['/replyquestion-lawyer']);
+		}
+		this.displayName = this.data.username.split('@')[0];
+		let formdata = {
+			'username': this.data.username
+		}
 
-			this.http.post("http://localhost:8000/askedquestion/",formdata).toPromise().then((res:any) => {
-				this.askedQuestions = res;
-				for (let i = 0; i < res.length; ++i) {
-					let parameter = new FormData();
-					parameter.append('question', res[i].id);
-					this.http.post("http://localhost:8000/getreplyquestion/",parameter).toPromise().then((reply:any) => {
-						this.askedQuestions[i]['replys'] = reply;
-					},
-					(err:any)=> {
-						console.log(err.error.Error,err);
-					}
-					);
+		this.http.post("http://localhost:8000/askedquestion/",formdata).toPromise().then((res:any) => {
+			this.askedQuestions = res;
+			for (let i = 0; i < res.length; ++i) {
+				let parameter = {
+					'question': res[i].id
 				}
-			},
-			(err:any)=> {
-				console.log(err.error.Error,err);
+				this.http.post("http://localhost:8000/getreply/",parameter).subscribe((reply:any) => {
+					this.askedQuestions[i]['replys'] = reply;
+				},
+				(err:any)=> {
+					console.log(err.error.Error,err);
+				}
+				);
 			}
-			);
 		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
+		(err:any)=> {
+			console.log(err.error.Error,err);
 		}
 		);
 	}
 
 	reply(question) {
-		let parameter = new FormData();
-		parameter.append('question', question);
-		parameter.append('username', this.data.username);
-		parameter.append('text', this.text);
+		let parameter = {
+			'question': question,
+			'username': this.data.username,
+			'text': this.text,
+		}
 		this.http.post("http://localhost:8000/replyquestion/",parameter).toPromise().then((reply:any) => {
 			this.text = ""
 			this.event.target.value = ""
-			this.updateReply()
+			// this.updateReply()
 		});
 	}
 

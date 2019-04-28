@@ -25,21 +25,21 @@ export class ReplyquestionLawyerComponent implements OnInit {
 	}
 
 	updateReply() {
-		this.authService.verifyUser('ads').toPromise().then((data:any)=> {
-			if(data.type == "client") {
+		this.data = this.authService.getUserData()
+			if(this.data.type == "client") {
 				this.router.navigate(['/askedquestion-client']);
 			}
-			this.data = jwt_decode(data.token);
 			this.displayName = this.data.username.split('@')[0];
-			let formdata = new FormData();
-			formdata.append('username', this.data.username);
+			let formdata = {
+				'username': this.data.username
+			}
 
 			this.http.post("http://localhost:8000/askedquestionLawyer/",formdata).toPromise().then((res:any) => {
 				this.askedQuestions = res;
 				for (let i = 0; i < res.length; ++i) {
-					let parameter = new FormData();
-					// parameter.append('username',data.username)
-					parameter.append('question', res[i].id);
+					let parameter = {
+						'question': res[i].id
+					}
 					this.http.post("http://localhost:8000/getreply/",parameter).toPromise().then((reply:any) => {
 						this.askedQuestions[i]['replys'] = reply;
 					},
@@ -53,12 +53,6 @@ export class ReplyquestionLawyerComponent implements OnInit {
 				console.log(err.error.Error,err);
 			}
 			);
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-		);
 	}
 
 	reply(question) {

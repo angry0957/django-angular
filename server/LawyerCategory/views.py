@@ -7,27 +7,28 @@ from Category.models import Category
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import JsonResponse
 from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework.decorators import api_view
 # Create your views here.
 
 
-@csrf_exempt
+@api_view(['POST'])
 def getLawyersByCategory(request):
 	try:
-		catogery = request.POST['catogery'] 
+		catogery = request.data.get('catogery',None) 
 	except MultiValueDictKeyError:
-		return HttpResponse("Category is required")
+		return JsonResponse({'Error':"Category is required"},status=400)
 	try:
 		category_id = Category.objects.get(catogery=catogery)
 	except Exception as e:
-		return HttpResponse(e)
+		return JsonResponse({'Error': e},status=400)
 
 	data = LawyerCategory.objects.filter(categoryid=category_id).values()
 	return JsonResponse(list(data),safe=False)
 
-@csrf_exempt
+@api_view(['POST'])
 def getCategoryofLawyer(request):
 	try:
-		username = request.POST['username'] 
+		username = request.data.get('username',None) 
 	except MultiValueDictKeyError:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=username)

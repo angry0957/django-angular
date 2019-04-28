@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../services/auth.service'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Chooselawyer } from '../models/ChooseLawyer';
 import * as jwt_decode from "jwt-decode";
 import Swal from 'sweetalert2';
 
@@ -27,33 +26,25 @@ export class RateLawyerComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private http:HttpClient) {
 		this.activatedRoute.queryParams.subscribe((params: Params) => {
 			this.lawyerID = params.id;
-			console.log(this.lawyerID)
 		});
 	}
 
   ngOnInit() {
-	  	this.authService.verifyUser('ads').subscribe((data:any)=> {
-			if(data.type == "lawyer") {
-				this.router.navigate(['/replyquestion-lawyer']);
-			}
-			this.data= data;
-			this.displayName = this.data.username.split('@')[0];
-			console.log(data);
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-		);
+  	this.data = this.authService.getUserData()
+	if(this.data.type == "lawyer") {
+		this.router.navigate(['/replyquestion-lawyer']);
+	}
+	this.displayName = this.data.username.split('@')[0];
 
-		let id = new FormData();
-		id.append('lawyerid', this.lawyerID);
+	let id = {
+		'lawyerid': this.lawyerID
+	}
 
-		this.http.post("http://localhost:8000/getLawyerById/",id).subscribe((lawyer:any) => {
-			lawyer.image = "http://localhost:8000/media/" + lawyer.image
-			this.lawyer = lawyer;
-			console.log(this.lawyer);
-		});
+	this.http.post("http://localhost:8000/getLawyerById/",id).subscribe((lawyer:any) => {
+		lawyer.image = "http://localhost:8000/media/" + lawyer.image
+		this.lawyer = lawyer;
+		console.log(this.lawyer);
+	});
 	}
 
 	onRatingSet(event) {
@@ -62,15 +53,16 @@ export class RateLawyerComponent implements OnInit {
 	}
 
 	onSubmit() {
-		let formdata = new FormData();
-		formdata.append('username', this.data.username);
-		formdata.append('lawyerusername', this.lawyer.username);
-		formdata.append('rate', this.rate);
-		formdata.append('title', this.title);
-		formdata.append('description', this.description);
-		formdata.append('email', this.email);
-		formdata.append('isRecomended', this.isRecomended);
-		formdata.append('isHired', this.isHired);
+		let formdata = {
+			'username': this.data.username,
+			'lawyerusername': this.lawyer.username,
+			'rate': this.rate,
+			'title': this.title,
+			'description': this.description,
+			'email': this.email,
+			'isRecomended': this.isRecomended,
+			'isHired': this.isHired,
+		}
 
 		this.http.post("http://localhost:8000/RateLawyer/",formdata).subscribe((res:any) => {
 			this.rate = 4;

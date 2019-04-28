@@ -31,20 +31,12 @@ export class EditprofileClientComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		
-		this.authService.verifyUser('ads').subscribe((data:any)=> {
-			if(data.type == "lawyer") {
+		this.data = this.authService.getUserData()
+			if(this.data.type == "lawyer") {
 				this.router.navigate(['/']);
 			}
-			this.data = data;
 			this.displayName = this.data.username.split('@')[0]
 			this.imageSrc = this.data.image
-		},
-		(err) => {
-			console.log("Verify erroro",err);
-			this.router.navigate(['/']);
-		}
-		);
 	}
 
 	onImagePicked(event: Event) {
@@ -58,15 +50,16 @@ export class EditprofileClientComponent implements OnInit {
 	}
 
 	update() {
-		let formdata = new FormData();
-		formdata.append("image", this.data.image);
-		formdata.append('username', this.data.username);
-		formdata.append('firstname', this.data.firstname);
-		formdata.append('lastname', this.data.lastname);
-		formdata.append('city', this.data.city);
-		formdata.append('state', this.data.state);
-		formdata.append('phoneNumber', this.data.phone_number);
-		formdata.append('email', this.data.email);
+		let formdata = {
+			"image": this.data.image,
+			'username': this.data.username,
+			'firstname': this.data.firstname,
+			'lastname': this.data.lastname,
+			'city': this.data.city,
+			'state': this.data.state,
+			'phoneNumber': this.data.phone_number,
+			'email': this.data.email,
+		}
 		
 		this.http.post("http://localhost:8000/editProfileClient/",formdata).toPromise().then((res:any) => {
 			Swal.fire({
