@@ -38,23 +38,18 @@ export class EditprofileLawyerComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.data = this.authService.getUserData()
+		if(this.data.type == "client") {
+			this.router.navigate(['/replyquestion-lawyer']);
+		}
+		this.displayName = this.data.username.split('@')[0]
+		this.imageSrc = this.data.image
 
 		this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
 			this.allCategories = res;
 			for (var i = 0; i < this.allCategories.length; ++i) {
 				this.allCategories[i].checked = false;
 			}
-		},
-		(err:any)=> {
-			console.log(err.error.Error,err);
-		}
-		);
-			this.data = this.authService.getUserData()
-			if(this.data.type == "client") {
-				this.router.navigate(['/replyquestion-lawyer']);
-			}
-			this.displayName = this.data.username.split('@')[0]
-			this.imageSrc = this.data.image
 			let formdata = {
 				'username': this.data.username
 			}
@@ -72,6 +67,12 @@ export class EditprofileLawyerComponent implements OnInit {
 				console.log(err.error.Error,err);
 			}
 			);
+			
+		},
+		(err:any)=> {
+			console.log(err.error.Error,err);
+		}
+		);
 	}
 
 	onImagePicked(event: Event) {

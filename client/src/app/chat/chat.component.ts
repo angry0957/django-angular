@@ -64,6 +64,9 @@ export class ChatComponent implements OnInit {
           WebSocketInstance.initChatUser(this.data.username);
           WebSocketInstance.addCallbacks(this.setMessages.bind(this), this.addMessage.bind(this))
           WebSocketInstance.fetchMessages(this.data.username);
+          $(document).ready(function(){
+              $("#myID").animate({ scrollTop: $('#myID').height()*3}, 1000)
+          });
         });
   }
 
@@ -96,8 +99,9 @@ export class ChatComponent implements OnInit {
     this.history.push(message)
     $(document).ready(function(){
       $('#box').val('');
+      $("#myID").animate({ scrollTop: $('#myID').height()*3}, 1000)
+          
     });
-    $("html, body").animate({ scrollTop: $("#myID").scrollTop() }, 1000);
 
     // this.setState({ messages: [...this.state.messages, message]});
   }
@@ -149,7 +153,9 @@ export class ChatComponent implements OnInit {
       }
     }
     this.sendNotificationToHeaderComponent();
-    
+    $(document).ready(function(){
+        $("#myID").animate({ scrollTop: $('#myID').height()*3}, 1000)
+    });
   }
 
 

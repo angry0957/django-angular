@@ -108,6 +108,8 @@ def update(request):
 @api_view(['GET'])
 def topLawyers(request):
 	data = list(Lawyer.objects.order_by('-rating').reverse()[:3].values())
+	# lawyers = list(Lawyer.objects.all().values())
+	# data = lawyers.sort(key=lambda item:item['rate'], reverse=True)
 	return JsonResponse(data,safe=False)
 
 @api_view(['POST'])
@@ -134,8 +136,6 @@ def testmany(request):
 	except Exception as e:
 		return JsonResponse({"Message": "User Not Found"},safe=False,status=400)
 	sent_to = [mail]
-	sent_subject = "Django"
-	sent_body = ("Hello from Abdul Rahman")
 	SUBJECT = "Password Recovery"
 	TEXT = "Your code is {}".format(code)
 	message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)

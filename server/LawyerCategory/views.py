@@ -27,9 +27,8 @@ def getLawyersByCategory(request):
 
 @api_view(['POST'])
 def getCategoryofLawyer(request):
-	try:
-		username = request.data.get('username',None) 
-	except MultiValueDictKeyError:
+	username = request.data.get('username',None) 
+	if username is None:
 		return HttpResponse("Username is required")
 	user = User.objects.get(username=username)
 	lawyer = Lawyer.objects.get(user=user)

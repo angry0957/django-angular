@@ -29,7 +29,7 @@
           </div>
         </div>
         <div *ngIf="history" class="mesgs">
-          <div #myID class="msg_history">
+          <div id="myID" class="msg_history">
             <div *ngFor="let msg of history">
               <div *ngIf="msg.fromUser == selectedUser; else msgout" class="incoming_msg">
                 <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
