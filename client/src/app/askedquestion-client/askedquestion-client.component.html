@@ -6,7 +6,7 @@
       <div class="col-md-8">
       	    <h4 style="padding-top: 3%"><b>Asked Question</b></h4>
             <h5 *ngFor="let question of askedQuestions">
-            	<strong>{{question.text}}</strong><br><br>
+            	{{question.qusername}}<strong>{{question.text}}</strong><br><br>
 
               <p> {{question.description}}</p>
             	 <div *ngFor="let reply of question.replys">

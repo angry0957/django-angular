@@ -71,6 +71,9 @@ def askedquestionLawyer(request):
 		catogery_obj = Category.objects.get(id=x["categoryid_id"])		
 		questions = Question.objects.filter(catogery=catogery_obj).values()
 		for y in questions:
+			user = Client.objects.get(id=y['user_id'])
+			# return HttpResponse(user.user.username)
+			y['qusername'] = user.user.username
 			result.append(y)
 	return JsonResponse(result,safe=False,status=200)	
 

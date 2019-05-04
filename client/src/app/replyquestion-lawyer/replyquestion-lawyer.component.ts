@@ -56,10 +56,11 @@ export class ReplyquestionLawyerComponent implements OnInit {
 	}
 
 	reply(question) {
-		let parameter = new FormData();
-		parameter.append('question', question);
-		parameter.append('username', this.data.username);
-		parameter.append('text', this.text);
+		let parameter = {
+			'question': question,
+			'username': this.data.username,
+			'text': this.text
+		}
 		this.http.post("http://localhost:8000/replyquestion/",parameter).toPromise().then((reply:any) => {
 			this.text = ""
 			this.event.target.value = ""

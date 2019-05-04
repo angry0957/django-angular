@@ -65,7 +65,7 @@ export class AskedquestionClientComponent implements OnInit {
 		this.http.post("http://localhost:8000/replyquestion/",parameter).toPromise().then((reply:any) => {
 			this.text = ""
 			this.event.target.value = ""
-			// this.updateReply()
+			this.updateReply()
 		});
 	}
 
