@@ -24,13 +24,15 @@ export class EditprofileLawyerComponent implements OnInit {
 		"image": "",
 		"email": "email",
 		"about": "",
-		"contact": ""
+		"contact": "",
+		"freeConsultation": false
 	};
 	imageSrc = '';
 	displayName;
 	text;
 	description;
-	allCategories:any; 
+	allCategories:any;
+	// freeConsultation = false; 
 	lawyerCategory:any;
 	theCheckbox = false;
 
@@ -87,6 +89,7 @@ export class EditprofileLawyerComponent implements OnInit {
 	}
 
 	update() {
+		console.log('Inside')
 		let formdata = {
 		"image": this.data.image,
 		'username': this.data.username,
@@ -101,10 +104,15 @@ export class EditprofileLawyerComponent implements OnInit {
 		'email': this.data.email,
 		'about': this.data.about,
 		'contact': this.data.contact,
-		'categories': JSON.stringify(this.allCategories)
-
+		'categories': JSON.stringify(this.allCategories),
+		'freeConsultation': this.data.freeConsultation
 		}
 		this.http.post("http://localhost:8000/editProfile/",formdata).toPromise().then((res:any) => {
+			localStorage.setItem('data',JSON.stringify(res))
+			this.data = res
+			console.log(res)
+			this.authService.getUserData()
+
 			Swal.fire({
 			  position: 'top-end',
 			  type: 'success',

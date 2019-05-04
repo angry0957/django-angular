@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 # Create your views here.
 
 
-@api_view(['GET'])
+@api_view(['GET','POST'])
 def getCategories(request):
 	data = Category.objects.all().values()
 	return JsonResponse(list(data),safe=False)

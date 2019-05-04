@@ -15,6 +15,7 @@ class Lawyer(models.Model):
 	year_admitted = models.DateTimeField()
 	hcr_number = models.IntegerField(unique=True)
 	image = models.ImageField(upload_to='Pictures',null=True)
+	freeConsultation = models.BooleanField(default=False)
 
 	# Type = models.CharField(max_length=30,default="lawyer",null=False)
 	rate = models.IntegerField(

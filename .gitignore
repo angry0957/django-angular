@@ -3,4 +3,4 @@ client/node_modules
 server/envname
 server/myenv
 server/config/credentials.py
-.pyc
+*.pyc

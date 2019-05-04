@@ -374,6 +374,10 @@ def editProfile(request):
 		HCRNo = request.data.get('hcr_number',None)
 	except MultiValueDictKeyError:
 		return JsonResponse({"Error":"hcr_number is required"},status=500)
+	try:
+		freeConsultation = request.data.get('freeConsultation',False)
+	except MultiValueDictKeyError:
+		return JsonResponse({"Error":"Free Consultation is required"},status=500)
 
 	user = User.objects.get(username=username)
 	lawyer = Lawyer.objects.get(user=user)
@@ -403,6 +407,7 @@ def editProfile(request):
 		lawyer.image  = file
 		file.close()
 	lawyer.about = about
+	lawyer.freeConsultation = freeConsultation
 	lawyer.contact = contact
 	user.first_name = firstname
 	user.last_name = lastname
@@ -414,7 +419,26 @@ def editProfile(request):
 	user.email= email
 	user.save()
 	lawyer.save()
-	return JsonResponse({"Success": "Image Saved"})
+	obj = dict()
+	# lawyer = Lawyer.objects.get(user=user)
+	obj['type'] = 'lawyer'
+	obj['username'] = user.username
+	obj['about'] = lawyer.about
+	obj['contact'] = lawyer.contact
+	obj['email'] = user.email
+	obj['city'] = lawyer.city
+	obj['firstname'] = user.first_name
+	obj['lastname'] = user.last_name
+	obj['state'] = lawyer.state
+	obj['buisness_address'] = lawyer.buisness_address
+	obj['phone_number'] = lawyer.phone_number
+	obj['liscence_number'] = lawyer.liscence_number
+	obj['hcr_number'] = lawyer.hcr_number
+	obj['freeConsultation'] = lawyer.freeConsultation
+	if lawyer.image:
+		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+	return JsonResponse(obj,safe=False)
+	# return JsonResponse({"Success": "Image Saved"})
 
 @api_view(['POST'])
 def getLawyerById(request):
@@ -469,6 +493,7 @@ def login(request):
 		obj['phone_number'] = lawyer.phone_number
 		obj['liscence_number'] = lawyer.liscence_number
 		obj['hcr_number'] = lawyer.hcr_number
+		obj['freeConsultation'] = lawyer.freeConsultation
 		if lawyer.image:
 			obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
 		return JsonResponse(obj)	
