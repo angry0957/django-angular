@@ -34,6 +34,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthInterceptor } from './services/auth-interceptor'
 
 import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.componen
     ShowlawyerLawyerComponent,
     ForgotPasswordComponent,
     LawyerReviewsComponent,
+    ContactComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

@@ -39,8 +39,8 @@ export class SignupClientComponent implements OnInit {
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			console.log('Response',res);
 			try{
-				console.log(jwt_decode(res.token));
-				this.authService.updateToken(res.token);
+				localStorage.setItem('token',res.token)
+				localStorage.setItem('data',JSON.stringify(res))
 				this.router.navigate(['home']);
 			}
 			catch(Error){
@@ -51,6 +51,7 @@ export class SignupClientComponent implements OnInit {
 
 		},
 		(err:any)=> {
+			console.log(err)
 			this.error = err;
 			this.error.invalid = true;
 			if(err.status == 501) {

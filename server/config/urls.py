@@ -25,6 +25,7 @@ from Category import views as categoryview
 from LawyerCategory import views as lawyercategoryview
 from Reply import views as replyview
 from Saved import views as savedview
+from AttorneyEndrosement import views as attview
 from django.views.generic.base import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
@@ -64,7 +65,7 @@ urlpatterns = [
     url('editProfile/', myview.editProfile),
     url('editProfileClient/', clientview.editProfile),
     # url('', RedirectView.as_view(pattern_name='home', permanent=False)),
-    url('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
+   # url('SignupLawyer/', myview.lawyers , name='SignupLawyer'),
     url('SignupClient/', clientview.signup),
     # url('accounts/', django.contrib.auth.urls),
     # url('signin/', TemplateView.as_view(template_name='SignIn.html')),
@@ -78,6 +79,7 @@ urlpatterns = [
     url('getCategoryofLawyer/',lawyercategoryview.getCategoryofLawyer),
     url('getCategories/',categoryview.getCategories),
     url('getLawyerById/',myview.getLawyerById),
+    url('attorneyendrosement/',attview.getEndorsementofLawyer),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

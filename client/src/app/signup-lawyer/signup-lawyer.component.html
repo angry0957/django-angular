@@ -86,7 +86,7 @@
 							</div>
 						</div>
 						<div class="input-group form-group">
-							<input type="tel" class="form-control" name="State" placeholder="State" required="" style="background-color: white"id="state" [(ngModel)]="data.state" #state="ngModel">
+							<input type="tel" class="form-control" name="state" placeholder="State" required="" style="background-color: white"id="state" [(ngModel)]="data.state" #state="ngModel">
 							<div class="form-group">
 								<div *ngIf="state.invalid && (state.dirty || state.touched)"
 								class="alert alert-danger">
@@ -107,20 +107,20 @@
 								</div>
 							</div>
 						</div>
-						<div class="input-group form-group">
-							<input type="tel" class="form-control" name="Phone No." placeholder="Phone No." required="" style="background-color: white" id="phoneNumber" [(ngModel)]="data.phoneNumber" #phoneNumber="ngModel">
-							<div class="form-group">
-								<div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
-								class="alert alert-danger">
-									<div *ngIf="phoneNumber.errors.required">
-										Phone Number is required.
-									</div>
-									<div *ngIf="phoneNumber.errors.pattern">
-										Please follow the pattern e.g 0308-9134-961
-									</div>
+							<div class="input-group form-group">
+						<input type="tel" pattern="[0-9]{4}-[0-9]{4}-[0-9]{3}" class="form-control" name="phoneNumber" placeholder="Phone no." required style="background-color: white" id="phoneNumber" [(ngModel)]="data.phoneNumber" #phoneNumber="ngModel">
+						<div class="form-group">
+							<div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)"
+							class="alert alert-danger">
+								<div *ngIf="phoneNumber.errors.required">
+									Phone Number is required.
+								</div>
+								<div *ngIf="phoneNumber.errors.pattern">
+									Please follow the pattern e.g 0308-9134-961
 								</div>
 							</div>
 						</div>
+					</div>
 						
 						<div class="input-group form-group">
 							<input type="tel" class="form-control" name="CNIC" placeholder="CNIC " required="" style="background-color: white"name="CNIC" id="CNIC" [(ngModel)]="data.CNIC" #CNIC="ngModel">

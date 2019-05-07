@@ -28,7 +28,7 @@ export class SignupLawyerComponent implements OnInit {
 
 	onSubmit(f: NgForm) {
 		this.error.invalid = false;
-		console.log(this.data);
+		
 		let formdata = {
 			'username': f.value.username,
 			'password': f.value.password,
@@ -39,12 +39,13 @@ export class SignupLawyerComponent implements OnInit {
 			'buisness_address': f.value.buisness_address,
 			'LicenseIDNumber': f.value.CNIC,
 		}
+		console.log(formdata);
 
 		this.http.post(this.url,formdata).toPromise().then((res:any) => {
 			console.log('Response',res);
 			try{
-				console.log(jwt_decode(res.token));
-				this.authService.updateToken(res.token);
+				localStorage.setItem('token',res.token)
+				localStorage.setItem('data',JSON.stringify(res))
 				this.router.navigate(['home']);
 			}
 			catch(Error){

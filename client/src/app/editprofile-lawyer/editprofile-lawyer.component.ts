@@ -43,7 +43,7 @@ export class EditprofileLawyerComponent implements OnInit {
 			this.router.navigate(['/replyquestion-lawyer']);
 		}
 		this.displayName = this.data.username.split('@')[0]
-		this.imageSrc = this.data.image
+		this.imageSrc = "http://localhost:8000" + this.data.image
 
 		this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
 			this.allCategories = res;
@@ -105,6 +105,7 @@ export class EditprofileLawyerComponent implements OnInit {
 
 		}
 		this.http.post("http://localhost:8000/editProfile/",formdata).toPromise().then((res:any) => {
+			localStorage.setItem('data',JSON.stringify(res))
 			Swal.fire({
 			  position: 'top-end',
 			  type: 'success',

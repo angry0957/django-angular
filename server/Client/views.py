@@ -52,7 +52,20 @@ def signup(request):
 	PARAMS = {'username':Email,'password': Password}
 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
 	obj = r.json()
+
+	client = Client.objects.get(user=user)
+	obj['type'] = 'client'
+	obj['username'] = user.username
+	obj['city'] = client.city
+	obj['phone_number'] = client.phone_number
+	obj['state'] = client.state
+	obj['firstname'] = user.first_name
+	obj['email'] = user.email
+	obj['lastname'] = user.last_name
+	if client.image:
+		obj['image'] = client.image.url
 	return JsonResponse(obj)
+		
 
 
 @api_view(['POST'])
@@ -109,7 +122,20 @@ def editProfile(request):
 	user.email= email
 	user.save()
 	client.save()
-	return JsonResponse({"Success": "Image Saved"})
+	client = Client.objects.get(user=user)
+	obj=dict()
+	obj['type'] = 'client'
+	obj['username'] = user.username
+	obj['city'] = client.city
+	obj['phone_number'] = client.phone_number
+	obj['state'] = client.state
+	obj['firstname'] = user.first_name
+	obj['email'] = user.email
+	obj['lastname'] = user.last_name
+	if client.image:
+		obj['image'] = client.image.url
+	return JsonResponse(obj)
+		
 
 @api_view(['GET'])
 def getClients(request):

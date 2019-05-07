@@ -7,7 +7,6 @@ import * as jwt_decode from "jwt-decode";
 import * as $ from 'jquery';
 import { Router } from '@angular/router'
 import {saveAs as importedSaveAs} from "file-saver";
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -23,7 +22,7 @@ export class ChatComponent implements OnInit {
   history = [];
   selectedUser;
   search_str;
-
+  
   constructor(private http:HttpClient, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {

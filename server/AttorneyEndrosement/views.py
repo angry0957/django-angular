@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Rating
+from .models import AttorneyEndrosement
 from Lawyer.models import Lawyer 
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.models import User
@@ -13,22 +13,25 @@ from rest_framework.decorators import api_view
 # Create your views here.
 @api_view(['POST'])
 def getEndorsementofLawyer(request):
-	try:
-		username = request.data.get('username',None) 
-	except MultiValueDictKeyError:
-		return HttpResponse("Username is required")
-	user = User.objects.get(username=username)
+	
+	fromLawyer = request.data.get('fromLawyer',None) 
+	if fromLawyer is None:
+		return HttpResponse("fromLawyer is required")
+
+	#fromU = Lawyer.objects.get(user=user)
+	user = User.objects.get(username=fromLawyer)
 	lawyer = Lawyer.objects.get(user=user)
 	data = list(AttorneyEndrosement.objects.filter(toLawyer=lawyer).values())
+	#return JsonResponse(data,safe=False)
 	for obj in data:
-		lawyer1 = Lawyer.objects.get(id=obj['fromLawyer'])
+		lawyer1 = Lawyer.objects.get(id=obj['id'])
 		user = lawyer1.user.username
 		obj['fromLawyer'] = lawyer1.user.username
 		if lawyer1.image:
 			obj['fromLawyerimage'] = str(lawyer1.image)
 		else:
 			obj['fromLawyerimage'] = ""
-		obj['fromLawyername'] = client.user.first_name
+		obj['fromLawyername'] = lawyer1.user.first_name
 	return JsonResponse(data,safe=False)
 
 

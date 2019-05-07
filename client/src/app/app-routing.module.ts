@@ -20,6 +20,8 @@ import { EndorseattorneyComponent } from './endorseattorney/endorseattorney.comp
 import { ShowlawyerLawyerComponent } from './showlawyer-lawyer/showlawyer-lawyer.component'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { LawyerReviewsComponent } from './lawyer-reviews/lawyer-reviews.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,8 @@ const routes: Routes = [
   { path: 'endorseattorney', component: EndorseattorneyComponent },
   { path: 'showlawyer-lawyer', component: ShowlawyerLawyerComponent },
   { path: 'lawyer-reviews', component: LawyerReviewsComponent },
+  {path: 'contact', component:ContactComponent},
+  {path:'about', component:AboutComponent}
 ];
 @NgModule({
   imports: [

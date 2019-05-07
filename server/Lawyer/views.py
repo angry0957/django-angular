@@ -34,37 +34,37 @@ allCodes = list()
 @authentication_classes([])
 @permission_classes([AllowAny])
 def signup(request):
-	try:
-		Email = request.data.get('username',None)
-	except MultiValueDictKeyError:
-		return JsonResponse({"Error":"Email is required"},status=500)
-	try:
-		Password = request.data.get('password',None)
-	except MultiValueDictKeyError:
+	
+	Email = request.data.get('username',None)
+	if Email is None:
+		return JsonResponse({"Error":"username is required"},status=500)
+
+	Password = request.data.get('password',None)
+	if Password is None:
 		return JsonResponse({"Error":"Password is required"},status=500)
-	try:
-		City = request.data.get('city',None)
-	except MultiValueDictKeyError:
+	
+	City = request.data.get('city',None)
+	if City is None:
 		return JsonResponse({"Error":"City is required"},status=500)	 
-	try:
-		State = request.data.get('state',None)
-	except MultiValueDictKeyError:
+	
+	State = request.data.get('state',None)
+	if State is None:
 		return JsonResponse({"Error":"State is required"},status=500)
-	try:
-		PhoneNumber = request.data.get('phoneNumber',None) 
-	except MultiValueDictKeyError:
+	
+	PhoneNumber = request.data.get('phoneNumber',None) 
+	if PhoneNumber is None:
 		return JsonResponse({"Error":"Phone Number is required"},status=500)
-	try:
-		LicenseIDNumber = request.data.get('LicenseIDNumber',None)
-	except MultiValueDictKeyError:
+	
+	LicenseIDNumber = request.data.get('LicenseIDNumber',None)
+	if LicenseIDNumber is None:
 		return JsonResponse({"Error":"LicenseIDNumber is required"},status=500)
-	try:
-		BusinessAddress = request.data.get('buisness_address',None)
-	except MultiValueDictKeyError:
+	
+	BusinessAddress = request.data.get('buisness_address',None)
+	if BusinessAddress is None:
 		return JsonResponse({"Error":"BusinessAddress is required"},status=500)
-	try:
-		HCRNo = request.data.get('hcr_number',None)
-	except MultiValueDictKeyError:
+	
+	HCRNo = request.data.get('hcr_number',None)
+	if HCRNo is None:
 		return JsonResponse({"Error":"hcr_number is required"},status=500)
 	
 	YearAdmitted = datetime.datetime.now()
@@ -82,7 +82,25 @@ def signup(request):
 	PARAMS = {'username':Email,'password': Password}
 	r = requests.post('http://localhost:8000/auth-jwt/',PARAMS)
 	obj = r.json()
-	return JsonResponse(obj)
+	
+	lawyer = Lawyer.objects.get(user=user)
+	obj['type'] = 'lawyer'
+	obj['username'] = user.username
+	obj['about'] = lawyer.about
+	obj['contact'] = lawyer.contact
+	obj['email'] = user.email
+	obj['city'] = lawyer.city
+	obj['firstname'] = user.first_name
+	obj['lastname'] = user.last_name
+	obj['state'] = lawyer.state
+	obj['buisness_address'] = lawyer.buisness_address
+	obj['phone_number'] = lawyer.phone_number
+	obj['liscence_number'] = lawyer.liscence_number
+	obj['hcr_number'] = lawyer.hcr_number
+	if lawyer.image:
+		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+	return JsonResponse(obj)	
+
 
 
 def lawyers(request):
@@ -414,7 +432,26 @@ def editProfile(request):
 	user.email= email
 	user.save()
 	lawyer.save()
-	return JsonResponse({"Success": "Image Saved"})
+
+	lawyer = Lawyer.objects.get(user=user)
+	obj=dict()
+	obj['type'] = 'lawyer'
+	obj['username'] = user.username
+	obj['about'] = lawyer.about
+	obj['contact'] = lawyer.contact
+	obj['email'] = user.email
+	obj['city'] = lawyer.city
+	obj['firstname'] = user.first_name
+	obj['lastname'] = user.last_name
+	obj['state'] = lawyer.state
+	obj['buisness_address'] = lawyer.buisness_address
+	obj['phone_number'] = lawyer.phone_number
+	obj['liscence_number'] = lawyer.liscence_number
+	obj['hcr_number'] = lawyer.hcr_number
+	if lawyer.image:
+		obj['image'] = "{0}{1}".format("http://localhost:8000", lawyer.image.url)
+	return JsonResponse(obj)	
+
 
 @api_view(['POST'])
 def getLawyerById(request):

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowlawyerLawyerComponent } from './showlawyer-lawyer.component';
+import { ChooselawyerClientComponent } from './chooselawyer-client.component';
 
-describe('ShowlawyerLawyerComponent', () => {
-  let component: ShowlawyerLawyerComponent;
-  let fixture: ComponentFixture<ShowlawyerLawyerComponent>;
+describe('ChooselawyerClientComponent', () => {
+  let component: ChooselawyerClientComponent;
+  let fixture: ComponentFixture<ChooselawyerClientComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShowlawyerLawyerComponent ]
+      declarations: [ ChooselawyerClientComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShowlawyerLawyerComponent);
+    fixture = TestBed.createComponent(ChooselawyerClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

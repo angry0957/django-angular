@@ -36,7 +36,7 @@ export class EditprofileClientComponent implements OnInit {
 				this.router.navigate(['/']);
 			}
 			this.displayName = this.data.username.split('@')[0]
-			this.imageSrc = this.data.image
+			this.imageSrc = "http://localhost:8000" + this.data.image
 	}
 
 	onImagePicked(event: Event) {
@@ -50,6 +50,7 @@ export class EditprofileClientComponent implements OnInit {
 	}
 
 	update() {
+		console.log("error")
 		let formdata = {
 			"image": this.data.image,
 			'username': this.data.username,
@@ -62,6 +63,8 @@ export class EditprofileClientComponent implements OnInit {
 		}
 		
 		this.http.post("http://localhost:8000/editProfileClient/",formdata).toPromise().then((res:any) => {
+				
+				localStorage.setItem('data',JSON.stringify(res))
 			Swal.fire({
 			  position: 'top-end',
 			  type: 'success',
@@ -74,9 +77,5 @@ export class EditprofileClientComponent implements OnInit {
 			console.log(err.error.Error,err);
 		}
 		);
-	}
-
-	updatePracticeArea(event,category){
-		console.log(category,event.target.checked);
 	}
 }

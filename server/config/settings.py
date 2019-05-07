@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'channels',
     'Chat',
     'channels_presence',
+    'AttorneyEndrosement',
 
 
 ]

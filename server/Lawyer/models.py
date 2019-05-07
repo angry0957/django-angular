@@ -14,7 +14,7 @@ class Lawyer(models.Model):
 	liscence_number = models.IntegerField()
 	year_admitted = models.DateTimeField()
 	hcr_number = models.IntegerField(unique=True)
-	image = models.ImageField(upload_to='Pictures',null=True)
+	image = models.ImageField(upload_to='Pictures',null=True,default="Pictures/default.png" )
 
 	# Type = models.CharField(max_length=30,default="lawyer",null=False)
 	rate = models.IntegerField(

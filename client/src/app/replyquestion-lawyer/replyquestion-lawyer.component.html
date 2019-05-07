@@ -7,13 +7,16 @@
       <div class="col-md-8">
 	      	<h4 style="padding-top: 3%"><b>Asked Question</b></h4>
             <h5 *ngFor="let question of askedQuestions">
-            	{{question.qusername.split('@')[0]}}{{question.text}}
+              <div style="background-color:white">
+            	<p style="padding-left: 2%">{{question.qusername.split('@')[0]}} : <strong style="padding-left: 1%">{{question.text}}</strong></p>
+              <p style="padding-left: 2%"> <b>Description:</b>{{question.description}}</p>
             	 <div *ngFor="let reply of question.replys">
-	            	<span>{{reply.username.split('@')[0]}} : <strong>{{reply.text}}</strong></span>
-	            	
-	            </div>
+	            	<span style="padding-left: 2%">{{reply.username.split('@')[0]}} : <strong style="padding-left: 1%">{{reply.text}}</strong></span>      	
+            </div>
+          </div>
 	            <input type="text" name="reply" (keyup)="onKey($event)">
-	            <button (click)="reply(question.id)">Reply</button>
+	            <br>
+              <button (click)="reply(question.id)">Reply</button>
             </h5>
               <!-- <h4 style="padding-top: 3%"><b>Client question</b></h4>
               <textarea class="form-control" rows="2" maxlength="200" placeholder="No Question by client side." id="comment"  style="background-color: white"></textarea>
@@ -28,7 +31,7 @@
           <hr>
           <p><b><a routerLink="/replyquestion-lawyer">Reply a question</a></b></p>
           <hr>
-          <p><b><a routerLink="/chooselawyer-client">Endorse an Attorney</a></b></p>
+          <p><b><a routerLink="/showlawyer-lawyer">Endorse an Attorney</a></b></p>
           <hr>
           <p><b><a >Reviews</a></b></p>
           <hr>
