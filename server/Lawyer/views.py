@@ -140,11 +140,12 @@ def lawyersByCity(request):
 	return JsonResponse(list(data),safe=False)
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def testmany(request):
-	try:
-		mail = request.data.get('mail',None)
-	except MultiValueDictKeyError:
-		return HttpResponse("Mail is required")
+	mail = request.data.get('mail',None)
+	if mail is None:
+		return JsonResponse({'Error': "Mail is required"})
 	code = str(random.randint(100000,999999))
 	gmail_user = MAIL
 	gmail_app_password = PASSWORD
@@ -169,15 +170,15 @@ def testmany(request):
 	return JsonResponse({"Message":"The code is sent in Mail"},safe=False,status=200)	
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def verifyCode(request):
-	try:
-		code = request.data.get('code',None)
-	except MultiValueDictKeyError:
-		return HttpResponse("Code is required")
-	try:
-		mail = request.data.get('mail',None)
-	except MultiValueDictKeyError:
-		return HttpResponse("Mail is required")
+	code = request.data.get('code',None)
+	if code is None:
+		return JsonResponse({'Error': "Code is required"})
+	mail = request.data.get('mail',None)
+	if mail is None:
+		return JsonResponse({'Error': "Mail is required"})
 	for obj in allCodes:
 		if code == obj['code'] and mail == obj['user']:
 			allCodes.remove(obj)
@@ -185,15 +186,15 @@ def verifyCode(request):
 	return JsonResponse({"Message": "Please enter valid code"},safe=False,status=403)
 
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def updatePassword(request):
-	try:
-		password = request.data.get('password',None) 
-	except MultiValueDictKeyError:
-		return HttpResponse("Password is required")
-	try:
-		mail = request.data.get('mail',None)
-	except MultiValueDictKeyError:
-		return HttpResponse("Mail is required")
+	password = request.data.get('password',None)
+	if password is None:
+		return JsonResponse({'Error': "Password is required"})
+	mail = request.data.get('mail',None)
+	if mail is None:
+		return JsonResponse({'Error': "Mail is required"})
 	user = User.objects.get(username=mail)
 	user.set_password(password)
 	user.save()
