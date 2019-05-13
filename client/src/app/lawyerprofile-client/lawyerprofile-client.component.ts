@@ -20,6 +20,7 @@ export class LawyerprofileClientComponent implements OnInit {
 	msg;
 	data;
 	displayName;
+	endrose;
 	history = [];
 
 
@@ -56,6 +57,15 @@ export class LawyerprofileClientComponent implements OnInit {
 				$('#live-chat').fadeOut(300);
 			});
 		}) ();
+
+		let formdata = {
+			'fromLawyer': this.lawyername
+		}
+		console.log(formdata)
+		this.http.post("http://localhost:8000/attorneyendrosement/",formdata).toPromise().then((res:any) => {
+			this.endrose = res;
+			console.log(res)
+		});
 	}
 
 	review() {

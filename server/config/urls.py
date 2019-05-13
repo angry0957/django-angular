@@ -80,7 +80,7 @@ urlpatterns = [
     url('getCategories/',categoryview.getCategories),
     url('getLawyerById/',myview.getLawyerById),
     url('attorneyendrosement/',attview.getEndorsementofLawyer),
-
+    url('EndroseLawyer/',attview.EndroseLawyer),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

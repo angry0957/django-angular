@@ -49,7 +49,12 @@ export class HomeComponent implements OnInit {
   }
 
   PracticeArea(name) {
-    this.router.navigate(['/chooselawyer-client'], { queryParams: { "name": name } });
+    if (this.data.type == 'client') {
+      this.router.navigate(['/chooselawyer-client'], { queryParams: { "name": name } });
+    }
+    else if (this.data.type == 'lawyer'){
+      this.router.navigate(['/showlawyer-lawyer'], { queryParams: { "name": name } });
+    }
   }
 
   scroll(el: HTMLElement) {

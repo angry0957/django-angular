@@ -35,7 +35,7 @@ export class ChooselawyerClientComponent implements OnInit {
 		this.data = this.authService.getUserData()
 
 			if(this.data.type == "lawyer") {
-				this.router.navigate(['/replyquestion-lawyer']);
+				this.router.navigate(['/showlawyer-lawyer']);
 			}
 			this.displayName = this.data.username.split('@')[0]
 		

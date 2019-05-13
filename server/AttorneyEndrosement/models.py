@@ -9,8 +9,8 @@ class AttorneyEndrosement(models.Model):
 		default=5,
 		validators=[MaxValueValidator(5), MinValueValidator(1)]
 		)
-	fromLawyer = models.ForeignKey(Lawyer, on_delete=models.DO_NOTHING,related_name='fromU')
-	toLawyer = models.ForeignKey(Lawyer, on_delete=models.DO_NOTHING,related_name='toU')
+	fromLawyer = models.ForeignKey(Lawyer, on_delete=models.CASCADE,related_name='fromU')
+	toLawyer = models.ForeignKey(Lawyer, on_delete=models.CASCADE,related_name='toU')
 	title = models.CharField(max_length=100, null=True)
 	description = models.CharField(max_length=300, null=True)
 	isRecomended = models.BooleanField(default=True)

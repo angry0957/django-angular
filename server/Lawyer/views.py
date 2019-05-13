@@ -166,7 +166,7 @@ def testmany(request):
 		server.close()
 		allCodes.append({"user": mail, "code": code})
 	except Exception as exception:
-		return HttpResponse(exception)
+		return JsonResponse({"exception": "Something Bad Happened"})
 	return JsonResponse({"Message":"The code is sent in Mail"},safe=False,status=200)	
 
 @api_view(['POST'])

@@ -39,11 +39,12 @@ export class EditprofileLawyerComponent implements OnInit {
 
 	ngOnInit() {
 		this.data = this.authService.getUserData()
+		console.log(this.data)
 		if(this.data.type == "client") {
 			this.router.navigate(['/replyquestion-lawyer']);
 		}
 		this.displayName = this.data.username.split('@')[0]
-		this.imageSrc = "http://localhost:8000" + this.data.image
+		this.imageSrc = this.data.image
 
 		this.http.get("http://localhost:8000/getCategories").toPromise().then((res:any) => {
 			this.allCategories = res;

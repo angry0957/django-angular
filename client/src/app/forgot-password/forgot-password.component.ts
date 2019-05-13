@@ -61,40 +61,12 @@ export class ForgotPasswordComponent implements OnInit {
 	  	"password": this.password
   	}
 	this.http.post("http://localhost:8000/updatePassword/",formdata).toPromise().then((res:any) => {
-		this.login();
+		this.router.navigate(['/'])
+		
 	},
 	(err:any)=> {
 		this.err = err;
 	})
   }
-
-	login() {
-		let formdata = {
-			'username': this.mail,
-			'password': this.password
-		}
-
-		this.http.post("http://localhost:8000/loginUser/",formdata).toPromise().then((res:any) => {
-			console.log('Response',res);
-			localStorage.setItem('token',res.token)
-			try{
-				if(res.type == 'lawyer'){
-					this.router.navigate(['/editprofile-lawyer']);
-				}
-				else if (res.type == 'client') {
-					console.log(jwt_decode(res.token));
-					this.authService.updateToken(res.token);
-					this.router.navigate(['home']);
-				}
-			}
-			catch(Error){
-				console.log('Something Bad Hppened');
-			}
-		},
-		(err:any)=> {
-			this.err = err;
-		}
-		);
-	}
 
 }

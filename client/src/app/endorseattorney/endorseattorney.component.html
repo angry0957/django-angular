@@ -3,28 +3,13 @@
 	<div class="container">
 		<div class="row-content">
 			<div class="col-sm-9 sidenav" style="background-color: white">
-				<div *ngIf="lawyer" class="row">
-					<div  class="col-sm-3 other sidenav" style="background-color: white">
-						<img [src]="lawyer.image" style="width:170px;height:200px;padding-top:2%">
-						<br>
-						<br>
-					</div>
-					<div class="col-sm-6 other2 sidenav" style="background-color: white">
-						<div class="gap">
-							<h3>
-								{{lawyer.first_name}}
-							</h3>
-							<h3>
-								{{lawyer.city}}
-							</h3>
-						</div>
-					</div>
-				</div>
 				<br>
 				<h4>
 					<a href="#" style="text-decoration: none">
 						Write your review:</a>
 				</h4>
+				<ngx-stars [size]="3" [color]="'#c69500'" (ratingOutput)="onRatingSet($event)" [initialStars]="rate"></ngx-stars>
+				<input type="text" name="title" [(ngModel)]="title">
 				<textarea [(ngModel)]="description" class="form-control" rows="3" maxlength="1200" id="comment"
 					placeholder="Write review about lawyer" style="border-style:solid;border-color:#ffbb99">
 				</textarea>

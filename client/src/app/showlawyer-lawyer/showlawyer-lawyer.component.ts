@@ -59,7 +59,13 @@ category;
 	
 
 	lawyerProfile(lawyer){
-		this.router.navigate(["/lawyerprofile-client"], { queryParams: { "id": lawyer.id,"name":lawyer.username } })
+		// console.log(lawyer,)
+		if(this.data.type == 'client'){
+			this.router.navigate(["/lawyerprofile-client"], { queryParams: { "id": lawyer.id,"name":lawyer.username } })
+		}
+		else if (this.data.type == 'lawyer'){
+			this.router.navigate(["/endorseattorney"], { queryParams: { "id": lawyer.id,"name":lawyer.username } })
+		}
 	}
 
 	ratingFilter(event:any){

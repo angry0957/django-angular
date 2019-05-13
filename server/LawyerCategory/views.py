@@ -13,14 +13,13 @@ from rest_framework.decorators import api_view
 
 @api_view(['POST'])
 def getLawyersByCategory(request):
-	try:
-		catogery = request.data.get('catogery',None) 
-	except MultiValueDictKeyError:
+	catogery = request.data.get('catogery',None) 
+	if catogery is None:
 		return JsonResponse({'Error':"Category is required"},status=400)
 	try:
 		category_id = Category.objects.get(catogery=catogery)
 	except Exception as e:
-		return JsonResponse({'Error': e},status=400)
+		return JsonResponse({'Error': "Something bad happened"},status=400)
 
 	data = LawyerCategory.objects.filter(categoryid=category_id).values()
 	return JsonResponse(list(data),safe=False)
