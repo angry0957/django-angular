@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt, csrf_protect 
 from rest_framework.decorators import api_view
+import json
 
 # Create your views here.
 @api_view(['POST'])
@@ -21,7 +22,24 @@ def getEndorsementofLawyer(request):
 	#fromU = Lawyer.objects.get(user=user)
 	user = User.objects.get(username=fromLawyer)
 	lawyer = Lawyer.objects.get(user=user)
-	data = list(AttorneyEndrosement.objects.filter(toLawyer=lawyer).values())
+	data = list(AttorneyEndrosement.objects.filter(fromLawyer=lawyer).values())
+	arr = AttorneyEndrosement.objects.filter(fromLawyer=lawyer)
+	res = []
+	for obj in arr:
+		temp = {}
+		temp['rate'] = obj.rate 
+		temp['title'] = obj.title
+		temp['description'] = obj.description
+		temp['isRecomended'] = obj.isRecomended
+		temp['toLawyer'] = obj.toLawyer.user.username
+		temp['fromLawyer'] = obj.fromLawyer.user.username
+		if obj.toLawyer.image:
+			temp['toLawyerImg'] = str(obj.toLawyer.image)
+		if 	obj.fromLawyer.image:
+			temp['fromLawyerImg'] = str(obj.fromLawyer.image)
+		res.append(temp)
+
+		# return HttpResponse(obj.rate)
 	#return JsonResponse(data,safe=False)
 	# for obj in data:
 	# 	lawyer1 = Lawyer.objects.get(id=obj['id'])
@@ -32,7 +50,7 @@ def getEndorsementofLawyer(request):
 	# 	else:
 	# 		obj['fromLawyerimage'] = ""
 	# 	obj['fromLawyername'] = lawyer1.user.first_name
-	return JsonResponse(data,safe=False)
+	return JsonResponse(res,safe=False)
 
 
 @api_view(['POST'])

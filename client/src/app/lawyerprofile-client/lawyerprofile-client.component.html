@@ -71,8 +71,8 @@
         <div  *ngFor="let lawyer of endrose" class="review-block">
           <div (click)="lawyerProfile(lawyer)" class="row">
             <div class="col-lg-3">
-              <!-- <img [src]="lawyer.image" height="50" width="50" class="img-rounded"> -->
-              <!-- <div class="review-block-name"><a href="#">{{lawyer.first_name}}</a></div> -->
+              <img [src]="lawyer.fromLawyerImg" height="50" width="50" class="img-rounded">
+              <div class="review-block-name"><a href="#">{{lawyer.fromLawyer}}</a></div>
             </div>
             <div class="col-lg-9">
               <div class="review-block-rate">

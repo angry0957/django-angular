@@ -64,6 +64,12 @@ export class LawyerprofileClientComponent implements OnInit {
 		console.log(formdata)
 		this.http.post("http://localhost:8000/attorneyendrosement/",formdata).toPromise().then((res:any) => {
 			this.endrose = res;
+			for(let i = 0; i < this.endrose.length ; i++ ){
+				this.endrose[i].fromLawyerImg = "http://localhost:8000/media/" + this.endrose[i].fromLawyerImg
+				this.endrose[i].toLawyerImg = "http://localhost:8000/media/" + this.endrose[i].toLawyerImg
+			
+
+			}
 			console.log(res)
 		});
 	}

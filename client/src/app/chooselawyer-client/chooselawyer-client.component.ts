@@ -53,6 +53,7 @@ export class ChooselawyerClientComponent implements OnInit {
 					this.allLawyers.push(lawyer);
 				});
 			}
+			console.log('allLawyers', this.allLawyers)
 		});
 	}
 
